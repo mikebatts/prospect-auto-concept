@@ -42,7 +42,7 @@ export function CallBar() {
         Call {business.phone.display}
       </a>
       <a className="callbar__schedule" href="#schedule">
-        Request service
+        Request an appointment
       </a>
     </div>
   )

@@ -10,10 +10,10 @@ export function Reputation() {
       <div className="container">
         <div className="rep__head">
           <p className="kicker" data-reveal>
-            Reputation and location
+            Reviews, address and hours
           </p>
           <h2 id="visit-title" data-reveal>
-            See what Brooklyn drivers say before you call.
+            {business.google.rating} stars from {business.google.reviewCount} Google reviews.
           </h2>
         </div>
 
@@ -32,8 +32,8 @@ export function Reputation() {
               {business.google.rating} on Google · {business.google.reviewCount} reviews
             </p>
             <p className="rep__note">
-              Snapshot taken {business.google.snapshotDate}. The rating and count change as new
-              reviews post; the live figure is on Google.
+              Snapshot from {business.google.snapshotDate}. The live figure is on Google and changes
+              as new reviews post.
             </p>
             <a
               className="link"
@@ -104,8 +104,8 @@ export function Reputation() {
               <dt>The shop</dt>
               <dd>
                 <p className="rep__prose">
-                  Domestic and import vehicles, one shop on 4th Avenue. The shop's own website lists
-                  mechanics with 30+ years of experience.
+                  Domestic and import vehicles. The shop’s own website lists mechanics with 30+
+                  years of experience.
                 </p>
               </dd>
             </div>

@@ -38,7 +38,7 @@ export function Footer() {
               <a href="#visit">Visit</a>
             </li>
             <li>
-              <a href="#schedule">Request service</a>
+              <a href="#schedule">Request an appointment</a>
             </li>
             <li>
               <a href={business.google.mapsSearchUrl} target="_blank" rel="noopener noreferrer">
@@ -72,8 +72,8 @@ export function Footer() {
             — not the official Prospect Auto website.
           </p>
           <p className="footer__fine">
-            Imagery is generated concept art and does not show the actual shop. The schedule form is
-            a demonstration and sends nothing.
+            Imagery is generated concept art and does not show the actual shop. The appointment form
+            is a demonstration and sends nothing.
           </p>
         </div>
       </div>

@@ -60,30 +60,43 @@ export function Hero() {
 
       <div className="hero__inner container">
         <p className="hero__kicker" data-load>
-          Auto repair &amp; service on 4th Avenue, {business.neighborhood}
+          Auto repair on 4th Avenue, Brooklyn
         </p>
 
         <h1 id="hero-title" className="hero__title">
-          A straight answer before the wrench turns.
+          <span className="hero__title-line">Know what needs fixing.</span>{' '}
+          <span className="hero__title-line">Know what can wait.</span>
         </h1>
 
         <p className="hero__copy" data-load>
-          Brakes, tires and alignment, diagnostics, maintenance, A/C and electrical for domestic and
-          import vehicles. Start with what the car is doing; the shop takes it from there.
+          Inspections, brakes, diagnostics, tires, maintenance, A/C and electrical work for domestic
+          and import vehicles. We’ll explain what we find before any work begins.
         </p>
 
         <div className="hero__actions" data-load>
-          <a className="btn btn--lg" href="#schedule">
-            Request service
-          </a>
-          <a className="btn btn--ghost btn--lg" href={business.phone.href}>
+          <a className="btn btn--lg" href={business.phone.href}>
             <PhoneGlyph />
-            Call the shop
+            Call {business.phone.display}
+          </a>
+          <a className="btn btn--ghost btn--lg" href="#schedule">
+            Request an appointment
           </a>
         </div>
       </div>
 
       <p className="hero__meta container" data-load>
+        <a
+          className="hero__meta-item"
+          href={business.google.mapsSearchUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {business.google.rating} on Google · {business.google.reviewCount} reviews
+        </a>
+        <span className="hero__meta-item">Mon–Sat</span>
+        <span className="hero__meta-item">
+          <span lang="es">Se habla español</span>
+        </span>
         <a
           className="hero__meta-item"
           href={business.google.directionsUrl}
@@ -92,15 +105,6 @@ export function Hero() {
         >
           {business.address.street}, Brooklyn
         </a>
-        <span className="hero__meta-item">
-          {business.hours[0].short} · {business.hours[1].short}
-        </span>
-        <a className="hero__meta-item" href={business.phone.href}>
-          {business.phone.display}
-        </a>
-        <span className="hero__meta-item">
-          <span lang="es">Se habla español</span>
-        </span>
       </p>
     </section>
   )

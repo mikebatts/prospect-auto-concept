@@ -70,7 +70,7 @@ export const services = [
     key: 'maintenance',
     title: 'Oil & factory maintenance',
     detail: 'Oil changes, fluids, filters, belts, factory-recommended intervals.',
-    symptoms: 'Mileage service due, or simply overdue.',
+    symptoms: 'Mileage service due, or overdue.',
   },
   {
     key: 'ac',

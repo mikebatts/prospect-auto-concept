@@ -35,7 +35,7 @@ Applied selection after the user's art-direction overrides (overrides win over r
 
 3. Hero math verification
 
-- H1 container: `.hero__title { max-width: 14em }` inside the full container (88rem). At 1440px the H1 renders at 92.16px with a 1290px measure. Measured in headless Chrome: 2 lines at 1440px, 2 lines at 820px, 3 lines at 390px. Re-measured after the copy pass with the new H1 ("A straight answer before the wrench turns."): 2 lines at 1440, 960 and 820; 3 lines at 390 and 360.
+- H1 container: `.hero__title { max-width: 14em }` inside the full container (88rem). At 1440px the H1 renders at 92.16px with a 1290px measure. After the customer-language pass, each sentence in “Know what needs fixing. Know what can wait.” is its own block line. The H1 renders as 2 lines at 1440px and 390px; at 320px, each sentence wraps naturally within its own block without horizontal overflow.
 - No stamp icons, pills, badges, or raw stats in the hero. The trust line is plain display-face text with hairline separators.
 
 4. Bento density verification
@@ -181,35 +181,40 @@ Headless Chrome check (agent-browser) against `vite preview` of the built output
 
 ## Copy pass (September 1, 2026)
 
-Client-specific copy and content pass on the final cinematic branch. No visual-system, structural, imagery, or motion changes; no CSS was edited. Section ids (`#standards`, `#schedule`) are unchanged so existing anchors still resolve.
+Client-specific copy pass on the final cinematic branch. No visual-system, structural, imagery, or motion changes. Section ids (`#standards`, `#schedule`) are unchanged so existing anchors still resolve.
+
+## Customer-language copy pass (September 1, 2026)
+
+Second copy pass, based on the customer-language audit (Google review corpus, Brooklyn mechanic discussions, competitor and homepage-guidance research). Goal: read like a trusted 4th Avenue shop, not an agency campaign. Visual system, imagery, motion, section order and ids are unchanged. Small CSS additions only: a support line under the services heading, a narrow-phone size step for the mobile call bar, and sentence-preserving mobile headline wrapping.
 
 ### Strategy
 
-- **Hero.** The generic line "Brooklyn drives better when the work is done right." is replaced with "A straight answer before the wrench turns." The kicker keeps locality (4th Avenue, South Park Slope). The body names the six service areas and domestic/import coverage, then invites the customer to start with what the car is doing and lets the shop take it from there. No process or outcomes are promised.
-- **Service index.** The opener now speaks in symptoms ("Hear it, feel it, or see it on the dash?"). The six service rows and their symptom lines were already customer-language and are unchanged. The hover label on each row is now `Request service`.
-- **Pinned chapter.** Renamed to "How it works" in the nav, footer and hidden heading. The three beats now read measure → look and explain → then the repair. "Under the lamp, nothing hides." was removed as an overclaim and replaced with "Look closely. Explain plainly." The second beat's body no longer promises to check the whole car; it says the inspection light reveals what a glance can miss and that the next step is made clear in English or Spanish. The closing statement is "What needs attention now. What can wait. What comes next.", followed by "Those three answers make the next step clear. Then the repair."
-- **Reputation.** The headline invites the reader to check the reviews ("See what Brooklyn drivers say before you call.") instead of praising the shop. The rating, count and September 1, 2026 snapshot date are unchanged and still labeled as a snapshot with a link to the live figure. The 30+ years line is worked into the shop fact naturally while still attributed ("The shop's own website lists mechanics with 30+ years of experience.").
-- **Specials.** Rewritten so nothing implies a current discount: offers change through the year, ask when you call, and the body states that no discount is published on this preview. The button is `Call the shop`.
-- **Service request.** The section is labeled `Request service`. The lede states the friction-free path (vehicle, symptom, phone number, then the shop follows up during business hours) and offers the phone as the alternative. The demonstration disclaimer, validation messages, focus management and non-submitting behavior are unchanged. The success panel still says the preview sends nothing and points to the phone.
-- **CTA consistency.** Every link to the form reads `Request service` (hero, chapter, nav, footer, mobile call bar, index rows). Every phone link reads `Call the shop` or shows the number. The form's own submit button remains `Send request` because that is the action it performs.
-- **Metadata.** The description names the services, domestic/import coverage and `Se habla español`. The Open Graph description carries the new headline. Title, canonical, `noindex,nofollow,noarchive`, and OG image/alt are unchanged.
+- **Hero.** Kicker `Auto repair on 4th Avenue, Brooklyn`. H1 `Know what needs fixing. Know what can wait.` Body names the services people search for (inspections, brakes, diagnostics, tires, maintenance, A/C, electrical) and states that findings are explained before any work begins. Primary CTA is now the phone number (`Call (718) 788-7683`); secondary is `Request an appointment`. The proof line under the hero reads `4.7 on Google · 269 reviews · Mon–Sat · Se habla español`, with the rating linked to the Google listing, plus the street address linked to directions. Full hours remain in the Visit section, the footer and the mobile menu.
+- **Services.** Heading `Start with the problem.` with a support line `Choose the closest match. If you're not sure, call the shop.` The six rows and symptom lines are unchanged except one tidy (`Mileage service due, or overdue.`). Row hover label and accessible name now say `request an appointment`.
+- **How it works.** The three beats are `Inspect` (`We check the car first.` with the rotor-measurement example), `Explain` (`We explain what we find before any work begins.` — what needs fixing now, what can wait, and why, in English or Spanish) and `Repair` (`Then we talk through the repair.` — the customer decides what gets done now; the shop does the work and says what to watch for next). The hidden section heading carries the full sentence: `How it works: we check the car, explain what we find, and then talk through the repair.` No turnaround, warranty or pricing promise is made.
+- **Reviews and location.** Heading `4.7 stars from 269 Google reviews.` rendered from the business data. The snapshot note is shorter and still points to the live figure. The shop fact drops the sentence-fragment stack and keeps the attributed 30+ years line.
+- **Specials.** `Ask about current specials.` The body states that no offer is published on this preview. The button shows the number.
+- **Appointments.** Kicker `Appointments`, heading `Request an appointment.`, lede: `Tell us the vehicle, what it's doing, and how to reach you. We'll follow up during business hours. Need help sooner? Call the shop.` Success panel opens with `Thanks, {name}.` The "not sure" select option reads `Not sure, I'll describe it below`. The demonstration disclaimer, validation messages, focus management and non-submitting behavior are unchanged.
+- **CTA consistency.** Every link to the form reads `Request an appointment` (hero, chapter, nav, footer, mobile call bar, index rows). Every phone action shows the number (`Call (718) 788-7683`) in the hero, nav, mobile menu, specials, call bar and form. The nav call button's redundant `aria-label` was removed so its accessible name matches the visible text. The form submit remains `Send request`.
+- **Metadata.** The meta description now leads with inspections to match the hero. The Open Graph description carries the new H1. Title, canonical, `noindex,nofollow,noarchive`, and OG image/alt are unchanged.
+
+### Lines removed as agency- or AI-sounding
+
+`A straight answer before the wrench turns.` · `Hear it, feel it, or see it on the dash? It is probably on this list.` · `A brake job starts with a number.` · `Look closely. Explain plainly.` · `What needs attention now. What can wait. What comes next.` · `See what Brooklyn drivers say before you call.` · `Offers change through the year. Ask when you call.` · `Tell the shop what the car is doing.`
 
 ### Facts used and their sources
 
-Name, address, phone, email, hours, domestic/import, `Se habla español`, and the six service areas come from `src/lib/business.ts`. The 30+ years line is presented only as the shop's own published claim. The Google figure is presented only as a dated snapshot. The page still makes no claim about certifications, warranties, turnaround, same-day service, free estimates, prices, financing, ownership, years in business, parts sourcing, or promotions, and quotes no third-party review text.
+Name, address, phone, email, hours, domestic/import, `Se habla español`, and the six service areas come from `src/lib/business.ts`. The 4.7 rating and 269-review count are the September 1, 2026 Google snapshot and are still labeled as such. "Inspections" in the hero body follows the customer-language audit, where inspection is the most-mentioned review topic; it is not added as a seventh service row. The 30+ years line is presented only as the shop's own published claim. The page makes no claim about honesty, fairness or "no upsells" in the first person, and no claim about certifications, warranties, turnaround, same-day service, free estimates, prices, financing, ownership, years in business, parts sourcing, or promotions. It quotes no third-party review text.
 
 ### Verification
 
-Commands run in this worktree after the copy pass, all exiting 0: `npm run format:check`, `npm run typecheck`, `npm run lint`, `npm run build`.
+Commands run in this worktree after the pass, all exiting 0: `npm run format`, `npm run typecheck`, `npm run lint`, `npm run build`. There is no test suite in the project.
 
 Headless Chrome (agent-browser) against `vite preview` of the built output:
 
-| Viewport | H1 size | H1 lines | `scrollWidth` | Notes                                                                                   |
-| -------- | ------- | -------- | ------------- | --------------------------------------------------------------------------------------- |
-| 1440x900 | 92.16px | 2        | 1440          | Nav links (`Services`, `How it works`, `Visit`, `Request service`) fit without overflow |
-| 960x800  | 61.44px | 2        | 960           | Smallest desktop breakpoint; pinned chapter captions at 2 / 1 / 3 lines                 |
-| 820x1180 | 52.48px | 2        | 820           | Call bar visible; no overflow                                                           |
-| 390x844  | 41.6px  | 3        | 390           | Call bar `Call (718) 788-7683` + `Request service` fit, neither cell clipped            |
-| 360x780  | 41.6px  | 3        | 360           | Same; also checked at 320px with no clipping                                            |
-
-Not performed: real-device, screen-reader, reduced-motion emulation and cross-browser checks.
+| Viewport | Result                                                                                                                                     |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1440x900 | H1 92.16px, 2 lines; nav links and `Call (718) 788-7683` fit without overflow; chapter captions at 1 / 2 / 2 lines; `scrollWidth` 1440     |
+| 390x844  | H1 2 lines with one sentence per line; hero proof line wraps to two rows of two; call bar shows both labels on one line; `scrollWidth` 390 |
+| 360x780  | Call bar labels fit after the narrow-phone size step; `scrollWidth` 360                                                                    |
+| 320x780  | Each H1 sentence wraps within its own block; call bar labels fit; `scrollWidth` 320                                                        |

@@ -12,15 +12,14 @@ export function Specials() {
             Specials
           </p>
           <h2 id="specials-title" data-reveal>
-            Offers change through the year. Ask when you call.
+            Ask about current specials.
           </h2>
           <p className="specials__copy">
-            No discount is published on this preview. Ask the shop about current offers when you
-            call.
+            No offer is published on this preview. Call the shop to ask what’s available.
           </p>
         </div>
         <a className="btn btn--ghost btn--lg" href={business.phone.href}>
-          Call the shop
+          Call {business.phone.display}
         </a>
       </div>
     </aside>

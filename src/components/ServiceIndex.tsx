@@ -9,7 +9,7 @@ type Props = {
 }
 
 /** Editorial service index: six rows answer "do they handle my problem?" in one glance.
-    Each row jumps to the service-request form with that service preselected. */
+    Each row jumps to the appointment form with that service preselected. */
 export function ServiceIndex({ onPick }: Props) {
   const ref = useRef<HTMLElement>(null)
   const reduced = useReducedMotion()
@@ -60,25 +60,23 @@ export function ServiceIndex({ onPick }: Props) {
             Services
           </p>
           <h2 id="services-title" data-reveal>
-            Hear it, feel it, or see it on the dash? It is probably on this list.
+            Start with the problem.
           </h2>
+          <p className="index__lede" data-reveal>
+            Choose the closest match. If you’re not sure, call the shop.
+          </p>
 
           <ul className="index__list">
             {services.map((s) => (
               <li key={s.key} className="index__row">
-                <a
-                  className="index__link"
-                  href="#schedule"
-                  onClick={() => onPick(s.key)}
-                  aria-label={`${s.title}: request service`}
-                >
+                <a className="index__link" href="#schedule" onClick={() => onPick(s.key)}>
                   <span className="index__title">{s.title}</span>
                   <span className="index__text">
                     <span className="index__detail">{s.detail}</span>
                     <span className="index__symptoms">{s.symptoms}</span>
                   </span>
                   <span className="index__go" aria-hidden="true">
-                    Request service
+                    Request an appointment
                   </span>
                 </a>
               </li>

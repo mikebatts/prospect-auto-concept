@@ -69,6 +69,16 @@ html.menu-open .callbar {
   outline-offset: -4px;
 }
 
+/* Narrow phones: both labels stay on one line without clipping the glyph. */
+@media (max-width: 24rem) {
+  .callbar__call,
+  .callbar__schedule {
+    gap: 0.4rem;
+    padding-inline: 0.7rem;
+    font-size: 0.85rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .callbar {
     transition: none;

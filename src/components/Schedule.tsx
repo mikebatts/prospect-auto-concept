@@ -32,7 +32,7 @@ function validate(values: Record<FieldName, string>): Errors {
 }
 
 /**
- * Demo service-request form. Validation runs locally; submission is
+ * Demo appointment-request form. Validation runs locally; submission is
  * intercepted and nothing is sent or stored. Delivery would be wired at launch.
  */
 export function Schedule({ pick }: Props) {
@@ -123,14 +123,14 @@ export function Schedule({ pick }: Props) {
       <div className="container schedule__grid">
         <div className="schedule__intro">
           <p className="kicker kicker--oxide" data-reveal>
-            Request service
+            Appointments
           </p>
           <h2 id="schedule-title" data-reveal>
-            Tell the shop what the car is doing.
+            Request an appointment.
           </h2>
           <p className="lede">
-            Send the vehicle, the symptom and a phone number, and the shop follows up during
-            business hours. Or skip the form and call.
+            Tell us the vehicle, what it’s doing, and how to reach you. We’ll follow up during
+            business hours. Need help sooner? Call the shop.
           </p>
           <a className="schedule__phone" href={business.phone.href}>
             <PhoneGlyph />
@@ -151,10 +151,10 @@ export function Schedule({ pick }: Props) {
             tabIndex={-1}
           >
             <p className="kicker kicker--oxide">Preview only</p>
-            <h3 id={`${id}-done-title`}>Noted, {sent.name}.</h3>
+            <h3 id={`${id}-done-title`}>Thanks, {sent.name}.</h3>
             <p>
               On the finished site, this {sent.service.toLowerCase()} request would go to the shop
-              and you would hear back during business hours. This preview does not send anything. To
+              and you’d hear back during business hours. This preview doesn’t send anything. To
               reach the shop now, call.
             </p>
             <div className="schedule__done-actions">
@@ -266,7 +266,7 @@ export function Schedule({ pick }: Props) {
                       {s.title}
                     </option>
                   ))}
-                  <option value="other">Not sure, see the note below</option>
+                  <option value="other">Not sure, I’ll describe it below</option>
                 </select>
                 {errors.service && (
                   <p className="field__error" id={`${id}-service-err`}>

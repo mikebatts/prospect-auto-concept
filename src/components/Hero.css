@@ -81,6 +81,17 @@
   text-shadow: 0 2px 40px rgb(15 14 12 / 0.45);
 }
 
+/* Each sentence holds its own line so a wrap never mixes words across the period. */
+.hero__title-line {
+  display: block;
+}
+
+@media (max-width: 30rem) {
+  .hero__title {
+    font-size: 2.15rem;
+  }
+}
+
 .hero__copy {
   font-size: clamp(1.1rem, 1.4vw, 1.3rem);
   line-height: 1.45;

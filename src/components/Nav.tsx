@@ -6,7 +6,7 @@ const links = [
   { href: '#services', label: 'Services' },
   { href: '#standards', label: 'How it works' },
   { href: '#visit', label: 'Visit' },
-  { href: '#schedule', label: 'Request service' },
+  { href: '#schedule', label: 'Request an appointment' },
 ]
 
 const SCROLLED_THRESHOLD = 32
@@ -110,7 +110,7 @@ export function Nav() {
   return (
     <header className={`nav${scrolled || open ? ' nav--solid' : ''}${open ? ' nav--open' : ''}`}>
       <div className="nav__bar" data-load>
-        <a className="nav__wordmark" href="#top" aria-label="Prospect Auto, back to top">
+        <a className="nav__wordmark" href="#top">
           <span className="nav__wordmark-main">Prospect Auto</span>
           <span className="nav__wordmark-sub">Repair &amp; Service · Brooklyn</span>
         </a>
@@ -126,13 +126,9 @@ export function Nav() {
         </nav>
 
         <div className="nav__actions">
-          <a
-            className="btn nav__call"
-            href={business.phone.href}
-            aria-label={`Call the shop at ${business.phone.display}`}
-          >
+          <a className="btn nav__call" href={business.phone.href}>
             <PhoneGlyph />
-            <span>Call the shop</span>
+            <span>Call {business.phone.display}</span>
           </a>
           <button
             ref={toggleRef}
