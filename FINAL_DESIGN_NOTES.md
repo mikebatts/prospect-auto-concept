@@ -27,15 +27,15 @@ Applied selection after the user's art-direction overrides (overrides win over r
 2. AIDA check
 
 - Navigation: persistent minimal split bar (wordmark / links / call action). Compact mobile drawer.
-- Attention: full-viewport cinematic hero, centered headline, `Schedule service` + `Call the shop`, practical trust line (address, hours, phone, Se habla español).
+- Attention: full-viewport cinematic hero, centered headline, `Request service` + `Call the shop`, practical trust line (address, hours, phone, Se habla español).
 - Interest: editorial service index. Six typographic rows cover every verified category. A tall, masked crop of the garage image with slow parallax sits beside the list on desktop.
-- Desire: one pinned, scrubbed chapter using the brake and bodywork images full-bleed. Measure, look, then the split composition with the closing statement and CTA.
+- Desire: one pinned, scrubbed chapter using the brake and bodywork images full-bleed. Measure, look and explain, then the split composition with the closing statement and CTA.
 - Proof: quiet reputation and location section. Google snapshot (dated), address, hours, phone, Se habla español, business-published experience claim.
 - Action: specials strip (no invented discount) followed by the schedule-service area: validated demo form + direct telephone link. Quiet footer with disclaimer.
 
 3. Hero math verification
 
-- H1 container: `.hero__title { max-width: 14em }` inside the full container (88rem). At 1440px the H1 renders at 92.16px with a 1290px measure. Measured in headless Chrome: 2 lines at 1440px, 2 lines at 820px, 3 lines at 390px.
+- H1 container: `.hero__title { max-width: 14em }` inside the full container (88rem). At 1440px the H1 renders at 92.16px with a 1290px measure. Measured in headless Chrome: 2 lines at 1440px, 2 lines at 820px, 3 lines at 390px. Re-measured after the copy pass with the new H1 ("A straight answer before the wrench turns."): 2 lines at 1440, 960 and 820; 3 lines at 390 and 360.
 - No stamp icons, pills, badges, or raw stats in the hero. The trust line is plain display-face text with hairline separators.
 
 4. Bento density verification
@@ -99,7 +99,7 @@ The visitor is on a phone, has a symptom, and wants to know three things: do the
 1. Hero answers "who and where" in one glance and gives both actions above the fold. The trust line carries address, hours, phone, and Spanish without a badge.
 2. The service index is written as symptoms, not just categories, so the visitor recognizes their own problem. Each row preselects the service in the form.
 3. The chapter builds trust through process, not claims: measure, look, explain. Copy avoids turnaround times, guarantees, and prices.
-4. Proof is the dated snapshot with a link to the live number, plus the practical facts. The 30+ years line is attributed to the shop's own site.
+4. Proof is the dated snapshot with a link to the live number, plus the practical facts. The 30+ years line is attributed to the shop's own website.
 5. Specials strip stays honest: offers by phone, no invented discount.
 6. The schedule section gives the phone number at display size next to the form. The form is short (four required fields, one optional), and both its intro and its success state say it does not send anything.
 7. The mobile call bar keeps a one-tap call available for the whole middle of the page.
@@ -178,3 +178,38 @@ npm run build       tsc -b && vite build
 ```
 
 Headless Chrome check (agent-browser) against `vite preview` of the built output: on load `document.activeElement` is `body` (no autofocus); after a valid submission the active element is `.schedule__done` with `role="group"`, no `aria-live`, and `aria-labelledby` resolving to "Noted, Ada."; after "Start another request" the active element is the Name input, the service select is cleared, and both placeholders end with `…`. Screen-reader testing with real assistive technology was not performed.
+
+## Copy pass (September 1, 2026)
+
+Client-specific copy and content pass on the final cinematic branch. No visual-system, structural, imagery, or motion changes; no CSS was edited. Section ids (`#standards`, `#schedule`) are unchanged so existing anchors still resolve.
+
+### Strategy
+
+- **Hero.** The generic line "Brooklyn drives better when the work is done right." is replaced with "A straight answer before the wrench turns." The kicker keeps locality (4th Avenue, South Park Slope). The body names the six service areas and domestic/import coverage, then invites the customer to start with what the car is doing and lets the shop take it from there. No process or outcomes are promised.
+- **Service index.** The opener now speaks in symptoms ("Hear it, feel it, or see it on the dash?"). The six service rows and their symptom lines were already customer-language and are unchanged. The hover label on each row is now `Request service`.
+- **Pinned chapter.** Renamed to "How it works" in the nav, footer and hidden heading. The three beats now read measure → look and explain → then the repair. "Under the lamp, nothing hides." was removed as an overclaim and replaced with "Look closely. Explain plainly." The second beat's body no longer promises to check the whole car; it says the inspection light reveals what a glance can miss and that the next step is made clear in English or Spanish. The closing statement is "What needs attention now. What can wait. What comes next.", followed by "Those three answers make the next step clear. Then the repair."
+- **Reputation.** The headline invites the reader to check the reviews ("See what Brooklyn drivers say before you call.") instead of praising the shop. The rating, count and September 1, 2026 snapshot date are unchanged and still labeled as a snapshot with a link to the live figure. The 30+ years line is worked into the shop fact naturally while still attributed ("The shop's own website lists mechanics with 30+ years of experience.").
+- **Specials.** Rewritten so nothing implies a current discount: offers change through the year, ask when you call, and the body states that no discount is published on this preview. The button is `Call the shop`.
+- **Service request.** The section is labeled `Request service`. The lede states the friction-free path (vehicle, symptom, phone number, then the shop follows up during business hours) and offers the phone as the alternative. The demonstration disclaimer, validation messages, focus management and non-submitting behavior are unchanged. The success panel still says the preview sends nothing and points to the phone.
+- **CTA consistency.** Every link to the form reads `Request service` (hero, chapter, nav, footer, mobile call bar, index rows). Every phone link reads `Call the shop` or shows the number. The form's own submit button remains `Send request` because that is the action it performs.
+- **Metadata.** The description names the services, domestic/import coverage and `Se habla español`. The Open Graph description carries the new headline. Title, canonical, `noindex,nofollow,noarchive`, and OG image/alt are unchanged.
+
+### Facts used and their sources
+
+Name, address, phone, email, hours, domestic/import, `Se habla español`, and the six service areas come from `src/lib/business.ts`. The 30+ years line is presented only as the shop's own published claim. The Google figure is presented only as a dated snapshot. The page still makes no claim about certifications, warranties, turnaround, same-day service, free estimates, prices, financing, ownership, years in business, parts sourcing, or promotions, and quotes no third-party review text.
+
+### Verification
+
+Commands run in this worktree after the copy pass, all exiting 0: `npm run format:check`, `npm run typecheck`, `npm run lint`, `npm run build`.
+
+Headless Chrome (agent-browser) against `vite preview` of the built output:
+
+| Viewport | H1 size | H1 lines | `scrollWidth` | Notes                                                                                   |
+| -------- | ------- | -------- | ------------- | --------------------------------------------------------------------------------------- |
+| 1440x900 | 92.16px | 2        | 1440          | Nav links (`Services`, `How it works`, `Visit`, `Request service`) fit without overflow |
+| 960x800  | 61.44px | 2        | 960           | Smallest desktop breakpoint; pinned chapter captions at 2 / 1 / 3 lines                 |
+| 820x1180 | 52.48px | 2        | 820           | Call bar visible; no overflow                                                           |
+| 390x844  | 41.6px  | 3        | 390           | Call bar `Call (718) 788-7683` + `Request service` fit, neither cell clipped            |
+| 360x780  | 41.6px  | 3        | 360           | Same; also checked at 320px with no clipping                                            |
+
+Not performed: real-device, screen-reader, reduced-motion emulation and cross-browser checks.

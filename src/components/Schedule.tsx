@@ -32,7 +32,7 @@ function validate(values: Record<FieldName, string>): Errors {
 }
 
 /**
- * Demo schedule-service form. Validation runs locally; submission is
+ * Demo service-request form. Validation runs locally; submission is
  * intercepted and nothing is sent or stored. Delivery would be wired at launch.
  */
 export function Schedule({ pick }: Props) {
@@ -123,14 +123,14 @@ export function Schedule({ pick }: Props) {
       <div className="container schedule__grid">
         <div className="schedule__intro">
           <p className="kicker kicker--oxide" data-reveal>
-            Schedule service
+            Request service
           </p>
           <h2 id="schedule-title" data-reveal>
             Tell the shop what the car is doing.
           </h2>
           <p className="lede">
-            A few details now mean a quicker, more accurate conversation. Or skip the form and call
-            during shop hours.
+            Send the vehicle, the symptom and a phone number, and the shop follows up during
+            business hours. Or skip the form and call.
           </p>
           <a className="schedule__phone" href={business.phone.href}>
             <PhoneGlyph />
@@ -153,9 +153,9 @@ export function Schedule({ pick }: Props) {
             <p className="kicker kicker--oxide">Preview only</p>
             <h3 id={`${id}-done-title`}>Noted, {sent.name}.</h3>
             <p>
-              In the finished site this {sent.service.toLowerCase()} request would reach the shop
-              and you would hear back during business hours. This concept form does not send
-              anything, so to actually book, call the shop.
+              On the finished site, this {sent.service.toLowerCase()} request would go to the shop
+              and you would hear back during business hours. This preview does not send anything. To
+              reach the shop now, call.
             </p>
             <div className="schedule__done-actions">
               <a className="btn btn--oxide btn--lg" href={business.phone.href}>
@@ -266,7 +266,7 @@ export function Schedule({ pick }: Props) {
                       {s.title}
                     </option>
                   ))}
-                  <option value="other">Not sure, described below</option>
+                  <option value="other">Not sure, see the note below</option>
                 </select>
                 {errors.service && (
                   <p className="field__error" id={`${id}-service-err`}>

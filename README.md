@@ -27,4 +27,4 @@ npm run lint
 npm run build
 ```
 
-The schedule-service form is a non-submitting demonstration. It validates locally and does not transmit or store visitor data. See `FINAL_DESIGN_NOTES.md` for the design plan, audit, and verification record.
+The service-request form is a non-submitting demonstration. It validates locally and does not transmit or store visitor data. See `FINAL_DESIGN_NOTES.md` for the design plan, audit, verification record, and the copy pass that documents every factual claim on the page.

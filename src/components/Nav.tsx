@@ -4,9 +4,9 @@ import './Nav.css'
 
 const links = [
   { href: '#services', label: 'Services' },
-  { href: '#standards', label: 'Standards' },
+  { href: '#standards', label: 'How it works' },
   { href: '#visit', label: 'Visit' },
-  { href: '#schedule', label: 'Schedule' },
+  { href: '#schedule', label: 'Request service' },
 ]
 
 const SCROLLED_THRESHOLD = 32

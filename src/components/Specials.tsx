@@ -9,17 +9,18 @@ export function Specials() {
       <div className="container specials__inner">
         <div className="specials__text">
           <p className="kicker" data-reveal>
-            Current specials
+            Specials
           </p>
           <h2 id="specials-title" data-reveal>
-            Seasonal service offers change through the year.
+            Offers change through the year. Ask when you call.
           </h2>
           <p className="specials__copy">
-            Current offers are available by phone. Nothing on this page is a published discount.
+            No discount is published on this preview. Ask the shop about current offers when you
+            call.
           </p>
         </div>
         <a className="btn btn--ghost btn--lg" href={business.phone.href}>
-          Ask about current specials
+          Call the shop
         </a>
       </div>
     </aside>

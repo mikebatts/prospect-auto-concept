@@ -6,7 +6,7 @@ import './Story.css'
 
 /**
  * The signature chapter. Desktop: a pinned stage, three scrubbed beats
- * (measure, look, then the work) using only transform, opacity and clip-path.
+ * (measure, look and explain, then the repair) using only transform, opacity and clip-path.
  * Mobile and reduced motion: the same content stacked in reading order.
  */
 export function Story() {
@@ -99,7 +99,7 @@ export function Story() {
       aria-labelledby="story-title"
     >
       <h2 id="story-title" className="visually-hidden">
-        How the work gets done
+        How it works
       </h2>
 
       <div className="story__stage">
@@ -122,8 +122,8 @@ export function Story() {
             <p className="kicker kicker--oxide">Measure</p>
             <h3>A brake job starts with a number.</h3>
             <p>
-              Rotor thickness and pad life are read before anything is recommended, so the advice is
-              a measurement rather than a hunch.
+              Rotor thickness and pad life get measured before anything is recommended. The advice
+              comes from the reading, not a guess.
             </p>
           </div>
         </div>
@@ -145,21 +145,21 @@ export function Story() {
         <div className="story__cap story__cap--2">
           <div className="story__cap-inner">
             <p className="kicker kicker--oxide">Look</p>
-            <h3>Under the lamp, nothing hides.</h3>
+            <h3>Look closely. Explain plainly.</h3>
             <p>
-              Inspection light shows what a glance misses. The same habit applies under the hood:
-              check it fully, then explain it simply, in English or Spanish.
+              Inspection light reveals what a glance can miss. Trace the problem, understand what is
+              happening, then make the next step clear—in English or Spanish.
             </p>
           </div>
         </div>
 
         <div className="story__cap story__cap--3">
           <div className="story__cap-inner">
-            <p className="kicker kicker--oxide">Then the work</p>
-            <h3>What it needs now. What can wait. What comes next.</h3>
-            <p>Three answers before the repair begins. Then the repair.</p>
+            <p className="kicker kicker--oxide">Then the repair</p>
+            <h3>What needs attention now. What can wait. What comes next.</h3>
+            <p>Those three answers make the next step clear. Then the repair.</p>
             <a className="btn btn--lg story__cta" href="#schedule">
-              Schedule service
+              Request service
             </a>
           </div>
         </div>

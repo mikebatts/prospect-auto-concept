@@ -13,7 +13,7 @@ export function Reputation() {
             Reputation and location
           </p>
           <h2 id="visit-title" data-reveal>
-            The neighborhood already keeps score.
+            See what Brooklyn drivers say before you call.
           </h2>
         </div>
 
@@ -32,7 +32,7 @@ export function Reputation() {
               {business.google.rating} on Google · {business.google.reviewCount} reviews
             </p>
             <p className="rep__note">
-              Research snapshot taken {business.google.snapshotDate}. Ratings and counts change as
+              Snapshot taken {business.google.snapshotDate}. The rating and count change as new
               reviews post; the live figure is on Google.
             </p>
             <a
@@ -104,8 +104,8 @@ export function Reputation() {
               <dt>The shop</dt>
               <dd>
                 <p className="rep__prose">
-                  Domestic and import vehicles under one roof. The shop's own site states that its
-                  mechanics have 30+ years of experience.
+                  Domestic and import vehicles, one shop on 4th Avenue. The shop's own website lists
+                  mechanics with 30+ years of experience.
                 </p>
               </dd>
             </div>

@@ -32,13 +32,13 @@ export function Footer() {
               <a href="#services">Services</a>
             </li>
             <li>
-              <a href="#standards">Standards</a>
+              <a href="#standards">How it works</a>
             </li>
             <li>
               <a href="#visit">Visit</a>
             </li>
             <li>
-              <a href="#schedule">Schedule service</a>
+              <a href="#schedule">Request service</a>
             </li>
             <li>
               <a href={business.google.mapsSearchUrl} target="_blank" rel="noopener noreferrer">

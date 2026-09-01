@@ -9,7 +9,7 @@ type Props = {
 }
 
 /** Editorial service index: six rows answer "do they handle my problem?" in one glance.
-    Each row jumps to the schedule form with that service preselected. */
+    Each row jumps to the service-request form with that service preselected. */
 export function ServiceIndex({ onPick }: Props) {
   const ref = useRef<HTMLElement>(null)
   const reduced = useReducedMotion()
@@ -60,7 +60,7 @@ export function ServiceIndex({ onPick }: Props) {
             Services
           </p>
           <h2 id="services-title" data-reveal>
-            If the car is doing something it shouldn't, it is probably on this list.
+            Hear it, feel it, or see it on the dash? It is probably on this list.
           </h2>
 
           <ul className="index__list">
@@ -70,7 +70,7 @@ export function ServiceIndex({ onPick }: Props) {
                   className="index__link"
                   href="#schedule"
                   onClick={() => onPick(s.key)}
-                  aria-label={`${s.title}: schedule service`}
+                  aria-label={`${s.title}: request service`}
                 >
                   <span className="index__title">{s.title}</span>
                   <span className="index__text">
@@ -78,7 +78,7 @@ export function ServiceIndex({ onPick }: Props) {
                     <span className="index__symptoms">{s.symptoms}</span>
                   </span>
                   <span className="index__go" aria-hidden="true">
-                    Schedule
+                    Request service
                   </span>
                 </a>
               </li>

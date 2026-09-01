@@ -64,17 +64,17 @@ export function Hero() {
         </p>
 
         <h1 id="hero-title" className="hero__title">
-          Brooklyn drives better when the work is done right.
+          A straight answer before the wrench turns.
         </h1>
 
         <p className="hero__copy" data-load>
           Brakes, tires and alignment, diagnostics, maintenance, A/C and electrical for domestic and
-          import cars. Looked at properly, explained plainly.
+          import vehicles. Start with what the car is doing; the shop takes it from there.
         </p>
 
         <div className="hero__actions" data-load>
           <a className="btn btn--lg" href="#schedule">
-            Schedule service
+            Request service
           </a>
           <a className="btn btn--ghost btn--lg" href={business.phone.href}>
             <PhoneGlyph />
