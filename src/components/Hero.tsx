@@ -5,12 +5,16 @@ import { useReducedMotion } from '../lib/useReducedMotion'
 import { PhoneGlyph } from './Nav'
 import './Hero.css'
 
-/** Cinematic center hero. The image is the room; the type sits in its dark wash. */
+/**
+ * Cinematic storefront hero. The shop and its sign hold the right of the frame;
+ * the type sits in the blue-hour negative space on the left (desktop) or low in
+ * the frame beneath the sign (mobile), under a directional dark wash.
+ */
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
   const reduced = useReducedMotion()
 
-  // Image Scale & Fade: as the hero leaves, the room drifts up and dims.
+  // Image Scale & Fade: as the hero leaves, the street drifts up and dims.
   useGSAP(
     () => {
       if (reduced) return
@@ -45,12 +49,12 @@ export function Hero() {
       <div className="hero__media" data-load>
         <img
           className="hero__img"
-          src={assetUrl('prospect-hero.webp')}
-          srcSet={`${assetUrl('prospect-hero-1024.webp')} 1024w, ${assetUrl('prospect-hero.webp')} 2560w`}
+          src={assetUrl('prospect-storefront-hero.webp')}
+          srcSet={`${assetUrl('prospect-storefront-hero-1024.webp')} 1024w, ${assetUrl('prospect-storefront-hero.webp')} 2400w`}
           sizes="100vw"
-          width={2560}
-          height={1099}
-          alt="Concept imagery: a dark sedan parked in a warmly lit brick garage at night, tools hung on the back wall."
+          width={2400}
+          height={1030}
+          alt="Concept imagery: a blue-hour view of a one-bay red-brick Brooklyn auto shop inspired by Prospect Auto’s storefront, with the garage open and a sedan entering."
           loading="eager"
           fetchPriority="high"
           decoding="async"
@@ -60,26 +64,25 @@ export function Hero() {
 
       <div className="hero__inner container">
         <p className="hero__kicker" data-load>
-          Auto repair on 4th Avenue, Brooklyn
+          Prospect Auto Repair · {business.address.street}
         </p>
 
         <h1 id="hero-title" className="hero__title">
-          <span className="hero__title-line">Know what needs fixing.</span>{' '}
-          <span className="hero__title-line">Know what can wait.</span>
+          The shop Brooklyn drivers come back to.
         </h1>
 
         <p className="hero__copy" data-load>
-          Inspections, brakes, diagnostics, tires, maintenance, A/C and electrical work for domestic
-          and import vehicles. We’ll explain what we find before any work begins.
+          State inspections, maintenance and repairs—with fair prices, clear explanations and no
+          hard sell.
         </p>
 
         <div className="hero__actions" data-load>
           <a className="btn btn--lg" href={business.phone.href}>
             <PhoneGlyph />
-            Call {business.phone.display}
+            Call the shop
           </a>
           <a className="btn btn--ghost btn--lg" href="#schedule">
-            Request an appointment
+            Request service
           </a>
         </div>
       </div>

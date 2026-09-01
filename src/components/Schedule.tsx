@@ -126,11 +126,11 @@ export function Schedule({ pick }: Props) {
             Appointments
           </p>
           <h2 id="schedule-title" data-reveal>
-            Request an appointment.
+            Tell us what’s going on.
           </h2>
           <p className="lede">
-            Tell us the vehicle, what it’s doing, and how to reach you. We’ll follow up during
-            business hours. Need help sooner? Call the shop.
+            Share the vehicle, the problem, and how to reach you. We’ll follow up during business
+            hours. Need help sooner? Call the shop.
           </p>
           <a className="schedule__phone" href={business.phone.href}>
             <PhoneGlyph />

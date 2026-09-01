@@ -13,7 +13,7 @@ export function Reputation() {
             Reviews, address and hours
           </p>
           <h2 id="visit-title" data-reveal>
-            {business.google.rating} stars from {business.google.reviewCount} Google reviews.
+            Fair prices. Clear explanations. Work people come back for.
           </h2>
         </div>
 

@@ -218,3 +218,14 @@ Headless Chrome (agent-browser) against `vite preview` of the built output:
 | 390x844  | H1 2 lines with one sentence per line; hero proof line wraps to two rows of two; call bar shows both labels on one line; `scrollWidth` 390 |
 | 360x780  | Call bar labels fit after the narrow-phone size step; `scrollWidth` 360                                                                    |
 | 320x780  | Each H1 sentence wraps within its own block; call bar labels fit; `scrollWidth` 320                                                        |
+
+## Real-place visual pass (September 1, 2026)
+
+New original concept assets, generated from a visual-DNA audit of the shop's public listing photos, replace the earlier generic garage imagery. They remain concept art; the footer still says so.
+
+- **Hero.** `prospect-storefront-hero.webp` (2400×1030, 21:9): a blue-hour one-bay red-brick storefront with the shop on the right and open street on the left. The copy is now left-aligned in that negative space on desktop (H1 measure `8.6em`, three lines: "The shop / Brooklyn drivers / come back to."), with a left-to-right wash that clears over the brick and sign. Desktop `object-position` is `74% 50%` (`78%` at 16:9 or wider); phones crop to `64% 50%`, centred on the open bay, and the copy sits low in the frame under a bottom-heavy wash so the sign stays clear. Copy: kicker `Prospect Auto Repair · 628 4th Avenue`, H1 `The shop Brooklyn drivers come back to.`, support `State inspections, maintenance and repairs—with fair prices, clear explanations and no hard sell.`, CTAs `Call the shop` / `Request service`. Proof row unchanged.
+- **Services.** Heading `What can we help with?`. The sticky desktop image is now `prospect-workshop.webp`, cropped to the lifted car, blue post and red stripe (`80% 50%`).
+- **How it works.** Frames are `prospect-workshop.webp` (beat 1) and `prospect-alignment.webp` (beats 2 and 3); classes and GSAP selectors are `--workshop` and `--alignment`. Beats: `Take a look` / `We check the car before we quote the work.`, `Explain` / `We tell you what we found.`, `Your call` / `You decide what happens next.` Hidden heading: `We take a look, explain what we found, and let you decide what happens next.`
+- **Visit.** Heading `Fair prices. Clear explanations. Work people come back for.` The rating block below still carries the dated Google snapshot.
+- **Appointments.** Heading `Tell us what's going on.`; lede `Share the vehicle, the problem, and how to reach you. We'll follow up during business hours. Need help sooner? Call the shop.`
+- **Metadata.** Preload and Open Graph image point at the storefront asset (2400×1030) with matching alt text.

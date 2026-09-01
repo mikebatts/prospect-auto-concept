@@ -14,7 +14,7 @@ export function ServiceIndex({ onPick }: Props) {
   const ref = useRef<HTMLElement>(null)
   const reduced = useReducedMotion()
 
-  // Slow parallax on the tool-wall crop, desktop only. Transform-only.
+  // Slow parallax on the working-bay crop, desktop only. Transform-only.
   useGSAP(
     () => {
       if (reduced) return
@@ -44,11 +44,11 @@ export function ServiceIndex({ onPick }: Props) {
       <div className="container index__grid">
         <div className="index__media" aria-hidden="true">
           <img
-            src={assetUrl('prospect-hero.webp')}
-            srcSet={`${assetUrl('prospect-hero-1024.webp')} 1024w, ${assetUrl('prospect-hero.webp')} 2560w`}
+            src={assetUrl('prospect-workshop.webp')}
+            srcSet={`${assetUrl('prospect-workshop-1024.webp')} 1024w, ${assetUrl('prospect-workshop.webp')} 2400w`}
             sizes="(min-width: 60rem) 34vw, 0px"
-            width={2560}
-            height={1099}
+            width={2400}
+            height={1350}
             alt=""
             loading="lazy"
             decoding="async"
@@ -60,7 +60,7 @@ export function ServiceIndex({ onPick }: Props) {
             Services
           </p>
           <h2 id="services-title" data-reveal>
-            Start with the problem.
+            What can we help with?
           </h2>
           <p className="index__lede" data-reveal>
             Choose the closest match. If you’re not sure, call the shop.

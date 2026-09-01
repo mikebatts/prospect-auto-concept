@@ -22,12 +22,26 @@
   will-change: transform;
 }
 
-.story__img--brakes {
-  object-position: 56% 50%;
+/* Workshop (16:9). Stacked portrait frames show under half its width, so the
+   crop favours the lifted car, blue post and red stripe on the right. */
+.story__img--workshop {
+  object-position: 80% 50%;
 }
 
-.story__img--body {
-  object-position: 42% 50%;
+/* Alignment rack (4:3). Portrait frames centre on the sedan; the widescreen
+   stage keeps the rack and car and trims ceiling instead of floor. */
+.story__img--alignment {
+  object-position: 55% 50%;
+}
+
+@media (min-width: 48rem) {
+  .story__img--workshop {
+    object-position: 60% 50%;
+  }
+
+  .story__img--alignment {
+    object-position: 50% 62%;
+  }
 }
 
 .story__cap h3 {
@@ -116,7 +130,7 @@
       linear-gradient(to right, rgb(15 14 12 / 0.4), transparent 55%);
   }
 
-  .story:not(.is-static) .story__frame--body {
+  .story:not(.is-static) .story__frame--alignment {
     clip-path: inset(0 0 0 100%);
   }
 

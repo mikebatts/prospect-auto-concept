@@ -6,7 +6,7 @@ import './Story.css'
 
 /**
  * The signature chapter. Desktop: a pinned stage, three scrubbed beats
- * (inspect, explain, repair) using only transform, opacity and clip-path.
+ * (take a look, explain, your call) using only transform, opacity and clip-path.
  * Mobile and reduced motion: the same content stacked in reading order.
  */
 export function Story() {
@@ -29,8 +29,8 @@ export function Story() {
           },
         })
 
-        // Beat 1: the rotor comes into focus.
-        tl.fromTo('.story__img--brakes', { scale: 1.16 }, { scale: 1, duration: 0.36 }, 0)
+        // Beat 1: the working bay settles into focus.
+        tl.fromTo('.story__img--workshop', { scale: 1.16 }, { scale: 1, duration: 0.36 }, 0)
           .fromTo(
             '.story__cap--1 .story__cap-inner',
             { opacity: 0, y: 36 },
@@ -39,15 +39,15 @@ export function Story() {
           )
           .to('.story__cap--1 .story__cap-inner', { opacity: 0, y: -20, duration: 0.07 }, 0.3)
 
-          // Beat 2: the wipe to the inspection lamp; the rotor recedes and dims.
+          // Beat 2: a wipe from the right brings in the alignment rack; the bay recedes and dims.
           .fromTo(
-            '.story__frame--body',
+            '.story__frame--alignment',
             { clipPath: 'inset(0 0 0 100%)' },
             { clipPath: 'inset(0 0% 0 0%)', duration: 0.22 },
             0.38,
           )
-          .fromTo('.story__img--body', { scale: 1.14 }, { scale: 1, duration: 0.4 }, 0.38)
-          .to('.story__img--brakes', { scale: 0.94, opacity: 0.15, duration: 0.24 }, 0.38)
+          .fromTo('.story__img--alignment', { scale: 1.14 }, { scale: 1, duration: 0.4 }, 0.38)
+          .to('.story__img--workshop', { scale: 0.94, opacity: 0.15, duration: 0.24 }, 0.38)
           .fromTo(
             '.story__cap--2 .story__cap-inner',
             { opacity: 0, y: 36 },
@@ -56,9 +56,9 @@ export function Story() {
           )
           .to('.story__cap--2 .story__cap-inner', { opacity: 0, y: -20, duration: 0.06 }, 0.8)
 
-          // Beat 3: the frame splits; the closing statement takes the right half.
-          .to('.story__frame--body', { clipPath: 'inset(0 50% 0 0%)', duration: 0.1 }, 0.86)
-          .to('.story__img--body', { scale: 1.06, duration: 0.14 }, 0.86)
+          // Beat 3: the rack frame clips to its left half; the closing statement takes the right.
+          .to('.story__frame--alignment', { clipPath: 'inset(0 50% 0 0%)', duration: 0.1 }, 0.86)
+          .to('.story__img--alignment', { scale: 1.06, duration: 0.14 }, 0.86)
           .fromTo(
             '.story__cap--3 .story__cap-inner',
             { opacity: 0, y: 30 },
@@ -99,19 +99,19 @@ export function Story() {
       aria-labelledby="story-title"
     >
       <h2 id="story-title" className="visually-hidden">
-        How it works: we check the car, explain what we find, and then talk through the repair.
+        We take a look, explain what we found, and let you decide what happens next.
       </h2>
 
       <div className="story__stage">
-        <figure className="story__frame story__frame--brakes">
+        <figure className="story__frame story__frame--workshop">
           <img
-            className="story__img story__img--brakes"
-            src={assetUrl('prospect-brakes.webp')}
-            srcSet={`${assetUrl('prospect-brakes-768.webp')} 768w, ${assetUrl('prospect-brakes.webp')} 1800w`}
+            className="story__img story__img--workshop"
+            src={assetUrl('prospect-workshop.webp')}
+            srcSet={`${assetUrl('prospect-workshop-1024.webp')} 1024w, ${assetUrl('prospect-workshop.webp')} 2400w`}
             sizes="100vw"
-            width={1800}
-            height={1200}
-            alt="Concept imagery: gloved hands measuring a brake rotor with a caliper gauge."
+            width={2400}
+            height={1350}
+            alt="Concept imagery: a long working auto-repair bay inspired by Prospect Auto’s shop, with blue lifts, a red wall stripe, yellow ramps and everyday vehicles."
             loading="lazy"
             decoding="async"
           />
@@ -119,24 +119,24 @@ export function Story() {
 
         <div className="story__cap story__cap--1">
           <div className="story__cap-inner">
-            <p className="kicker kicker--oxide">Inspect</p>
-            <h3>We check the car first.</h3>
+            <p className="kicker kicker--oxide">Take a look</p>
+            <h3>We check the car before we quote the work.</h3>
             <p>
-              On a brake job, that means measuring rotor thickness and pad life instead of guessing
-              from the noise.
+              From a state inspection to a warning light or a steering pull, the first step is
+              finding the actual problem.
             </p>
           </div>
         </div>
 
-        <figure className="story__frame story__frame--body">
+        <figure className="story__frame story__frame--alignment">
           <img
-            className="story__img story__img--body"
-            src={assetUrl('prospect-bodywork.webp')}
-            srcSet={`${assetUrl('prospect-bodywork-768.webp')} 768w, ${assetUrl('prospect-bodywork.webp')} 1800w`}
+            className="story__img story__img--alignment"
+            src={assetUrl('prospect-alignment.webp')}
+            srcSet={`${assetUrl('prospect-alignment-768.webp')} 768w, ${assetUrl('prospect-alignment.webp')} 1800w`}
             sizes="100vw"
             width={1800}
             height={1348}
-            alt="Concept imagery: a gloved hand wiping the hood of a black car under striped inspection lights in a brick garage."
+            alt="Concept imagery: a gray sedan on a yellow wheel-alignment rack inside a compact neighborhood repair shop with blue equipment."
             loading="lazy"
             decoding="async"
           />
@@ -145,20 +145,21 @@ export function Story() {
         <div className="story__cap story__cap--2">
           <div className="story__cap-inner">
             <p className="kicker kicker--oxide">Explain</p>
-            <h3>We explain what we find before any work begins.</h3>
+            <h3>We tell you what we found.</h3>
             <p>
-              What needs fixing now, what can wait, and why. In English or Spanish, whichever you
-              prefer.
+              What needs attention now, what can wait, and what the repair involves. In English or
+              Spanish, whichever you prefer.
             </p>
           </div>
         </div>
 
         <div className="story__cap story__cap--3">
           <div className="story__cap-inner">
-            <p className="kicker kicker--oxide">Repair</p>
-            <h3>Then we talk through the repair.</h3>
+            <p className="kicker kicker--oxide">Your call</p>
+            <h3>You decide what happens next.</h3>
             <p>
-              You decide what gets done now. We do the work and tell you what to watch for next.
+              Approve what makes sense for you. We’ll do the work and tell you what to keep an eye
+              on.
             </p>
             <a className="btn btn--lg story__cta" href="#schedule">
               Request an appointment

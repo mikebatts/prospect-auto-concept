@@ -16,7 +16,7 @@
   }
 }
 
-/* Tall, masked crop of the same garage: tool wall, lamp, red cabinet. Desktop only. */
+/* Tall, masked crop of the working bay: lifted car, blue post, red wall stripe. Desktop only. */
 .index__media {
   display: none;
 }
@@ -37,7 +37,7 @@
     width: 100%;
     height: 118%;
     object-fit: cover;
-    object-position: 83% 30%;
+    object-position: 80% 50%;
     will-change: transform;
   }
 }

@@ -16,51 +16,93 @@
   overflow: hidden;
 }
 
+/*
+ * The storefront asset is 21:9 with the shop on the right and open street on
+ * the left. Portrait phones see roughly a fifth of its width, so the crop is
+ * centred on the open bay and the "AUTO REPAIR" half of the sign. Desktop keeps
+ * the whole sign and bay on the right and gives the left third to the copy.
+ */
 .hero__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 72% 66%;
+  object-position: 64% 50%;
   transform-origin: 50% 100%;
   will-change: transform;
 }
 
 @media (min-width: 60rem) {
   .hero__img {
-    object-position: 55% 72%;
+    object-position: 74% 50%;
   }
 }
 
-/* Dark radial wash: darkest where the type sits, open toward the car and the lamps. */
+@media (min-width: 60rem) and (min-aspect-ratio: 16/9) {
+  .hero__img {
+    object-position: 78% 50%;
+  }
+}
+
+/*
+ * Mobile wash: light at the top so the sign and the lit bay read clearly,
+ * heavy across the lower half where the copy sits.
+ */
 .hero__wash {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(
-      ellipse 70% 55% at 50% 42%,
-      rgb(15 14 12 / 0.62) 0%,
-      rgb(15 14 12 / 0.38) 45%,
-      rgb(15 14 12 / 0) 100%
-    ),
-    linear-gradient(
-      to bottom,
-      rgb(15 14 12 / 0.55) 0%,
-      rgb(15 14 12 / 0.05) 35%,
-      rgb(15 14 12 / 0.1) 70%,
-      rgb(15 14 12 / 0.85) 100%
-    );
+  background: linear-gradient(
+    to bottom,
+    rgb(15 14 12 / 0.4) 0%,
+    rgb(15 14 12 / 0.06) 16%,
+    rgb(15 14 12 / 0.34) 30%,
+    rgb(15 14 12 / 0.7) 46%,
+    rgb(15 14 12 / 0.84) 100%
+  );
+}
+
+/*
+ * Desktop wash: darkest on the left behind the type, clear over the shop so
+ * the brick, the blue sign and the bay light keep their colour. A light top
+ * band sits under the nav and a floor band under the proof row.
+ */
+@media (min-width: 60rem) {
+  .hero__wash {
+    background:
+      linear-gradient(
+        to right,
+        rgb(15 14 12 / 0.84) 0%,
+        rgb(15 14 12 / 0.66) 30%,
+        rgb(15 14 12 / 0.26) 54%,
+        rgb(15 14 12 / 0) 70%
+      ),
+      linear-gradient(
+        to bottom,
+        rgb(15 14 12 / 0.45) 0%,
+        rgb(15 14 12 / 0) 26%,
+        rgb(15 14 12 / 0) 70%,
+        rgb(15 14 12 / 0.78) 100%
+      );
+  }
 }
 
 .hero__inner {
   position: relative;
   z-index: 1;
   display: grid;
-  justify-items: center;
-  text-align: center;
-  align-content: center;
-  gap: 1.75rem;
-  padding-top: calc(var(--nav-h) + clamp(2rem, 6vh, 5rem));
+  justify-items: start;
+  text-align: left;
+  align-content: end;
+  gap: 1.5rem;
+  padding-top: calc(var(--nav-h) + clamp(6rem, 22svh, 11rem));
   padding-bottom: clamp(2rem, 6vh, 4rem);
+}
+
+@media (min-width: 60rem) {
+  .hero__inner {
+    align-content: center;
+    gap: 1.75rem;
+    padding-top: calc(var(--nav-h) + clamp(2rem, 6vh, 5rem));
+  }
 }
 
 .hero__kicker {
@@ -71,19 +113,16 @@
   text-wrap: balance;
 }
 
+/* Measure holds three lines ("The shop / Brooklyn drivers / come back to.")
+   so the headline stays inside the street side of the frame. */
 .hero__title {
-  max-width: 14em;
-  font-size: clamp(2.6rem, 6.4vw, 6.5rem);
+  max-width: 8.6em;
+  font-size: clamp(2.6rem, 5.4vw, 5.75rem);
   font-weight: 800;
   line-height: 0.96;
   letter-spacing: -0.035em;
   text-wrap: balance;
   text-shadow: 0 2px 40px rgb(15 14 12 / 0.45);
-}
-
-/* Each sentence holds its own line so a wrap never mixes words across the period. */
-.hero__title-line {
-  display: block;
 }
 
 @media (max-width: 30rem) {
@@ -95,15 +134,16 @@
 .hero__copy {
   font-size: clamp(1.1rem, 1.4vw, 1.3rem);
   line-height: 1.45;
-  max-width: 36rem;
-  color: rgb(243 238 228 / 0.86);
+  max-width: 30rem;
+  color: rgb(243 238 228 / 0.88);
   text-wrap: pretty;
+  text-shadow: 0 1px 24px rgb(15 14 12 / 0.5);
 }
 
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.75rem;
   margin-top: 0.5rem;
 }
@@ -122,7 +162,7 @@
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.6rem 0;
   padding-block: 1.25rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid var(--rule);
@@ -140,6 +180,7 @@
 }
 
 .hero__meta-item:first-child {
+  padding-left: 0;
   border-left: 0;
 }
 
