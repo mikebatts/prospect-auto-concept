@@ -1,0 +1,4 @@
+# Independent concept preview — not the official Prospect Auto website.
+# This preview should not be indexed.
+User-agent: *
+Disallow: /

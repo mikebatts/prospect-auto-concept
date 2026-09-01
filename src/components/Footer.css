@@ -1,0 +1,47 @@
+.footer {
+  background: var(--ivory);
+  color: var(--lacquer);
+}
+
+.footer__cta {
+  padding-block: var(--section-y);
+  display: grid;
+  gap: 2rem;
+}
+
+.footer__title {
+  font-size: clamp(3rem, 11vw, 10rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.88;
+}
+
+.footer__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.footer__bar {
+  border-top: 1px solid var(--rule);
+  padding-block: 1.5rem calc(2rem + env(safe-area-inset-bottom, 0px));
+}
+
+.footer__bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+}
+
+.footer__name {
+  font-weight: 700;
+}
+
+.footer__disclaimer a {
+  color: var(--lacquer);
+  font-weight: 700;
+}

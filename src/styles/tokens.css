@@ -1,0 +1,40 @@
+:root {
+  /* Palette — Brooklyn precision garage */
+  --ivory: #f3eee4;
+  --ivory-2: #eae3d5;
+  --ivory-3: #ddd5c4;
+  --lacquer: #0f0e0c;
+  --lacquer-2: #171613;
+  --graphite: #2a2926;
+  --graphite-2: #57544e;
+  --metal: #8f8b83;
+  --metal-2: #b7b2a8;
+  --oxide: #8a3b2e;
+  --oxide-2: #a6402f;
+  --oxide-light: #c56b58; /* oxide lifted for text on lacquer (≥4.5:1) */
+
+  /* Semantic */
+  --bg: var(--ivory);
+  --fg: var(--lacquer);
+  --fg-muted: var(--graphite-2);
+  --rule: rgb(15 14 12 / 0.16);
+  --rule-strong: rgb(15 14 12 / 0.4);
+  --rule-on-dark: rgb(243 238 228 / 0.18);
+  --focus: var(--oxide-2);
+  --tap-highlight: rgb(138 59 46 / 0.18);
+
+  /* Type */
+  --font-display: 'Cabinet Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-body: 'Newsreader', Georgia, 'Times New Roman', serif;
+
+  /* Layout */
+  --container: 88rem;
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --nav-h: 4.5rem;
+  --anchor-offset: calc(var(--nav-h) + 1rem);
+  --section-y: clamp(5rem, 12vw, 10rem);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
