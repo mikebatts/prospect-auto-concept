@@ -51,12 +51,15 @@ export function Proof() {
   return (
     <div className="proof">
       <div className="proof__rating">
-        <p className="eyebrow">Google snapshot</p>
+        <p className="tech proof__kicker">Google snapshot</p>
         <p className="proof__score">
           <span className="proof__num">{business.google.rating}</span>
-          <span className="proof__stars" aria-hidden="true">
-            ★★★★★
+          <span className="proof__of" aria-hidden="true">
+            / 5
           </span>
+        </p>
+        <p className="proof__stars" aria-hidden="true">
+          <span>★★★★★</span>
         </p>
         <p className="proof__line">
           {business.google.rating} on Google · {business.google.reviewCount} reviews
@@ -66,7 +69,7 @@ export function Proof() {
           post; the live number is on Google.
         </p>
         <a
-          className="proof__maps"
+          className="rlink proof__maps"
           href={business.google.mapsSearchUrl}
           target="_blank"
           rel="noopener noreferrer"
@@ -85,24 +88,28 @@ export function Proof() {
         onFocusCapture={() => setPaused(true)}
         onBlurCapture={() => setPaused(false)}
       >
-        <p className="eyebrow eyebrow--oxide">What the experience should make clear</p>
+        <p className="tech proof__kicker proof__kicker--oxide">
+          What the experience should make clear
+        </p>
         <div className="proof__stage" id={liveId} aria-live="polite" aria-atomic="true">
-          <p className="proof__signal-key">{current.k}</p>
+          <p className="proof__signal-key tech">{current.k}</p>
           <p className="proof__signal-text" key={index}>
             {current.text}
           </p>
         </div>
         <div className="proof__controls">
-          <div className="proof__dots" role="group" aria-label="Choose a signal">
+          <div className="proof__tabs" role="group" aria-label="Choose a signal">
             {signals.map((s, i) => (
               <button
                 key={s.k}
                 type="button"
-                className={`proof__dot${i === index ? ' is-active' : ''}`}
+                className={`proof__tab${i === index ? ' is-active' : ''}`}
                 aria-label={`Signal ${i + 1} of ${signals.length}: ${s.k}`}
                 aria-current={i === index ? 'true' : undefined}
                 onClick={() => go(i)}
-              />
+              >
+                <span aria-hidden="true">{i + 1}</span>
+              </button>
             ))}
           </div>
           <div className="proof__arrows">

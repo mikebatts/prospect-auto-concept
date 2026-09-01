@@ -4,10 +4,8 @@ import { SkipLink } from './components/SkipLink'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
 import { Marquee } from './components/Marquee'
-import { ServiceBento } from './components/ServiceBento'
 import { ServiceAccordion } from './components/ServiceAccordion'
-import { Statement } from './components/Statement'
-import { Process } from './components/Process'
+import { Inspection } from './components/Inspection'
 import { Chapter } from './components/Chapter'
 import { Proof } from './components/Proof'
 import { Estimate } from './components/Estimate'
@@ -18,8 +16,9 @@ import './App.css'
 export default function App() {
   const reduced = useReducedMotion()
 
-  // One page-load choreography: hero image, nav, then hero supporting text in order.
-  // The H1 is the LCP element and is deliberately left out so it renders immediately.
+  // One page-load choreography: masthead, data strip, Plate A opening from a
+  // slit, then the margin column. The H1 is the LCP element and is deliberately
+  // left out so it renders immediately.
   useGSAP(
     () => {
       const root = document.documentElement
@@ -32,19 +31,28 @@ export default function App() {
         onComplete: () => {
           root.classList.add('loaded')
           gsap.set('[data-load]', { clearProps: 'all' })
+          gsap.set('.hero__img', { clearProps: 'all' })
         },
       })
-      tl.fromTo(
-        '.hero__media',
-        { opacity: 0, scale: 1.04 },
-        { opacity: 1, scale: 1, duration: 1.0 },
-      )
-        .fromTo('.nav__bar', { opacity: 0, y: -8 }, { opacity: 1, y: 0, duration: 0.45 }, 0.2)
+      tl.fromTo('.mast__row', { opacity: 0, y: -6 }, { opacity: 1, y: 0, duration: 0.5 })
+        .fromTo('.hero__strip', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 }, 0.1)
         .fromTo(
-          ['.hero__eyebrow', '.hero__copy', '.hero__actions', '.hero__meta'],
-          { opacity: 0, y: 28 },
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.07 },
-          0.35,
+          '.hero__field',
+          { opacity: 1, clipPath: 'inset(50% 0 50% 0)' },
+          { clipPath: 'inset(0% 0 0% 0)', duration: 1.1, ease: 'power3.inOut' },
+          0.25,
+        )
+        .fromTo(
+          '.hero__img',
+          { scale: 1.08 },
+          { scale: 1, duration: 1.6, ease: 'power2.out' },
+          0.25,
+        )
+        .fromTo(
+          ['.hero__copy', '.hero__actions', '.hero__facts'],
+          { opacity: 0, y: 24 },
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 },
+          0.55,
         )
     },
     { dependencies: [reduced] },
@@ -62,54 +70,35 @@ export default function App() {
         {/* Interest */}
         <section className="section" id="services" aria-labelledby="services-title">
           <div className="container">
-            <div className="section-head">
+            <div className="head">
               <div>
-                <p className="eyebrow eyebrow--oxide">Services</p>
+                <p className="tech head__kicker">Service ledger</p>
                 <h2 id="services-title">What the shop does, in plain terms.</h2>
               </div>
-              <p>
+              <p className="head__lede">
                 Diagnostics, brakes, tires and alignment, oil changes and preventive maintenance,
-                air conditioning, electrical, and factory-scheduled service. Domestic and import.
+                air conditioning, electrical, and factory-scheduled service. Domestic and import,
+                under one roof.
               </p>
             </div>
-            <ServiceBento />
-            <div className="services__accordion">
-              <p className="eyebrow">Service by service</p>
-              <ServiceAccordion />
-            </div>
+            <ServiceAccordion />
           </div>
         </section>
 
         {/* Desire */}
-        <section className="standards" id="standards" aria-labelledby="standards-title">
-          <Statement />
-          <div className="container process-wrap">
-            <div className="section-head">
-              <div>
-                <p className="eyebrow eyebrow--oxide">How a visit goes</p>
-                <h2 id="standards-title">Diagnose. Decide. Drive.</h2>
-              </div>
-              <p>
-                Three steps, each one explained before the next begins. No specific turnaround
-                promises here — just a clear order of operations.
-              </p>
-            </div>
-            <Process />
-          </div>
-        </section>
-
+        <Inspection />
         <Chapter />
 
-        <section className="section" id="reviews" aria-labelledby="reviews-title">
+        <section className="section reviews" id="reviews" aria-labelledby="reviews-title">
           <div className="container">
-            <div className="section-head">
+            <div className="head">
               <div>
-                <p className="eyebrow eyebrow--oxide">Reviews</p>
+                <p className="tech head__kicker">Reviews</p>
                 <h2 id="reviews-title">The neighborhood already keeps score.</h2>
               </div>
-              <p>
+              <p className="head__lede">
                 The rating below is a snapshot from Google. The rest is what a visit should make
-                obvious — written plainly, not quoted.
+                obvious, written plainly, not quoted.
               </p>
             </div>
             <Proof />
@@ -117,7 +106,7 @@ export default function App() {
         </section>
 
         {/* Action */}
-        <section className="section section--dark action" id="visit" aria-labelledby="visit-title">
+        <section className="section action" id="visit" aria-labelledby="visit-title">
           <div className="container action__grid">
             <Visit />
             <Estimate />

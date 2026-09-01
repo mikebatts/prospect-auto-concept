@@ -1,6 +1,6 @@
 # Prospect Auto concept preview
 
-A bespoke, mobile-first website concept for Prospect Auto Repair & Service in Brooklyn. The design combines an editorial automotive art direction with practical conversion paths for estimates, calls, directions, and service discovery.
+A bespoke, mobile-first website concept for Prospect Auto Repair & Service in Brooklyn. This branch is Version B, a "Brooklyn inspection ledger" art direction: a paper-white ruled sheet with black photographic plates, a serif editorial headline, and a pinned inspection sequence. The design plan and the differences from Version A are in `FABLE_ALT_NOTES.md`. Conversion paths for estimates, calls, directions, and service discovery are unchanged.
 
 This is an independent, unsolicited concept by [Mike Battaglia](https://mikebatts.net/). It is not the official Prospect Auto website and is intentionally excluded from search indexing.
 
@@ -28,3 +28,8 @@ npm run build
 ```
 
 The estimate form is a non-submitting demonstration. It does not transmit or store visitor data.
+
+Compare the published concepts:
+
+- [Version A — Brooklyn precision garage](https://mikebatts.github.io/prospect-auto-concept/)
+- [Version B — Brooklyn inspection ledger](https://mikebatts.github.io/prospect-auto-concept/alt-fable-51/)

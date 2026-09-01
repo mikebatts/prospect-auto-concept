@@ -1,0 +1,212 @@
+.insp {
+  background: var(--paper-2);
+  padding-block: var(--section-y);
+  border-top: 1px solid var(--lacquer);
+  border-bottom: 1px solid var(--lacquer);
+}
+
+.insp__grid {
+  display: grid;
+  gap: clamp(3rem, 6vw, 5rem);
+}
+
+@media (min-width: 60rem) {
+  .insp__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: start;
+  }
+}
+
+.insp__left-cell {
+  min-width: 0;
+  align-self: start;
+}
+
+.insp__left {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+
+.insp__left h2 {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(2.1rem, 4vw, 3.4rem);
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  max-width: 16ch;
+}
+
+.insp__lede {
+  color: var(--fg-muted);
+  font-size: 1.125rem;
+  max-width: 30rem;
+}
+
+.insp__plate {
+  margin: 1rem 0 0;
+}
+
+.insp__field {
+  position: relative;
+  background: var(--lacquer);
+  color: var(--paper);
+  overflow: hidden;
+  will-change: clip-path;
+}
+
+.insp__label {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.25rem;
+  padding: 0.8rem 1.75rem 0.7rem 2rem;
+  border-bottom: 1px solid var(--rule-on-dark);
+  color: var(--metal-2);
+}
+
+.insp__label-key {
+  color: var(--paper);
+}
+
+.insp__label-note {
+  margin-left: auto;
+}
+
+@media (max-width: 40rem), (min-width: 60rem) and (max-width: 100rem) {
+  .insp__label-note {
+    display: none;
+  }
+}
+
+.insp__img-wrap {
+  aspect-ratio: 3 / 2;
+  max-height: 34vh;
+  overflow: hidden;
+}
+
+@media (min-width: 60rem) {
+  .insp__img-wrap {
+    aspect-ratio: 4 / 3;
+    max-height: 40vh;
+  }
+}
+
+.insp__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 58% 55%;
+}
+
+.insp__field .reg {
+  color: var(--paper);
+  opacity: 0.85;
+}
+
+.insp__field .reg--tl,
+.insp__field .reg--tr {
+  display: none;
+}
+
+/* Entries */
+.insp__entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.insp__entry {
+  --tick: 1;
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  grid-template-areas:
+    'no head'
+    'no lede'
+    'no body';
+  column-gap: 1rem;
+  row-gap: 0.9rem;
+  padding: 1.75rem 0 2.25rem;
+  border-top: 1px solid var(--lacquer);
+  color: color-mix(in srgb, var(--lacquer) calc(var(--tick) * 100%), var(--metal));
+}
+
+.insp__entry:last-child {
+  border-bottom: 1px solid var(--lacquer);
+}
+
+@media (min-width: 60rem) {
+  .insp__entry {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    min-height: 62vh;
+    align-content: center;
+    padding: 2.5rem 0;
+  }
+}
+
+.insp__no {
+  grid-area: no;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  padding-top: 0.55rem;
+  color: var(--oxide);
+}
+
+.insp__entry-head {
+  grid-area: head;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.insp__entry-head h3 {
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  color: inherit;
+}
+
+.insp__check {
+  flex-shrink: 0;
+  color: var(--rule-strong);
+}
+
+.insp__check-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.insp__entry-lede {
+  grid-area: lede;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  max-width: 28ch;
+  color: inherit;
+}
+
+.insp__entry-body {
+  grid-area: body;
+  max-width: 36rem;
+  font-size: 1.1rem;
+  /* Narrative copy stays fully readable before its entry reveal; motion is
+     carried by the heading, check stroke, and positional settle instead. */
+  color: var(--graphite-2);
+}
+
+/* Reduced motion: unpinned, every entry ticked. */
+.insp.is-static .insp__entry {
+  min-height: 0;
+}
+
+.insp.is-static .insp__field {
+  will-change: auto;
+}

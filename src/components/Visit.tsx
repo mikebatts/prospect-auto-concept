@@ -4,7 +4,7 @@ import './Visit.css'
 export function Visit() {
   return (
     <div className="visit">
-      <p className="eyebrow eyebrow--oxide">Visit the shop</p>
+      <p className="tech head__kicker">Visit the shop</p>
       <h2 className="visit__title" id="visit-title">
         On 4th Avenue,
         <br />
@@ -13,7 +13,7 @@ export function Visit() {
 
       <dl className="visit__facts">
         <div className="visit__fact">
-          <dt>Address</dt>
+          <dt className="tech">Address</dt>
           <dd>
             <a
               href={business.google.directionsUrl}
@@ -26,7 +26,7 @@ export function Visit() {
               {business.address.city}, {business.address.state} {business.address.zip}
             </a>
             <a
-              className="visit__link"
+              className="rlink"
               href={business.google.directionsUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -38,7 +38,7 @@ export function Visit() {
         </div>
 
         <div className="visit__fact">
-          <dt>Phone</dt>
+          <dt className="tech">Phone</dt>
           <dd>
             <a className="visit__big" href={business.phone.href}>
               {business.phone.display}
@@ -48,16 +48,16 @@ export function Visit() {
         </div>
 
         <div className="visit__fact">
-          <dt>Email</dt>
+          <dt className="tech">Email</dt>
           <dd>
-            <a className="visit__link visit__email" href={business.email.href}>
+            <a className="rlink visit__email" href={business.email.href}>
               {business.email.display}
             </a>
           </dd>
         </div>
 
         <div className="visit__fact visit__fact--hours">
-          <dt>Hours</dt>
+          <dt className="tech">Hours</dt>
           <dd>
             <table className="visit__hours">
               <caption className="visually-hidden">Weekly opening hours</caption>

@@ -14,8 +14,9 @@ const serviceOptions = [
 ]
 
 /**
- * Demo estimate form. Submission is intercepted locally and nothing is sent
- * or stored anywhere. Delivery would be wired up at launch.
+ * Demo estimate form, styled as a sheet you fill in by hand. Submission is
+ * intercepted locally and nothing is sent or stored anywhere. Delivery would
+ * be wired up at launch.
  */
 export function Estimate() {
   const id = useId()
@@ -29,7 +30,7 @@ export function Estimate() {
   return (
     <div className="estimate" id="estimate">
       <div className="estimate__intro">
-        <p className="eyebrow eyebrow--oxide">Request an estimate</p>
+        <p className="tech head__kicker">Request an estimate</p>
         <h3>Tell us what the car is doing.</h3>
         <p>
           A few details now means a quicker, more accurate conversation when you call or come by. Se
@@ -38,7 +39,7 @@ export function Estimate() {
       </div>
 
       <form className="estimate__form" onSubmit={onSubmit} aria-describedby={`${id}-demo`}>
-        <p id={`${id}-demo`} className="estimate__demo">
+        <p id={`${id}-demo`} className="estimate__demo tech">
           Demo form. Nothing you type here is sent or stored.
         </p>
 
@@ -50,7 +51,7 @@ export function Estimate() {
               name="name"
               type="text"
               autoComplete="name"
-              placeholder="Alex Rivera…"
+              placeholder="Alex Rivera"
               required
             />
           </div>
@@ -64,7 +65,7 @@ export function Estimate() {
               autoCapitalize="none"
               autoCorrect="off"
               spellCheck={false}
-              placeholder="(718) 555-0100 or alex@example.com…"
+              placeholder="(718) 555-0100 or alex@example.com"
               required
             />
           </div>
@@ -78,7 +79,7 @@ export function Estimate() {
               name="vehicle"
               type="text"
               autoComplete="off"
-              placeholder="2018 Honda Civic…"
+              placeholder="2018 Honda Civic"
               required
             />
           </div>
@@ -86,7 +87,7 @@ export function Estimate() {
             <label htmlFor={`${id}-service`}>Service</label>
             <select id={`${id}-service`} name="service" defaultValue="" autoComplete="off" required>
               <option value="" disabled>
-                Choose one…
+                Choose one
               </option>
               {serviceOptions.map((s) => (
                 <option key={s} value={s}>
@@ -104,7 +105,7 @@ export function Estimate() {
             name="note"
             rows={4}
             autoComplete="off"
-            placeholder="Squeal when braking, mostly first thing in the morning…"
+            placeholder="Squeal when braking, mostly first thing in the morning"
           />
         </div>
 
@@ -112,7 +113,7 @@ export function Estimate() {
           <button type="submit" className="btn btn--oxide btn--lg">
             Send request
           </button>
-          <a className="estimate__alt" href={business.phone.href}>
+          <a className="rlink estimate__alt" href={business.phone.href}>
             or call {business.phone.display}
           </a>
         </div>

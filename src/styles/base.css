@@ -31,14 +31,14 @@ body {
   position: relative;
 }
 
-/* Restrained grain over the whole page */
+/* Paper grain over the whole sheet. */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 2147483000;
-  opacity: 0.045;
+  opacity: 0.05;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -84,8 +84,6 @@ button {
   cursor: pointer;
 }
 
-/* Touch: no double-tap zoom delay on controls, and a deliberate oxide tap flash
-   instead of the browser's default grey. */
 a,
 button,
 input,
@@ -97,7 +95,6 @@ summary,
   -webkit-tap-highlight-color: var(--tap-highlight);
 }
 
-/* In-page anchors land below the fixed nav with the same breathing room. */
 #services,
 #standards,
 #reviews,
@@ -113,7 +110,7 @@ summary,
 
 ::selection {
   background: var(--oxide);
-  color: var(--ivory);
+  color: var(--paper);
 }
 
 /* Layout helpers */
@@ -126,81 +123,115 @@ summary,
   padding-block: var(--section-y);
 }
 
-.section--dark {
-  background: var(--lacquer);
-  color: var(--ivory);
-  --rule: var(--rule-on-dark);
-  --fg-muted: var(--metal-2);
-}
-
-.eyebrow {
+/* Small technical caption type used across the ledger. */
+.tech {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--fg-muted);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin: 0 0 1.25rem;
+  line-height: 1.2;
 }
 
-.eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 2rem;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.6;
-}
-
-.eyebrow--oxide {
-  color: var(--oxide);
-}
-
-/* On lacquer the base oxide falls short of 4.5:1; lift it. */
-.section--dark .eyebrow--oxide {
-  color: var(--oxide-light);
-}
-
-.section-head {
+/* Section opener: a ruled head with the title in the left field and the
+   supporting line in the right field, like a manual's chapter header. */
+.head {
   display: grid;
-  gap: 1.25rem 3rem;
   grid-template-columns: 1fr;
-  align-items: end;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--rule);
-  margin-bottom: clamp(2rem, 5vw, 4rem);
+  gap: 1rem 2rem;
+  border-top: 1px solid var(--lacquer);
+  padding-top: 1rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
 }
 
 @media (min-width: 60rem) {
-  .section-head {
+  .head {
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: start;
   }
 }
 
-.section-head h2 {
-  font-size: clamp(2rem, 4.2vw, 3.75rem);
-  font-weight: 700;
+.head__kicker {
+  color: var(--oxide);
+  margin-bottom: 0.9rem;
 }
 
-.section-head p {
-  max-width: 34rem;
+.head h2 {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(2.1rem, 4.4vw, 4rem);
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  max-width: 18ch;
+}
+
+.head__lede {
   color: var(--fg-muted);
   font-size: 1.125rem;
+  max-width: 32rem;
+  padding-top: 0.35rem;
 }
 
-.rule {
-  border: 0;
-  border-top: 1px solid var(--rule);
-  margin: 0;
+@media (min-width: 60rem) {
+  .head__lede {
+    padding-top: calc(0.72rem * 1.2 + 0.9rem + 0.35rem);
+  }
+}
+
+/* Registration mark: hairline crosshair for plate corners. */
+.reg {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  color: currentColor;
+}
+
+.reg::before,
+.reg::after {
+  content: '';
+  position: absolute;
+  background: currentColor;
+}
+
+.reg::before {
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+}
+
+.reg::after {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+}
+
+.reg--tl {
+  top: 10px;
+  left: 10px;
+}
+
+.reg--tr {
+  top: 10px;
+  right: 10px;
+}
+
+.reg--bl {
+  bottom: 10px;
+  left: 10px;
+}
+
+.reg--br {
+  bottom: 10px;
+  right: 10px;
 }
 
 /* Buttons */
 .btn {
   --btn-bg: var(--lacquer);
-  --btn-fg: var(--ivory);
+  --btn-fg: var(--paper);
   --btn-bd: var(--lacquer);
   display: inline-flex;
   align-items: center;
@@ -209,7 +240,7 @@ summary,
   min-height: 3.25rem;
   padding: 0.85rem 1.5rem;
   border: 1px solid var(--btn-bd);
-  border-radius: 2px;
+  border-radius: 0;
   background: var(--btn-bg);
   color: var(--btn-fg);
   font-family: var(--font-display);
@@ -238,7 +269,7 @@ summary,
 .btn--oxide {
   --btn-bg: var(--oxide);
   --btn-bd: var(--oxide);
-  --btn-fg: var(--ivory);
+  --btn-fg: var(--paper);
 }
 
 .btn--oxide:hover {
@@ -246,43 +277,59 @@ summary,
   --btn-bd: var(--oxide-2);
 }
 
-.btn--ivory {
-  --btn-bg: var(--ivory);
-  --btn-bd: var(--ivory);
+.btn--paper {
+  --btn-bg: var(--paper);
+  --btn-bd: var(--paper);
   --btn-fg: var(--lacquer);
 }
 
-.btn--ivory:hover {
+.btn--paper:hover {
   --btn-bg: #fff;
   --btn-bd: #fff;
 }
 
-.btn--ghost {
-  --btn-bg: transparent;
-  --btn-fg: currentColor;
-  --btn-bd: currentColor;
-}
-
-.btn--ghost:hover {
-  --btn-bg: rgb(255 255 255 / 0.08);
-  --btn-bd: currentColor;
-}
-
-.btn--ghost-dark {
+.btn--outline {
   --btn-bg: transparent;
   --btn-fg: var(--lacquer);
-  --btn-bd: var(--rule-strong);
+  --btn-bd: var(--lacquer);
 }
 
-.btn--ghost-dark:hover {
+.btn--outline:hover {
+  --btn-bg: var(--lacquer);
+  --btn-fg: var(--paper);
+}
+
+.btn--outline-paper {
   --btn-bg: transparent;
-  --btn-bd: var(--lacquer);
+  --btn-fg: var(--paper);
+  --btn-bd: var(--paper);
+}
+
+.btn--outline-paper:hover {
+  --btn-bg: var(--paper);
+  --btn-fg: var(--lacquer);
 }
 
 .btn--lg {
   min-height: 3.75rem;
   padding: 1rem 2rem;
   font-size: 1.05rem;
+}
+
+/* Ruled text link with an oxide hover. */
+.rlink {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  width: fit-content;
+  padding-bottom: 0.1rem;
+  transition: color 200ms var(--ease-out);
+}
+
+.rlink:hover {
+  color: var(--oxide-2);
 }
 
 /* Page-load choreography: hide only when JS is present and motion is allowed.

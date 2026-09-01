@@ -1,8 +1,7 @@
 .proof {
   display: grid;
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
+  border-top: 1px solid var(--lacquer);
+  border-bottom: 1px solid var(--lacquer);
 }
 
 @media (min-width: 60rem) {
@@ -13,35 +12,72 @@
 
 .proof__rating,
 .proof__carousel {
-  background: var(--ivory);
-  padding: clamp(1.5rem, 3.5vw, 3rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  min-width: 0;
 }
 
 .proof__rating {
-  background: var(--ivory-2);
+  border-bottom: 1px solid var(--rule);
+}
+
+@media (min-width: 60rem) {
+  .proof__rating {
+    border-bottom: 0;
+    border-right: 1px solid var(--lacquer);
+    padding-right: clamp(1.5rem, 4vw, 4rem);
+  }
+  .proof__carousel {
+    padding-left: clamp(1.5rem, 4vw, 4rem);
+  }
+}
+
+.proof__kicker {
+  color: var(--fg-muted);
+  margin-bottom: 0.5rem;
+}
+
+.proof__kicker--oxide {
+  color: var(--oxide);
 }
 
 .proof__score {
   display: flex;
   align-items: baseline;
-  gap: 1rem;
+  gap: 0.75rem;
   font-family: var(--font-display);
 }
 
 .proof__num {
-  font-size: clamp(4rem, 9vw, 7.5rem);
+  font-size: clamp(5rem, 11vw, 9rem);
   font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.05em;
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+}
+
+.proof__of {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  color: var(--fg-muted);
 }
 
 .proof__stars {
-  font-size: 1.1rem;
-  letter-spacing: 0.15em;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
   color: var(--oxide);
+}
+
+.proof__stars::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
 }
 
 .proof__line {
@@ -59,39 +95,24 @@
 .proof__maps {
   margin-top: auto;
   padding-top: 1.5rem;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.9rem;
-  width: fit-content;
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
-}
-
-.proof__maps:hover {
-  color: var(--oxide);
 }
 
 .proof__stage {
-  min-height: 11rem;
+  min-height: 10rem;
   display: grid;
   align-content: start;
   gap: 0.75rem;
-  padding-block: 0.5rem 1.5rem;
+  padding-block: 0.25rem 1.5rem;
 }
 
 .proof__signal-key {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
   color: var(--fg-muted);
 }
 
 .proof__signal-text {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.5rem, 2.6vw, 2.4rem);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 2.8vw, 2.6rem);
   line-height: 1.12;
   letter-spacing: -0.02em;
   max-width: 24ch;
@@ -126,34 +147,47 @@
   border-top: 1px solid var(--rule);
 }
 
-.proof__dots {
+.proof__tabs {
   display: flex;
-  gap: 0.5rem;
 }
 
-.proof__dot {
-  width: 2.25rem;
-  height: 1.75rem;
+.proof__tab {
+  width: 2.75rem;
+  height: 2.75rem;
   padding: 0;
   background: transparent;
-  border: 0;
+  border: 1px solid var(--rule);
+  border-right-width: 0;
+  border-radius: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
+  transition:
+    background-color 200ms var(--ease-out),
+    color 200ms var(--ease-out);
+}
+
+.proof__tab:last-child {
+  border-right-width: 1px;
+}
+
+.proof__tab:hover {
+  background: var(--paper-2);
+  color: var(--lacquer);
+}
+
+.proof__tab.is-active {
+  background: var(--lacquer);
+  color: var(--paper);
+  border-color: var(--lacquer);
+}
+
+.proof__tab:focus-visible {
+  outline-offset: -3px;
   position: relative;
-}
-
-.proof__dot::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 2px;
-  background: var(--rule-strong);
-  transition: background-color 200ms var(--ease-out);
-}
-
-.proof__dot:hover::after,
-.proof__dot.is-active::after {
-  background: var(--oxide);
+  z-index: 1;
 }
 
 .proof__arrows {
@@ -165,21 +199,19 @@
 .proof__arrow {
   width: 2.75rem;
   height: 2.75rem;
-  border: 1px solid var(--rule-strong);
-  border-radius: 50%;
+  border: 1px solid var(--lacquer);
+  border-radius: 0;
   background: transparent;
   font-family: var(--font-display);
   font-size: 1.1rem;
   transition:
     background-color 200ms var(--ease-out),
-    color 200ms var(--ease-out),
-    border-color 200ms var(--ease-out);
+    color 200ms var(--ease-out);
 }
 
 .proof__arrow:hover {
   background: var(--lacquer);
-  border-color: var(--lacquer);
-  color: var(--ivory);
+  color: var(--paper);
 }
 
 .proof__count {

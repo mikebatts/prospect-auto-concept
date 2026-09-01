@@ -2,6 +2,8 @@
  * The display and editorial faces remain hosted by their official providers,
  * but the face declarations live in our critical CSS. This avoids two
  * render-blocking stylesheet round trips while preserving the intended type.
+ * Newsreader is loaded as its variable build (weight 400–700, optical size axis)
+ * so the serif headline can sit at display sizes with proper opsz.
  */
 @font-face {
   font-family: 'Cabinet Grotesk';
@@ -35,15 +37,15 @@
   src: url('https://fonts.gstatic.com/s/newsreader/v26/cY9AfjOCX1hbuyalUrK4397yjIJFJpc.woff2')
     format('woff2');
   font-style: normal;
-  font-weight: 400 500;
+  font-weight: 400 700;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Newsreader';
-  src: url('https://fonts.gstatic.com/s/newsreader/v26/cY9XfjOCX1hbuyalUrK439vogqCz_goCYw7oRd6JFYYzbARA_n8.woff2')
+  src: url('https://fonts.gstatic.com/s/newsreader/v26/cY9CfjOCX1hbuyalUrK439vCjohCBJWxZA.woff2')
     format('woff2');
   font-style: italic;
-  font-weight: 400;
+  font-weight: 400 700;
   font-display: swap;
 }

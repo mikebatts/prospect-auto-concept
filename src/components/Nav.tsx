@@ -1,35 +1,19 @@
-import { useCallback, useEffect, useId, useRef, useState, useSyncExternalStore } from 'react'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { business } from '../lib/business'
 import './Nav.css'
 
 const links = [
-  { href: '#services', label: 'Services' },
-  { href: '#standards', label: 'Standards' },
-  { href: '#reviews', label: 'Reviews' },
-  { href: '#visit', label: 'Visit' },
+  { href: '#services', label: 'Services', note: 'What the shop does' },
+  { href: '#standards', label: 'Standards', note: 'How a visit runs' },
+  { href: '#reviews', label: 'Reviews', note: 'Google snapshot' },
+  { href: '#visit', label: 'Visit', note: 'Address, hours, estimate' },
 ]
-
-const ON_DARK_THRESHOLD = 24
-
-function subscribeScroll(callback: () => void) {
-  window.addEventListener('scroll', callback, { passive: true })
-  return () => window.removeEventListener('scroll', callback)
-}
-
-function getAtTop() {
-  return window.scrollY < ON_DARK_THRESHOLD
-}
-
-function getServerAtTop() {
-  return true
-}
 
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
+/** Masthead: an opaque paper strip ruled into cells. Always dark-on-paper. */
 export function Nav() {
   const [open, setOpen] = useState(false)
-  // Light-on-dark only while the page sits at the very top, dark-on-ivory afterwards.
-  const atTop = useSyncExternalStore(subscribeScroll, getAtTop, getServerAtTop)
   const panelId = useId()
   const toggleRef = useRef<HTMLButtonElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
@@ -107,14 +91,14 @@ export function Nav() {
   }, [])
 
   return (
-    <header className={`nav${atTop && !open ? ' nav--on-dark' : ''}${open ? ' nav--open' : ''}`}>
-      <div className="nav__bar" data-load>
-        <a className="nav__wordmark" href="#top">
-          <span className="nav__wordmark-main">Prospect Auto</span>
-          <span className="nav__wordmark-sub">Repair &amp; Service · Brooklyn</span>
+    <header className={`mast${open ? ' mast--open' : ''}`}>
+      <div className="mast__row" data-load>
+        <a className="mast__wordmark" href="#top">
+          <span className="mast__wordmark-main">Prospect Auto</span>
+          <span className="mast__wordmark-sub">Repair &amp; Service · 628 4th Ave, Brooklyn</span>
         </a>
 
-        <nav className="nav__links" aria-label="Primary">
+        <nav className="mast__index" aria-label="Primary">
           <ul>
             {links.map((l) => (
               <li key={l.href}>
@@ -124,34 +108,41 @@ export function Nav() {
           </ul>
         </nav>
 
-        <div className="nav__actions">
-          <a
-            className="btn btn--oxide nav__call"
-            href={business.phone.href}
-            aria-label={`Call the shop at ${business.phone.display}`}
-          >
-            <PhoneGlyph />
-            <span>Call the shop</span>
-          </a>
-          <button
-            ref={toggleRef}
-            type="button"
-            className="nav__toggle"
-            aria-expanded={open}
-            aria-controls={panelId}
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span className="nav__toggle-line" />
-            <span className="nav__toggle-line" />
-          </button>
-        </div>
+        <a className="mast__estimate" href="#estimate">
+          Request an estimate
+        </a>
+
+        <a
+          className="mast__call"
+          href={business.phone.href}
+          aria-label={`Call the shop at ${business.phone.display}`}
+        >
+          <PhoneGlyph />
+          <span className="mast__call-long">{business.phone.display}</span>
+          <span className="mast__call-short">Call</span>
+        </a>
+
+        <button
+          ref={toggleRef}
+          type="button"
+          className="mast__toggle"
+          aria-expanded={open}
+          aria-controls={panelId}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span className="mast__toggle-line" />
+          <span className="mast__toggle-line" />
+          <span className="mast__toggle-word" aria-hidden="true">
+            {open ? 'Close' : 'Menu'}
+          </span>
+        </button>
       </div>
 
       <div
         id={panelId}
         ref={panelRef}
-        className="nav__panel"
+        className="mast__panel"
         role="dialog"
         aria-modal="true"
         aria-label="Site menu"
@@ -166,22 +157,25 @@ export function Nav() {
                   ref={i === 0 ? firstLinkRef : undefined}
                   onClick={() => setOpen(false)}
                 >
-                  <span className="nav__panel-index">0{i + 1}</span>
-                  {l.label}
+                  <span className="mast__panel-label">{l.label}</span>
+                  <span className="mast__panel-note tech">{l.note}</span>
                 </a>
               </li>
             ))}
           </ul>
         </nav>
-        <div className="nav__panel-foot">
+        <div className="mast__panel-foot">
           <a className="btn btn--oxide btn--lg" href={business.phone.href}>
             <PhoneGlyph />
             Call {business.phone.display}
           </a>
+          <a className="btn btn--outline btn--lg" href="#estimate" onClick={() => setOpen(false)}>
+            Request an estimate
+          </a>
           <p>
             {business.address.full}
             <br />
-            Mon–Fri 8–6 · Sat 8–3 · Sun closed
+            Mon–Fri 8–6 · Sat 8–3 · Sun closed · Se habla español
           </p>
         </div>
       </div>

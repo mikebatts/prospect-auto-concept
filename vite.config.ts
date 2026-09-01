@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// Deployed to GitHub Pages under https://<owner>.github.io/prospect-auto-concept/
+// Version B is deployed beside the original concept for direct comparison.
 export default defineConfig({
-  base: '/prospect-auto-concept/',
+  base: '/prospect-auto-concept/alt-fable-51/',
   plugins: [react()],
   build: {
     target: 'es2022',

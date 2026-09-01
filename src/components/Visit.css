@@ -1,42 +1,39 @@
 .visit {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.25rem;
   align-content: start;
 }
 
 .visit__title {
-  font-size: clamp(2.4rem, 5vw, 4.5rem);
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(2.4rem, 4.6vw, 4.25rem);
+  letter-spacing: -0.025em;
+  line-height: 1;
 }
 
 .visit__facts {
-  margin: 1rem 0 0;
+  margin: 1.25rem 0 0;
   display: grid;
   gap: 0;
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid var(--lacquer);
 }
 
 .visit__fact {
   display: grid;
   gap: 0.5rem;
-  padding: 1.5rem 0;
+  padding: 1.35rem 0;
   border-bottom: 1px solid var(--rule);
 }
 
 @media (min-width: 40rem) {
   .visit__fact {
-    grid-template-columns: 7rem minmax(0, 1fr);
+    grid-template-columns: 6rem minmax(0, 1fr);
     gap: 1.5rem;
   }
 }
 
 .visit__fact dt {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: var(--fg-muted);
   padding-top: 0.5rem;
 }
@@ -45,6 +42,7 @@
   margin: 0;
   display: grid;
   gap: 0.6rem;
+  min-width: 0;
 }
 
 .visit__big {
@@ -55,6 +53,7 @@
   letter-spacing: -0.02em;
   text-decoration: none;
   width: fit-content;
+  transition: color 200ms var(--ease-out);
 }
 
 .visit__big:hover {
@@ -67,21 +66,9 @@
   font-style: italic;
 }
 
-.visit__link {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.95rem;
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
-  width: fit-content;
-}
-
-.visit__link:hover {
-  color: var(--oxide-2);
-}
-
 .visit__email {
   overflow-wrap: anywhere;
+  max-width: 100%;
 }
 
 .visit__hours {
@@ -97,6 +84,11 @@
   padding: 0.4rem 0;
   text-align: left;
   vertical-align: baseline;
+}
+
+.visit__hours tr + tr th,
+.visit__hours tr + tr td {
+  border-top: 1px solid var(--rule);
 }
 
 .visit__hours th {

@@ -1,8 +1,10 @@
+/* A narrow ruled tape between the hero sheet and the service ledger. */
 .marquee {
   position: relative;
-  background: var(--ivory);
-  color: var(--lacquer);
-  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--graphite);
+  border-top: 1px solid var(--lacquer);
+  border-bottom: 1px solid var(--lacquer);
   overflow: hidden;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -22,18 +24,17 @@
 
 .marquee__viewport {
   overflow: hidden;
-  padding-block: 1.1rem;
-  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  padding-block: 0.85rem;
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
 }
 
 .marquee__track {
   display: flex;
   width: max-content;
-  animation: marquee 42s linear infinite;
+  animation: marquee 46s linear infinite;
 }
 
-/* Hover, keyboard focus anywhere in the rail, or the explicit control all hold the rail. */
 .marquee:hover .marquee__track,
 .marquee:focus-within .marquee__track,
 .marquee[data-paused] .marquee__track {
@@ -48,25 +49,44 @@
 .marquee__item {
   display: inline-flex;
   align-items: center;
-  gap: 2.25rem;
-  padding-right: 2.25rem;
+  gap: 2rem;
+  padding-right: 2rem;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1rem, 1.6vw, 1.35rem);
-  letter-spacing: 0.06em;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
+/* Registration tick between entries. */
 .marquee__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+  position: relative;
+  width: 9px;
+  height: 9px;
+}
+
+.marquee__dot::before,
+.marquee__dot::after {
+  content: '';
+  position: absolute;
   background: var(--oxide);
 }
 
-/* Motion control: a slim end-cap on the rail, set in the same display type as
-   the ticker so it reads as part of the instrument rather than a widget. */
+.marquee__dot::before {
+  left: 0;
+  right: 0;
+  top: 4px;
+  height: 1px;
+}
+
+.marquee__dot::after {
+  top: 0;
+  bottom: 0;
+  left: 4px;
+  width: 1px;
+}
+
 .marquee__control {
   display: inline-flex;
   align-items: center;
@@ -75,17 +95,18 @@
   margin: 0;
   padding: 0 clamp(1rem, 2.5vw, 1.75rem);
   border: 0;
-  border-left: 1px solid var(--rule);
+  border-left: 1px solid var(--lacquer);
   border-radius: 0;
-  background: var(--ivory);
+  background: var(--paper);
   color: var(--graphite-2);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
+  min-width: 3.25rem;
   transition:
     color 200ms var(--ease-out),
     background-color 200ms var(--ease-out);
@@ -94,8 +115,8 @@
 .marquee__control-glyph {
   display: inline-grid;
   place-items: center;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.4rem;
+  height: 1.4rem;
   border: 1px solid currentColor;
   border-radius: 50%;
   transition: border-color 200ms var(--ease-out);
@@ -107,7 +128,7 @@
 
 .marquee__control:hover {
   color: var(--lacquer);
-  background: var(--ivory-2);
+  background: var(--paper-2);
 }
 
 .marquee__control:focus-visible {
