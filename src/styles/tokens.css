@@ -1,27 +1,29 @@
 :root {
-  /* Palette — Brooklyn precision garage */
-  --ivory: #f3eee4;
-  --ivory-2: #eae3d5;
-  --ivory-3: #ddd5c4;
+  /* Palette — Brooklyn night shift. Off-black surfaces, warm ivory type, one oxide accent. */
   --lacquer: #0f0e0c;
-  --lacquer-2: #171613;
-  --graphite: #2a2926;
-  --graphite-2: #57544e;
-  --metal: #8f8b83;
-  --metal-2: #b7b2a8;
-  --oxide: #8a3b2e;
-  --oxide-2: #a6402f;
-  --oxide-light: #c56b58; /* oxide lifted for text on lacquer (≥4.5:1) */
+  --lacquer-2: #141311;
+  --charcoal: #1a1815;
+  --charcoal-2: #221f1b;
+  --graphite: #2e2b26;
+  --ivory: #f3eee4;
+  --ivory-2: #e6dfd1;
+  --metal: #a29d93;
+  --metal-2: #c2bcb0;
+  --oxide: #a6402f;
+  --oxide-deep: #8a3b2e;
+  --oxide-light: #d0725f; /* oxide lifted for small text on lacquer (>= 4.5:1) */
 
   /* Semantic */
-  --bg: var(--ivory);
-  --fg: var(--lacquer);
-  --fg-muted: var(--graphite-2);
-  --rule: rgb(15 14 12 / 0.16);
-  --rule-strong: rgb(15 14 12 / 0.4);
-  --rule-on-dark: rgb(243 238 228 / 0.18);
-  --focus: var(--oxide-2);
-  --tap-highlight: rgb(138 59 46 / 0.18);
+  --bg: var(--lacquer);
+  --bg-2: var(--lacquer-2);
+  --bg-3: var(--charcoal);
+  --fg: var(--ivory);
+  --fg-muted: var(--metal-2);
+  --fg-soft: rgb(243 238 228 / 0.72);
+  --rule: rgb(243 238 228 / 0.14);
+  --rule-strong: rgb(243 238 228 / 0.38);
+  --focus: var(--oxide-light);
+  --tap-highlight: rgb(166 64 47 / 0.22);
 
   /* Type */
   --font-display: 'Cabinet Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -32,7 +34,14 @@
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
   --nav-h: 4.5rem;
   --anchor-offset: calc(var(--nav-h) + 1rem);
-  --section-y: clamp(5rem, 12vw, 10rem);
+  --section-y: clamp(6rem, 14vw, 12rem);
+  --callbar-h: 3.75rem;
+
+  /* Z scale */
+  --z-callbar: 90;
+  --z-nav: 100;
+  --z-skip: 1000;
+  --z-grain: 2000;
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

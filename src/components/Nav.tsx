@@ -5,31 +5,30 @@ import './Nav.css'
 const links = [
   { href: '#services', label: 'Services' },
   { href: '#standards', label: 'Standards' },
-  { href: '#reviews', label: 'Reviews' },
   { href: '#visit', label: 'Visit' },
+  { href: '#schedule', label: 'Schedule' },
 ]
 
-const ON_DARK_THRESHOLD = 24
+const SCROLLED_THRESHOLD = 32
 
 function subscribeScroll(callback: () => void) {
   window.addEventListener('scroll', callback, { passive: true })
   return () => window.removeEventListener('scroll', callback)
 }
 
-function getAtTop() {
-  return window.scrollY < ON_DARK_THRESHOLD
+function getScrolled() {
+  return window.scrollY > SCROLLED_THRESHOLD
 }
 
-function getServerAtTop() {
-  return true
+function getServerScrolled() {
+  return false
 }
 
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
 export function Nav() {
   const [open, setOpen] = useState(false)
-  // Light-on-dark only while the page sits at the very top, dark-on-ivory afterwards.
-  const atTop = useSyncExternalStore(subscribeScroll, getAtTop, getServerAtTop)
+  const scrolled = useSyncExternalStore(subscribeScroll, getScrolled, getServerScrolled)
   const panelId = useId()
   const toggleRef = useRef<HTMLButtonElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
@@ -85,11 +84,13 @@ export function Nav() {
     document.addEventListener('keydown', onKey)
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    document.documentElement.classList.add('menu-open')
     firstLinkRef.current?.focus()
 
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = prevOverflow
+      document.documentElement.classList.remove('menu-open')
       inertTargets.forEach((el, i) => {
         if (!wasInert[i]) el.removeAttribute('inert')
       })
@@ -107,9 +108,9 @@ export function Nav() {
   }, [])
 
   return (
-    <header className={`nav${atTop && !open ? ' nav--on-dark' : ''}${open ? ' nav--open' : ''}`}>
+    <header className={`nav${scrolled || open ? ' nav--solid' : ''}${open ? ' nav--open' : ''}`}>
       <div className="nav__bar" data-load>
-        <a className="nav__wordmark" href="#top">
+        <a className="nav__wordmark" href="#top" aria-label="Prospect Auto, back to top">
           <span className="nav__wordmark-main">Prospect Auto</span>
           <span className="nav__wordmark-sub">Repair &amp; Service · Brooklyn</span>
         </a>
@@ -126,7 +127,7 @@ export function Nav() {
 
         <div className="nav__actions">
           <a
-            className="btn btn--oxide nav__call"
+            className="btn nav__call"
             href={business.phone.href}
             aria-label={`Call the shop at ${business.phone.display}`}
           >
@@ -166,7 +167,6 @@ export function Nav() {
                   ref={i === 0 ? firstLinkRef : undefined}
                   onClick={() => setOpen(false)}
                 >
-                  <span className="nav__panel-index">0{i + 1}</span>
                   {l.label}
                 </a>
               </li>
@@ -181,7 +181,7 @@ export function Nav() {
           <p>
             {business.address.full}
             <br />
-            Mon–Fri 8–6 · Sat 8–3 · Sun closed
+            {business.hours.map((h) => h.short).join(' · ')}
           </p>
         </div>
       </div>
@@ -189,7 +189,7 @@ export function Nav() {
   )
 }
 
-function PhoneGlyph() {
+export function PhoneGlyph() {
   return (
     <svg
       width="14"

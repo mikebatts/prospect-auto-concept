@@ -1,0 +1,261 @@
+.schedule {
+  position: relative;
+  background: var(--bg-3);
+  overflow: hidden;
+}
+
+/* Warm light from the upper left, and a single oxide hairline across the top. */
+.schedule::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 45% 40% at 8% 0%,
+    rgb(214 160 96 / 0.14) 0%,
+    rgb(214 160 96 / 0) 70%
+  );
+}
+
+.schedule::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--oxide);
+}
+
+.schedule__grid {
+  position: relative;
+  display: grid;
+  gap: clamp(3rem, 6vw, 5rem);
+}
+
+@media (min-width: 60rem) {
+  .schedule__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: start;
+  }
+}
+
+.schedule__intro {
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+}
+
+.schedule__intro h2 {
+  font-size: clamp(2.3rem, 4vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  max-width: 10em;
+}
+
+.schedule__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: fit-content;
+  margin-top: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 3.2vw, 3rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
+  transition: color 200ms var(--ease-out);
+}
+
+.schedule__phone svg {
+  width: 0.55em;
+  height: 0.55em;
+}
+
+.schedule__phone:hover {
+  color: var(--oxide-light);
+}
+
+.schedule__hours {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+}
+
+.schedule__form {
+  display: grid;
+  gap: 1.5rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+}
+
+.schedule__demo {
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--fg-muted);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.schedule__summary {
+  font-family: var(--font-display);
+  font-weight: 700;
+  padding: 0.9rem 1.1rem;
+  border-left: 2px solid var(--oxide-light);
+  background: rgb(166 64 47 / 0.12);
+}
+
+.schedule__row {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 40rem) {
+  .schedule__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.field {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.field label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.field__optional {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: var(--fg-muted);
+  letter-spacing: 0;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.85rem 1rem;
+  background: rgb(243 238 228 / 0.04);
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  color: var(--ivory);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1rem;
+  transition:
+    border-color 200ms var(--ease-out),
+    background-color 200ms var(--ease-out);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgb(243 238 228 / 0.42);
+}
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+  border-color: rgb(243 238 228 / 0.6);
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-color: var(--focus);
+  background: rgb(243 238 228 / 0.07);
+}
+
+.field select {
+  appearance: none;
+  background-color: var(--lacquer-2);
+  color-scheme: dark;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23C2BCB0' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.75rem;
+}
+
+.field select option {
+  color: var(--lacquer);
+  background: var(--ivory);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.field.is-invalid input,
+.field.is-invalid select,
+.field.is-invalid textarea {
+  border-color: var(--oxide-light);
+}
+
+.field__error {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--oxide-light);
+}
+
+.schedule__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem 1.5rem;
+  padding-top: 0.5rem;
+}
+
+@media (max-width: 30rem) {
+  .schedule__actions .btn {
+    width: 100%;
+  }
+}
+
+/* Success state replaces the form at the same footprint. */
+.schedule__done {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--oxide);
+}
+
+.schedule__done h3 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  letter-spacing: -0.03em;
+}
+
+.schedule__done p:not(.kicker) {
+  color: var(--fg-soft);
+  max-width: 34rem;
+  text-wrap: pretty;
+}
+
+.schedule__done-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+}

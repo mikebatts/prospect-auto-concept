@@ -1,0 +1,76 @@
+.callbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-callbar);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  background: rgb(15 14 12 / 0.96);
+  border-top: 1px solid var(--rule);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  transform: translateY(100%);
+  visibility: hidden;
+  transition:
+    transform 320ms var(--ease-out),
+    visibility 0s linear 320ms;
+}
+
+.callbar.is-visible {
+  transform: none;
+  visibility: visible;
+  transition:
+    transform 320ms var(--ease-out),
+    visibility 0s;
+}
+
+@media (min-width: 60rem) {
+  .callbar {
+    display: none;
+  }
+}
+
+/* Never sit on top of the open menu. */
+html.menu-open .callbar {
+  visibility: hidden;
+}
+
+.callbar__call,
+.callbar__schedule {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: var(--callbar-h);
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.callbar__call {
+  background: var(--oxide);
+  color: var(--ivory);
+}
+
+.callbar__call:active {
+  background: #b4472f;
+}
+
+.callbar__schedule {
+  color: var(--ivory);
+  border-left: 1px solid var(--rule);
+}
+
+.callbar__call:focus-visible,
+.callbar__schedule:focus-visible {
+  outline-offset: -4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .callbar {
+    transition: none;
+  }
+}

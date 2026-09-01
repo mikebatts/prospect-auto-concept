@@ -9,6 +9,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--anchor-offset);
   overflow-x: clip;
+  background: var(--bg);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -31,16 +32,16 @@ body {
   position: relative;
 }
 
-/* Restrained grain over the whole page */
+/* Restrained film grain over the whole page. No blend mode: a fixed, low-alpha
+   noise layer is cheaper to composite than a blended one. */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 2147483000;
-  opacity: 0.045;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: var(--z-grain);
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 img,
@@ -84,25 +85,18 @@ button {
   cursor: pointer;
 }
 
-/* Touch: no double-tap zoom delay on controls, and a deliberate oxide tap flash
-   instead of the browser's default grey. */
 a,
 button,
 input,
 select,
 textarea,
-summary,
 [role='button'] {
   touch-action: manipulation;
   -webkit-tap-highlight-color: var(--tap-highlight);
 }
 
-/* In-page anchors land below the fixed nav with the same breathing room. */
-#services,
-#standards,
-#reviews,
-#visit,
-#estimate {
+/* In-page anchors land below the fixed nav with breathing room. */
+[id] {
   scroll-margin-top: var(--anchor-offset);
 }
 
@@ -126,69 +120,27 @@ summary,
   padding-block: var(--section-y);
 }
 
-.section--dark {
-  background: var(--lacquer);
-  color: var(--ivory);
-  --rule: var(--rule-on-dark);
-  --fg-muted: var(--metal-2);
-}
-
-.eyebrow {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+/* Small editorial label: lowercase italic serif, never a numbered meta-label. */
+.kicker {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.3;
   color: var(--fg-muted);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
   margin: 0 0 1.25rem;
 }
 
-.eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 2rem;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.6;
-}
-
-.eyebrow--oxide {
-  color: var(--oxide);
-}
-
-/* On lacquer the base oxide falls short of 4.5:1; lift it. */
-.section--dark .eyebrow--oxide {
+.kicker--oxide {
   color: var(--oxide-light);
 }
 
-.section-head {
-  display: grid;
-  gap: 1.25rem 3rem;
-  grid-template-columns: 1fr;
-  align-items: end;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--rule);
-  margin-bottom: clamp(2rem, 5vw, 4rem);
-}
-
-@media (min-width: 60rem) {
-  .section-head {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  }
-}
-
-.section-head h2 {
-  font-size: clamp(2rem, 4.2vw, 3.75rem);
-  font-weight: 700;
-}
-
-.section-head p {
+.lede {
+  font-size: clamp(1.125rem, 1.4vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--fg-soft);
   max-width: 34rem;
-  color: var(--fg-muted);
-  font-size: 1.125rem;
+  text-wrap: pretty;
 }
 
 .rule {
@@ -197,17 +149,37 @@ summary,
   margin: 0;
 }
 
+/* Text link with hairline */
+.link {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 0.15rem;
+  width: fit-content;
+  transition:
+    color 200ms var(--ease-out),
+    border-color 200ms var(--ease-out);
+}
+
+.link:hover {
+  color: var(--oxide-light);
+  border-color: currentColor;
+}
+
 /* Buttons */
 .btn {
-  --btn-bg: var(--lacquer);
-  --btn-fg: var(--ivory);
-  --btn-bd: var(--lacquer);
+  --btn-bg: var(--ivory);
+  --btn-fg: var(--lacquer);
+  --btn-bd: var(--ivory);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
   min-height: 3.25rem;
-  padding: 0.85rem 1.5rem;
+  padding: 0.85rem 1.6rem;
   border: 1px solid var(--btn-bd);
   border-radius: 2px;
   background: var(--btn-bg);
@@ -220,15 +192,15 @@ summary,
   text-decoration: none;
   white-space: nowrap;
   transition:
-    background-color 200ms var(--ease-out),
-    color 200ms var(--ease-out),
-    border-color 200ms var(--ease-out),
-    transform 200ms var(--ease-out);
+    background-color 220ms var(--ease-out),
+    color 220ms var(--ease-out),
+    border-color 220ms var(--ease-out),
+    transform 220ms var(--ease-out);
 }
 
 .btn:hover {
-  --btn-bg: var(--graphite);
-  --btn-bd: var(--graphite);
+  --btn-bg: #fff;
+  --btn-bd: #fff;
 }
 
 .btn:active {
@@ -242,53 +214,38 @@ summary,
 }
 
 .btn--oxide:hover {
-  --btn-bg: var(--oxide-2);
-  --btn-bd: var(--oxide-2);
-}
-
-.btn--ivory {
-  --btn-bg: var(--ivory);
-  --btn-bd: var(--ivory);
-  --btn-fg: var(--lacquer);
-}
-
-.btn--ivory:hover {
-  --btn-bg: #fff;
-  --btn-bd: #fff;
+  --btn-bg: #b4472f;
+  --btn-bd: #b4472f;
 }
 
 .btn--ghost {
   --btn-bg: transparent;
-  --btn-fg: currentColor;
-  --btn-bd: currentColor;
-}
-
-.btn--ghost:hover {
-  --btn-bg: rgb(255 255 255 / 0.08);
-  --btn-bd: currentColor;
-}
-
-.btn--ghost-dark {
-  --btn-bg: transparent;
-  --btn-fg: var(--lacquer);
+  --btn-fg: var(--ivory);
   --btn-bd: var(--rule-strong);
 }
 
-.btn--ghost-dark:hover {
-  --btn-bg: transparent;
-  --btn-bd: var(--lacquer);
+.btn--ghost:hover {
+  --btn-bg: rgb(243 238 228 / 0.08);
+  --btn-bd: var(--ivory);
 }
 
 .btn--lg {
   min-height: 3.75rem;
-  padding: 1rem 2rem;
+  padding: 1rem 2.1rem;
   font-size: 1.05rem;
+}
+
+.btn:focus-visible {
+  outline-offset: 4px;
 }
 
 /* Page-load choreography: hide only when JS is present and motion is allowed.
    GSAP reveals these and removes the class; no JS or reduced motion = visible. */
 @media (prefers-reduced-motion: no-preference) {
   html.js:not(.loaded) [data-load] {
+    opacity: 0;
+  }
+  html.js [data-reveal]:not(.is-in) {
     opacity: 0;
   }
 }

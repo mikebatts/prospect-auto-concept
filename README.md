@@ -1,15 +1,15 @@
-# Prospect Auto concept preview
+# Prospect Auto concept preview — final cinematic pass
 
-A bespoke, mobile-first website concept for Prospect Auto Repair & Service in Brooklyn. The design combines an editorial automotive art direction with practical conversion paths for estimates, calls, directions, and service discovery.
+A bespoke, mobile-first website concept for Prospect Auto Repair & Service in Brooklyn. Off-black garage at night, warm ivory type, one oxide accent, and a single pinned scroll chapter built from the concept imagery.
 
-This is an independent, unsolicited concept by [Mike Battaglia](https://mikebatts.net/). It is not the official Prospect Auto website and is intentionally excluded from search indexing.
+This is an independent, unsolicited concept by [Mike Battaglia](https://mikebatts.net/). It is not the official Prospect Auto website and is intentionally excluded from search indexing. Imagery is generated concept art and does not show the actual shop.
 
 ## Stack
 
 - Vite, React 19, and TypeScript
 - GSAP, ScrollTrigger, and `@gsap/react`
-- Custom Higgsfield-generated concept imagery
-- Static GitHub Pages deployment
+- Vanilla CSS with Cabinet Grotesk and Newsreader
+- Static GitHub Pages deployment under `/prospect-auto-concept/final/`
 
 ## Local development
 
@@ -21,10 +21,10 @@ npm run dev
 ## Quality checks
 
 ```bash
-npm run format:check
+npm run format
 npm run typecheck
 npm run lint
 npm run build
 ```
 
-The estimate form is a non-submitting demonstration. It does not transmit or store visitor data.
+The schedule-service form is a non-submitting demonstration. It validates locally and does not transmit or store visitor data. See `FINAL_DESIGN_NOTES.md` for the design plan, audit, and verification record.
