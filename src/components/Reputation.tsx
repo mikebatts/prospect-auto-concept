@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { assetUrl, business } from '../lib/business'
+import { business } from '../lib/business'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { Rise } from './Rise'
 import './Reputation.css'
@@ -73,20 +73,14 @@ export function Reputation() {
           <p className="kicker" data-reveal>
             Reviews, address and hours
           </p>
+          {/* Three sentences, three lines. The breaks are set here, not left
+              to the measure, so the stack reads the same at every width. */}
           <Rise as="h2" id="visit-title">
-            {/* The aperture is aria-hidden; the accessible name is the sentence alone. */}
-            {'Fair prices. Clear explanations.'}
-            <span className="rep__aperture" aria-hidden="true">
-              <img
-                src={assetUrl('prospect-storefront-desktop-1440.webp')}
-                width={1440}
-                height={814}
-                alt=""
-                loading="lazy"
-                decoding="async"
-              />
-            </span>
-            {'Work done right.'}
+            Fair prices.
+            <br />
+            Clear explanations.
+            <br />
+            Work done right.
           </Rise>
         </div>
 

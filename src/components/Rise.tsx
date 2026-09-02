@@ -1,4 +1,4 @@
-import { Children, useRef, type ReactNode } from 'react'
+import { Children, isValidElement, useRef, type ReactNode } from 'react'
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
 import { RISE_FROM, riseLines } from '../lib/motion'
 import { useReducedMotion } from '../lib/useReducedMotion'
@@ -25,8 +25,10 @@ type Props = {
  * Words are wrapped in overflow-hidden masks at render time, so React owns
  * the structure and nothing is split in the DOM afterwards. At animation
  * time the words are grouped by their rendered line and each line rises as
- * one group. Screen readers get the plain sentence; the masked words are
- * hidden from the accessibility tree so nothing is read word by word.
+ * one group. A `<br />` child passes through unmasked, so a heading can set
+ * its own line breaks and each of those lines rises on its own beat. Screen
+ * readers get the plain sentence; the masked words are hidden from the
+ * accessibility tree so nothing is read word by word.
  *
  * Reduced motion renders plain text and never animates.
  */
@@ -81,6 +83,10 @@ export function Rise({
 
   const nodes: ReactNode[] = []
   parts.forEach((part, pi) => {
+    if (isValidElement(part) && part.type === 'br') {
+      nodes.push(<br key={`br-${pi}`} />)
+      return
+    }
     if (typeof part === 'string' || typeof part === 'number') {
       String(part)
         .split(/\s+/)

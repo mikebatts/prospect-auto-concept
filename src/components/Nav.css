@@ -38,6 +38,22 @@
   opacity: 0;
 }
 
+/* Phones and tablets: one opaque physical layer from first paint. No shade,
+   no fade, no surface change on scroll, so iOS Safari never shows the page
+   moving through the bar while a transition catches up. The hero starts
+   beneath this surface (Hero.css) rather than sliding under it. */
+@media (max-width: 59.99rem) {
+  .nav {
+    background-color: var(--lacquer);
+    border-bottom-color: var(--rule);
+    transition: none;
+  }
+
+  .nav::before {
+    display: none;
+  }
+}
+
 .nav__bar {
   width: min(100% - 2 * var(--gutter), var(--container));
   margin-inline: auto;

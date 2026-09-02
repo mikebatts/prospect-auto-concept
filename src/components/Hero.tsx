@@ -39,12 +39,14 @@ export function Hero() {
 
   // As the hero leaves, the frame drifts and dims: subtle in portrait where
   // the frame is a short panel, a touch deeper in the wide landscape stage.
+  // Fine pointers only: on touch devices the frame sits still under native
+  // scrolling, so nothing scrubs against Safari's collapsing chrome.
   useGSAP(
     () => {
       if (reduced) return
       const mm = gsap.matchMedia()
 
-      mm.add('(orientation: portrait)', () => {
+      mm.add('(orientation: portrait) and (pointer: fine)', () => {
         gsap.to('.hero__img', {
           yPercent: -6,
           scale: 1.04,
@@ -58,7 +60,7 @@ export function Hero() {
         })
       })
 
-      mm.add('(orientation: landscape)', () => {
+      mm.add('(orientation: landscape) and (pointer: fine)', () => {
         gsap.to('.hero__img', {
           yPercent: 8,
           scale: 1.05,

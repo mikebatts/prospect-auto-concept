@@ -9,7 +9,7 @@
   z-index: var(--z-callbar);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  background: rgb(15 14 12 / 0.96);
+  background: var(--lacquer);
   border-top: 1px solid var(--rule);
   padding-bottom: var(--safe-bottom);
   padding-inline: var(--safe-left) var(--safe-right);

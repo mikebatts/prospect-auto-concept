@@ -274,11 +274,63 @@ a.hero__meta-item:hover {
   }
 }
 
+/* ---------- Phones and tablets: the frame begins beneath the nav ----------
+   The nav is an opaque physical layer at these widths (Nav.css), so the hero
+   reserves its height instead of sliding under it. The frame starts at the
+   nav's lower edge and the top shade that once let the wordmark read over
+   the sky is gone: nothing sits over the image any more. */
+@media (max-width: 59.99rem) {
+  .hero {
+    padding-top: var(--nav-total);
+  }
+
+  @media (orientation: portrait) {
+    /* A little shorter than before: the nav's height now comes off the
+       stage, and the sign and the bay threshold both stay in the crop. */
+    .hero__media {
+      height: clamp(19rem, 50svh, 34rem);
+    }
+
+    .hero__wash {
+      background: linear-gradient(
+        to bottom,
+        rgb(15 14 12 / 0) 0%,
+        rgb(15 14 12 / 0) 60%,
+        rgb(15 14 12 / 0.5) 80%,
+        rgb(15 14 12 / 0.92) 94%,
+        var(--lacquer) 100%
+      );
+    }
+  }
+
+  @media (orientation: landscape) {
+    .hero__media {
+      inset: var(--nav-total) 0 0 0;
+    }
+
+    .hero__wash {
+      background:
+        linear-gradient(
+          to right,
+          rgb(15 14 12 / 0.8) 0%,
+          rgb(15 14 12 / 0.6) 28%,
+          rgb(15 14 12 / 0.22) 50%,
+          rgb(15 14 12 / 0) 66%
+        ),
+        linear-gradient(to bottom, rgb(15 14 12 / 0) 70%, rgb(15 14 12 / 0.76) 100%);
+    }
+
+    .hero__inner {
+      padding-top: clamp(2rem, 6vh, 5rem);
+    }
+  }
+}
+
 /* Short landscape (a phone on its side): compact type, no tall stage. */
 @media (orientation: landscape) and (max-height: 30rem) {
   .hero__inner {
     gap: 0.9rem;
-    padding-top: calc(var(--nav-total) + 1rem);
+    padding-top: 1rem;
     padding-bottom: 1.25rem;
     padding-left: var(--safe-left);
   }
