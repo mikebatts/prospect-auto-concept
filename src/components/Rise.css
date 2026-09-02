@@ -1,0 +1,18 @@
+/*
+ * Masked line rise. The mask is padded past the line box so ascenders,
+ * descenders and the trailing negative letter-spacing are never clipped at
+ * rest; the negative margins return the padding so layout is unchanged.
+ * `vertical-align: top` keeps every mask on the same line box (an inline-block
+ * with hidden overflow would otherwise sit on its bottom edge).
+ */
+.rise__w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.1em 0.06em 0.18em;
+  margin: -0.1em -0.06em -0.18em;
+}
+
+.rise__i {
+  display: inline-block;
+}

@@ -24,7 +24,10 @@
 }
 
 .footer__brand a {
+  display: inline-block;
   text-decoration: none;
+  padding-block: 0.45rem;
+  margin-block: -0.45rem;
 }
 
 .footer__brand a:hover {
@@ -83,7 +86,7 @@
 .footer__nav a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.75rem;
+  min-height: var(--tap);
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1rem;
@@ -159,13 +162,18 @@
 
 .footer__bar {
   border-top: 1px solid var(--rule);
-  padding-block: 1.75rem calc(2rem + env(safe-area-inset-bottom, 0px));
+  padding-block: 1.75rem calc(2rem + var(--safe-bottom));
+}
+
+.footer__grid,
+.footer__bar-inner {
+  padding-inline: var(--safe-left) var(--safe-right);
 }
 
 @media (max-width: 59.99rem) {
   /* Room for the mobile call bar when it is showing. */
   .footer__bar {
-    padding-bottom: calc(var(--callbar-h) + 2rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(var(--callbar-h) + 2rem + var(--safe-bottom));
   }
 }
 

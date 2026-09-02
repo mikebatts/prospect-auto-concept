@@ -8,8 +8,14 @@
   position: relative;
 }
 
+/* ---------- Base: three static chapters in reading order ----------
+   This is what short viewports, reduced motion and no-JS get. The sticky
+   film chapters and the pinned stage build on top of it in media blocks. */
 .story__chapter {
   position: relative;
+  display: grid;
+  align-content: end;
+  min-height: 70svh;
   background: var(--bg-2);
   overflow: hidden;
   isolation: isolate;
@@ -29,37 +35,32 @@
   height: 100%;
   object-fit: cover;
   transform-origin: 50% 50%;
-  will-change: transform, opacity;
 }
 
-/* Workshop (16:9). Portrait frames show under half its width, so the crop
-   favours the lifted car, blue post and red stripe on the right. */
+/* Diagnostic close-up (4:3). Portrait frames hold the scanner and the hands. */
 .story__img--1 {
-  object-position: 80% 45%;
+  object-position: 52% 50%;
 }
 
-/* Alignment rack (4:3). Portrait frames centre on the sedan. */
+/* Alignment rack (3:4). A portrait frame for a portrait stage. */
 .story__img--2 {
-  object-position: 56% 50%;
+  object-position: 50% 50%;
 }
 
-/* The same rack, a different crop: the lift post, orange machine and ramps
-   along the left wall. On portrait phones the two crops do not overlap. */
+/* Workshop (16:9), the left wall: the sedan on the lift and the red shelving.
+   The service opener uses the right side of the same room; the two crops do
+   not overlap. */
 .story__img--3 {
-  object-position: 8% 58%;
+  object-position: 26% 50%;
 }
 
 @media (min-width: 48rem) {
   .story__img--1 {
-    object-position: 60% 50%;
-  }
-
-  .story__img--2 {
-    object-position: 50% 62%;
+    object-position: 50% 50%;
   }
 
   .story__img--3 {
-    object-position: 15% 60%;
+    object-position: 30% 50%;
   }
 }
 
@@ -71,10 +72,10 @@
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgb(20 19 17 / 0.42) 0%,
-    rgb(20 19 17 / 0.05) 20%,
-    rgb(20 19 17 / 0.1) 38%,
-    rgb(20 19 17 / 0.62) 58%,
+    rgb(20 19 17 / 0.34) 0%,
+    rgb(20 19 17 / 0.04) 18%,
+    rgb(20 19 17 / 0.08) 38%,
+    rgb(20 19 17 / 0.58) 58%,
     rgb(20 19 17 / 0.9) 78%,
     rgb(20 19 17 / 0.96) 100%
   );
@@ -84,6 +85,13 @@
 .story__cap {
   position: relative;
   z-index: 1;
+  padding: clamp(6rem, 24svh, 12rem) var(--gutter)
+    calc(var(--callbar-h) + 1.75rem + var(--safe-bottom));
+}
+
+.story__cap-inner {
+  width: min(100%, var(--container));
+  margin-inline: auto;
 }
 
 .story__cap h3 {
@@ -96,7 +104,7 @@
   text-wrap: balance;
 }
 
-.story__cap p:last-of-type {
+.story__body {
   font-size: clamp(1.1rem, 1.35vw, 1.25rem);
   line-height: 1.5;
   color: rgb(243 238 228 / 0.88);
@@ -108,75 +116,69 @@
   margin-top: 1.75rem;
 }
 
-/* ---------- Film chapters: phones and tablets ---------- */
-@media (max-width: 59.99rem) {
-  /* The stage stays a plain block so it is the sticky containing block for
-     every chapter (a grid area would clamp each chapter to zero travel). */
-  .story__chapter {
-    display: grid;
-    align-content: end;
-    min-height: 100vh;
-    min-height: 100svh;
-  }
-
-  /* Each chapter pins at the top and is covered by the next one. */
-  .story:not(.is-static) .story__chapter {
-    position: sticky;
-    top: 0;
-  }
-
-  .story__cap {
-    /* Copy sits on the gradient floor, clear of the mobile call bar. */
-    padding: clamp(6rem, 24svh, 12rem) var(--gutter)
-      calc(var(--callbar-h) + 1.75rem + env(safe-area-inset-bottom, 0px));
-  }
-
-  .story__cap-inner {
-    width: min(100%, var(--container));
-  }
-
+@media (max-width: 30rem) {
   .story__cta {
     width: 100%;
     max-width: 22rem;
   }
 }
 
-@media (min-width: 30.01rem) and (max-width: 59.99rem) {
-  .story__cta {
-    width: auto;
-  }
-}
-
 @media (min-width: 48rem) and (max-width: 59.99rem) {
-  .story__cap {
-    padding-inline: calc((100% - min(100% - 2 * var(--gutter), var(--container))) / 2);
-  }
-
   .story__cap h3 {
     font-size: clamp(3rem, 6vw, 4rem);
   }
 }
 
-/* ---------- Static desktop (reduced motion): stacked, wide frames ---------- */
 @media (min-width: 60rem) {
-  .story.is-static .story__chapter {
-    display: grid;
-    align-content: end;
+  .story__chapter {
     min-height: 85vh;
+    min-height: 85svh;
   }
 
-  .story.is-static .story__cap {
+  .story__cap {
     padding: clamp(8rem, 20vh, 14rem) var(--gutter) clamp(3rem, 6vh, 5rem);
   }
+}
 
-  .story.is-static .story__cap-inner {
-    width: min(100%, var(--container));
-    margin-inline: auto;
+/* Short landscape: a band per chapter, nothing sticky, every stage escapable.
+   The floor is lighter because the whole band is the floor. */
+@media (max-height: 30rem) {
+  .story__chapter {
+    min-height: 0;
+  }
+
+  .story__frame::after {
+    background: linear-gradient(
+      to bottom,
+      rgb(20 19 17 / 0.2) 0%,
+      rgb(20 19 17 / 0.45) 50%,
+      rgb(20 19 17 / 0.82) 100%
+    );
+  }
+
+  .story__cap {
+    padding-top: 4.5rem;
+  }
+
+  .story__cap h3 {
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+  }
+}
+
+/* ---------- Film chapters: phones and tablets with motion ---------- */
+@media (max-width: 59.99rem) and (min-height: 30.01rem) {
+  .story:not(.is-static) .story__chapter {
+    min-height: 100vh;
+    min-height: 100svh;
+    /* Each chapter pins at the top and is covered by the next one. The stage
+       is a plain block, so it is the sticky containing block for all three. */
+    position: sticky;
+    top: 0;
   }
 }
 
 /* ---------- Pinned stage: desktop with motion allowed ---------- */
-@media (min-width: 60rem) {
+@media (min-width: 60rem) and (min-height: 30.01rem) {
   .story:not(.is-static) {
     height: 340vh;
   }
@@ -192,6 +194,7 @@
   .story:not(.is-static) .story__chapter {
     position: absolute;
     inset: 0;
+    min-height: 0;
     background: transparent;
     overflow: visible;
     isolation: auto;
@@ -199,17 +202,27 @@
 
   .story:not(.is-static) .story__frame::after {
     background:
-      linear-gradient(to top, rgb(15 14 12 / 0.82) 0%, rgb(15 14 12 / 0.25) 42%, transparent 65%),
-      linear-gradient(to right, rgb(15 14 12 / 0.4), transparent 55%);
+      linear-gradient(to top, rgb(15 14 12 / 0.78) 0%, rgb(15 14 12 / 0.22) 42%, transparent 65%),
+      linear-gradient(to right, rgb(15 14 12 / 0.36), transparent 55%);
   }
 
+  /* The alignment frame is a vertical panel in the right column; its own
+     aspect is close to 3:4 at 16:10, so the file is barely cropped. */
   .story:not(.is-static) .story__frame--2 {
+    left: 54%;
+    width: 46%;
     clip-path: inset(0 0 0 100%);
+    box-shadow: -24px 0 48px rgb(15 14 12 / 0.45);
   }
 
+  .story:not(.is-static) .story__frame--2::after {
+    background: linear-gradient(to top, rgb(15 14 12 / 0.3), transparent 40%);
+  }
+
+  /* The third chapter's frame belongs to the mobile film; the desktop cut
+     hands the alignment panel across instead. */
   .story:not(.is-static) .story__frame--3 {
-    clip-path: inset(0 50% 0 0);
-    opacity: 0;
+    display: none;
   }
 
   .story:not(.is-static) .story__cap {
@@ -219,7 +232,6 @@
     bottom: 0;
     padding: 0 var(--gutter) clamp(3rem, 8vh, 6rem);
     pointer-events: none;
-    opacity: 0;
   }
 
   .story:not(.is-static) .story__cap-inner {
@@ -229,10 +241,27 @@
     pointer-events: auto;
   }
 
+  /* Cut 2: the caption sits in the left column beside the panel. */
+  .story:not(.is-static) .story__cap--2 {
+    inset: 0;
+    display: grid;
+    grid-template-columns: 54% 46%;
+    align-items: end;
+    padding: 0 0 clamp(3rem, 8vh, 6rem);
+  }
+
+  .story:not(.is-static) .story__cap--2 .story__cap-inner {
+    grid-column: 1;
+    width: auto;
+    margin: 0;
+    padding-inline: var(--gutter) clamp(2rem, 4vw, 4rem);
+  }
+
+  /* Cut 3: the closing statement takes the right column once the panel has moved left. */
   .story:not(.is-static) .story__cap--3 {
     inset: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 46% 54%;
     align-items: center;
     padding: 0;
   }
@@ -246,11 +275,5 @@
 
   .story:not(.is-static) .story__cap--3 h3 {
     max-width: 11em;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .story__img {
-    will-change: auto;
   }
 }

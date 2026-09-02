@@ -22,30 +22,30 @@
   background: var(--bg-2);
 }
 
+/* Floor for the copy only; the room keeps its light. */
 .index__media::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgb(15 14 12 / 0.55) 0%,
-    rgb(15 14 12 / 0.12) 22%,
-    rgb(15 14 12 / 0.18) 46%,
-    rgb(15 14 12 / 0.76) 68%,
+    rgb(15 14 12 / 0.4) 0%,
+    rgb(15 14 12 / 0.06) 20%,
+    rgb(15 14 12 / 0.1) 46%,
+    rgb(15 14 12 / 0.7) 68%,
     rgb(15 14 12 / 0.96) 100%
   );
   pointer-events: none;
 }
 
-/* Portrait phones see roughly a third of the 16:9 bay; the crop holds the
-   lifted car, blue post and red stripe on the right. */
+/* Portrait phones see roughly a third of the 16:9 room; the crop holds the
+   lifted car, the blue post and the red cart on the right. */
 .index__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 76% 45%;
+  object-position: 76% 46%;
   transform-origin: 50% 40%;
-  will-change: transform;
 }
 
 .index__head {
@@ -68,7 +68,6 @@
   line-height: 0.96;
   max-width: 9em;
   margin-bottom: 0.9rem;
-  text-shadow: 0 2px 36px rgb(15 14 12 / 0.55);
 }
 
 .index__lede {
@@ -102,19 +101,26 @@
   display: none;
 }
 
-/* The reel rides up over the bay's lower edge: one continuous surface. */
+/*
+ * Edge-to-edge reel. Momentum scrolling and mandatory snap on the x axis;
+ * vertical panning is left to the page, so a thumb that starts on a panel
+ * still scrolls the document. The block padding keeps focus rings and the
+ * oxide rule inside the scroll box instead of clipped by it.
+ */
 .index__reel {
   list-style: none;
   margin: -2.75rem 0 0;
-  padding: 0 var(--gutter);
+  padding: 0.5rem calc(var(--gutter) + var(--safe-right)) 0.5rem
+    calc(var(--gutter) + var(--safe-left));
   display: flex;
   gap: 0.75rem;
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--gutter);
+  scroll-padding-inline: calc(var(--gutter) + var(--safe-left));
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
   scrollbar-width: none;
 }
 
@@ -201,7 +207,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  min-height: 2.75rem;
+  min-height: var(--tap);
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.9rem;
@@ -239,6 +245,17 @@
   }
 }
 
+/* Short landscape: the opener is a band, not a stage. */
+@media (max-height: 30rem) {
+  .index__opener {
+    min-height: 0;
+  }
+
+  .index__head {
+    padding-top: 4rem;
+  }
+}
+
 /* ---------- Desktop: a wide cinematic band, then six expanding panels ---------- */
 @media (min-width: 60rem) {
   .index__opener {
@@ -247,13 +264,13 @@
   }
 
   .index__img {
-    object-position: 60% 50%;
+    object-position: 55% 50%;
   }
 
   .index__media::after {
     background:
-      linear-gradient(to top, rgb(15 14 12 / 0.92) 0%, rgb(15 14 12 / 0.35) 40%, transparent 62%),
-      linear-gradient(to right, rgb(15 14 12 / 0.55), transparent 55%);
+      linear-gradient(to top, rgb(15 14 12 / 0.92) 0%, rgb(15 14 12 / 0.3) 40%, transparent 62%),
+      linear-gradient(to right, rgb(15 14 12 / 0.5), transparent 52%);
   }
 
   .index__head {
@@ -287,6 +304,7 @@
     gap: 0;
     overflow: visible;
     scroll-snap-type: none;
+    touch-action: auto;
     border-top: 1px solid var(--rule);
     border-bottom: 1px solid var(--rule);
   }
@@ -396,6 +414,20 @@
   }
 }
 
+/* Hover is a pointer affordance only. On touch every panel is fully open. */
+@media (min-width: 60rem) and (hover: none) {
+  .index__symptoms,
+  .index__go {
+    opacity: 1;
+    transform: none;
+  }
+
+  .index__reel:hover .index__panel:not(:hover),
+  .index__reel:focus-within .index__panel:not(:focus-within) {
+    opacity: 1;
+  }
+}
+
 @media (min-width: 80rem) {
   .index__link {
     padding: 2rem 1.6rem 1.75rem;
@@ -404,10 +436,6 @@
 
 /* ---------- Reduced motion: everything static and visible ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .index__img {
-    will-change: auto;
-  }
-
   .index__link,
   .index__link::before,
   .index__panel,

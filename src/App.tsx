@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { gsap, ScrollTrigger, useGSAP } from './lib/gsap'
+import { DUR, EASE } from './lib/motion'
 import { useReducedMotion } from './lib/useReducedMotion'
 import type { ServiceKey } from './lib/business'
 import { SkipLink } from './components/SkipLink'
@@ -19,9 +20,12 @@ export default function App() {
   const reduced = useReducedMotion()
   const [pick, setPick] = useState<Pick>(null)
 
-  // One page-load choreography (room, bar, then the hero's supporting lines),
-  // plus one restrained reveal for section openers. The H1 is the LCP element
-  // and is left out so it renders immediately.
+  // One page-load choreography (frame settles, bar, then the hero's supporting
+  // lines) plus one restrained reveal for kickers and ledes. The hero image is
+  // the LCP element: it is never faded and carries no [data-load] gate, so it
+  // paints at full opacity as soon as it decodes. Its entry is a transform-only
+  // scale settle, which does not delay first paint. Headings use the masked
+  // rise in Rise.tsx; photographic frames carry their own scrubs.
   useGSAP(
     () => {
       const root = document.documentElement
@@ -30,17 +34,14 @@ export default function App() {
         return
       }
       const tl = gsap.timeline({
-        defaults: { ease: 'power3.out' },
+        defaults: { ease: EASE },
         onComplete: () => {
           root.classList.add('loaded')
           gsap.set('[data-load]', { clearProps: 'opacity,transform' })
+          gsap.set('.hero__media', { clearProps: 'transform' })
         },
       })
-      tl.fromTo(
-        '.hero__media',
-        { opacity: 0, scale: 1.05 },
-        { opacity: 1, scale: 1, duration: 1.2 },
-      )
+      tl.fromTo('.hero__media', { scale: 1.04 }, { scale: 1, duration: DUR.settle })
         .fromTo('.nav__bar', { opacity: 0, y: -8 }, { opacity: 1, y: 0, duration: 0.5 }, 0.3)
         .fromTo(
           ['.hero__kicker', '.hero__copy', '.hero__actions', '.hero__meta'],
@@ -57,7 +58,15 @@ export default function App() {
           gsap.fromTo(
             els,
             { opacity: 0, y: 22 },
-            { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', overwrite: true },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.9,
+              stagger: 0.08,
+              delay: DUR.lag,
+              ease: EASE,
+              overwrite: true,
+            },
           )
         },
       })

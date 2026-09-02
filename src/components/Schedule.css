@@ -66,6 +66,7 @@
   align-items: center;
   gap: 0.75rem;
   width: fit-content;
+  min-height: var(--tap);
   margin-top: 0.25rem;
   font-family: var(--font-display);
   font-weight: 900;
@@ -275,7 +276,6 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 1.25rem 1.5rem;
-  padding-top: 0.75rem;
   border-top: 1px solid var(--rule-ink);
   margin-top: 0.25rem;
   padding-top: 1.75rem;
@@ -322,12 +322,12 @@
 }
 
 .schedule .link {
-  border-bottom-color: var(--rule-ink-strong);
+  text-decoration-color: var(--rule-ink-strong);
 }
 
 .schedule .link:hover {
   color: var(--oxide-deep);
-  border-color: currentColor;
+  text-decoration-color: currentColor;
 }
 
 /* Success state: the same sheet, stamped closed. */

@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
 import { business, services, type ServiceKey } from '../lib/business'
 import { PhoneGlyph } from './Nav'
+import { Rise } from './Rise'
 import './Schedule.css'
 
 type Pick = { key: ServiceKey; n: number } | null
@@ -127,10 +128,10 @@ export function Schedule({ pick }: Props) {
           <p className="kicker kicker--oxide" data-reveal>
             Appointments
           </p>
-          <h2 id="schedule-title" data-reveal>
+          <Rise as="h2" id="schedule-title">
             Tell us what’s going on.
-          </h2>
-          <p className="lede">
+          </Rise>
+          <p className="lede" data-reveal>
             Share the vehicle, the problem, and how to reach you. We’ll follow up during business
             hours. Need help sooner? Call the shop.
           </p>

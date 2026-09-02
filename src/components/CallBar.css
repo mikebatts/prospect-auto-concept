@@ -1,3 +1,6 @@
+/* Persistent mobile call bar. Sits above the home indicator via the bottom
+   safe area and inside the landscape ears via the side insets, so the two
+   targets are always reachable and never eat content. */
 .callbar {
   position: fixed;
   left: 0;
@@ -8,7 +11,8 @@
   grid-template-columns: minmax(0, 1fr) auto;
   background: rgb(15 14 12 / 0.96);
   border-top: 1px solid var(--rule);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-bottom: var(--safe-bottom);
+  padding-inline: var(--safe-left) var(--safe-right);
   transform: translateY(100%);
   visibility: hidden;
   transition:
@@ -76,6 +80,15 @@ html.menu-open .callbar {
     gap: 0.4rem;
     padding-inline: 0.7rem;
     font-size: 0.85rem;
+  }
+}
+
+/* Short landscape: a slimmer bar leaves more of the page visible. */
+@media (max-height: 30rem) {
+  .callbar__call,
+  .callbar__schedule {
+    min-height: var(--tap);
+    padding-block: 0.5rem;
   }
 }
 

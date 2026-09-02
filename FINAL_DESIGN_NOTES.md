@@ -265,3 +265,46 @@ Only Image Scale & Fade (hero, services opener, chapter images, covered chapters
 A separate review pass on the diff led to five fixes: the mobile story stage is a plain block (a grid area had clamped each sticky chapter to zero travel), the desktop panel dim is 0.72 so neighbouring detail copy stays above 4.5:1, paper placeholders are darker (4.6:1), both horizontal lists carry `role="list"` so WebKit keeps their semantics and label, and the form reads the service value from the DOM so a corrected select clears its error on the same interaction.
 
 Headless Chrome smoke check against `vite preview` (not device QA): Satoshi 500/700/900 loaded; H1 renders 3 lines at 320, 360, 390 and 430 (34.4 / 37.4 / 40.6 / 44.7 px); `scrollWidth === innerWidth` at all four widths, 820 and 1440; the services reel and review track scroll internally; empty submit shows the 4-field summary and focuses Name; a valid submit focuses the success group; the mobile menu opens with focus on the first link. Real devices, screen readers, reduced-motion emulation and cross-browser checks are left to the reviewer.
+
+## Commissioned-photo, iOS Safari and motion pass (September 1, 2026)
+
+The client asked for three things: a real iOS Safari pass, photos that read as one commissioned shoot of the actual shop, and richer but restrained scroll transitions. This section records the decisions.
+
+### Image mappings (five frames, one shoot)
+
+| Frame                    | File(s)                                            | Where                                                                                                                          | Crop notes                                                                                                                                                                                                                     |
+| ------------------------ | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Storefront, portrait 3:4 | `prospect-storefront-mobile(-640/-960/-1280).webp` | Hero in portrait viewports; inspection chapter in portrait                                                                     | Hero: `object-position: 50% 18%`, box `clamp(20rem, 54svh, 34rem)`, so the sign clears the nav and the whole bay sits above the fade. Inspection: oversized picture box windowed onto the yellow banner, the bay and the door. |
+| Storefront, wide 16:9    | `prospect-storefront-desktop(-1440).webp`          | Hero in landscape viewports; inspection chapter in landscape; review-headline aperture                                         | Hero: `82% 50%` (shop right, copy in the dark street). Aperture: `72% 12%` (the blue sign).                                                                                                                                    |
+| Workshop, wide 16:9      | `prospect-workshop-commissioned(-1440).webp`       | Service opener (right side: lifted SUV, blue post, red cart) and mobile chapter 3 (left side: red shelving, sedan on the lift) | The two crops do not overlap on portrait phones.                                                                                                                                                                               |
+| Diagnostic close-up 4:3  | `prospect-diagnostic-commissioned(-1440).webp`     | Chapter 1, “Take a look”                                                                                                       | Full bleed; portrait phones centre on the scanner and hands.                                                                                                                                                                   |
+| Alignment, portrait 3:4  | `prospect-alignment-commissioned(-960).webp`       | Chapter 2, “Explain”                                                                                                           | Full frame on phones (portrait stage). On desktop a 46% right-hand panel, which is almost exactly 3:4 at 16:10, then handed off to the left column for chapter 3.                                                              |
+
+The twelve earlier generic frames were deleted from `public/assets/` so nothing off-shoot ships. `source-assets/` stays git-ignored and out of the build. No overlays, duotones or per-section grading: every frame carries only the neutral lacquer floor its copy needs.
+
+### Hero
+
+A semantic `<picture>` keyed on `(orientation: portrait)`, with intrinsic `width`/`height` on both the `<source>` and the `<img>`, `sizes="100vw"`, `fetchPriority="high"`, eager loading. `index.html` preloads one candidate per orientation with the same `imagesrcset`/`imagesizes` and mutually exclusive `media`, so Safari fetches exactly one orientation-correct file (verified in the network log: one 200 for the hero, no duplicate). Portrait is a sign-to-bay diptych: frame on top, headline, copy and actions below on the wet street as it fades into lacquer; nothing sits over the sign or the open door. The kicker is dropped below tablet width because the sign already says it. Landscape is the wide street frame with copy on the left. The H1 is unchanged and renders immediately.
+
+### iOS Safari decisions
+
+- `100svh` is the baseline for every full-height stage (hero, film chapters, pinned stage, opener). `100vh` remains only as the fallback declaration before it. `dvh` is not used for compositions because it re-lays out as Safari's chrome collapses.
+- Safe areas are tokens (`--safe-top/right/bottom/left`) applied to the fixed nav (top and sides), the drawer, the call bar (bottom and sides), the reel's padding, the footer and the hero's trust row. `--anchor-offset` and `scroll-margin-top` include the top inset.
+- Body scroll lock for the menu pins `body` at the current offset (`position: fixed; top: -Y`) and restores it with `scrollTo({ behavior: 'instant' })`; `overflow: hidden` alone does not stop iOS from scrolling the page under the drawer.
+- No `background-attachment: fixed`. `overflow-x: clip` on `html` and `body` (clip, not hidden, so it never becomes a scroll container and sticky chapters keep working) plus `overscroll-behavior-x: none`.
+- Sticky film chapters and the pinned desktop stage only apply at `min-height: 30.01rem`. Short landscape viewports fall back to static bands, so no stage can trap scrolling; every stage is escapable with normal vertical scrolling.
+- The service reel and review track use `-webkit-overflow-scrolling: touch`, `scroll-snap-type: x mandatory`, `touch-action: pan-x pan-y`, block padding so focus rings are not clipped, and safe-area-aware inline padding.
+- Every target is at least 44 CSS px: buttons, nav wordmark, nav links, the text link class (padding with negative margin so the underline stays on the type), hero trust items, review controls, address and phone links, footer links. Form fields stay at `max(1rem, 16px)`, with `inputMode="tel"` and `autocomplete` on name and phone, and visible focus rings.
+- `-webkit-tap-highlight-color` is the oxide tint; `text-size-adjust: 100%`; `format-detection` off because every phone number is an explicit `tel:` link.
+- No permanent `will-change`. Images carry intrinsic dimensions and `img { height: auto }` reserves the box before decode.
+- The call bar hides over the schedule section, so no fixed element covers an active input when the keyboard opens.
+
+### Motion system
+
+One language in `src/lib/motion.ts`: `power3.out`, settle 1.1s, rise 0.95s, 0.09s between lines, copy lags its image by 0.12s. Transforms, opacity and clip-path only.
+
+- **Masked typography rise** (`Rise.tsx`): section headings are rendered as word masks by React (no DOM splitting), grouped by rendered line at animation time, and each line rises as a group. Screen readers get the plain sentence; the masks are `aria-hidden`. Used on the services, reviews, inspection and appointment headings, and scrubbed inside the documentary chapters. The H1 is excluded so LCP paints immediately.
+- **Camera edits** in the desktop chapter: the diagnostic frame settles, then its caption rises; the alignment panel wipes in from the right while the first frame recedes, drifts and dims; the panel hands off across the sheet to the left column and the closing statement takes the right. Later captions are hidden and non-interactive until their beat.
+- **Contact-sheet drift**: the six service frames slide in from the right in order; covered mobile chapters drift a few percent left as the next slides over.
+- **Restrained parallax** on every photographic frame, tuned smaller on phones through `gsap.matchMedia()`.
+- **Reduced motion**: `Rise` renders plain text, the chapter is static, no pins, scrubs or parallax; navigation and the form are untouched.

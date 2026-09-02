@@ -8,26 +8,49 @@
   overflow: hidden;
 }
 
-/* The real sign: the storefront asset cropped to "N.Y.S INSPECTION" and the open bay. */
 .inspect__media {
   margin: 0;
   position: relative;
   height: min(52svh, 30rem);
+  overflow: hidden;
   background: var(--lacquer);
 }
 
-.inspect__media img {
+/*
+ * A tighter crop than the hero: the picture box is oversized and the figure
+ * is a window onto its middle, so the frame reads as the yellow banner over
+ * the open bay rather than the whole facade again.
+ */
+.inspect__media picture {
+  position: absolute;
+  inset: -30% -40% -10%;
+  max-width: none;
+}
+
+.inspect__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 62% 48%;
+  object-position: 58% 50%;
+  transform-origin: 50% 50%;
+}
+
+/* Portrait: the 3:4 frame, windowed to the banner, the bay and the door. */
+@media (orientation: portrait) {
+  .inspect__media picture {
+    inset: -60% -35% -20%;
+  }
+
+  .inspect__img {
+    object-position: 50% 44%;
+  }
 }
 
 .inspect__media::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgb(138 59 46 / 0) 60%, rgb(138 59 46 / 0.95) 100%);
+  background: linear-gradient(to bottom, rgb(138 59 46 / 0) 62%, rgb(138 59 46 / 0.95) 100%);
   pointer-events: none;
 }
 
@@ -74,15 +97,12 @@
 
 .inspect__link {
   color: var(--ivory);
-  border-bottom-color: rgb(243 238 228 / 0.55);
-  min-height: 2.75rem;
-  display: inline-flex;
-  align-items: center;
+  text-decoration-color: rgb(243 238 228 / 0.55);
 }
 
 .inspect__link:hover {
   color: #fff;
-  border-color: #fff;
+  text-decoration-color: #fff;
 }
 
 .inspect .btn:hover {
@@ -111,10 +131,8 @@
     min-height: 100%;
   }
 
-  .inspect__media img {
-    position: absolute;
-    inset: 0;
-    object-position: 60% 50%;
+  .inspect__media picture {
+    inset: -24% -40% -8%;
   }
 
   .inspect__media::after {

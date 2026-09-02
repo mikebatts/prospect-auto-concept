@@ -2,7 +2,7 @@
 
 A bespoke, mobile-first website concept for Prospect Auto Repair & Service in Brooklyn. Off-black garage at night, warm ivory type, one oxide accent, and a single pinned scroll chapter built from the concept imagery.
 
-This is an independent, unsolicited concept by [Mike Battaglia](https://mikebatts.net/). It is not the official Prospect Auto website and is intentionally excluded from search indexing. Imagery is generated concept art and does not show the actual shop.
+This is an independent, unsolicited concept by [Mike Battaglia](https://mikebatts.net/). It is not the official Prospect Auto website and is intentionally excluded from search indexing. Imagery is generated concept art composed as one coherent shoot around the shop's public visual identity (the blue sign, the one-bay brick facade, the red bay trim, the yellow inspection and alignment signage, blue lifts, red storage); it does not show the actual shop. The five shipped frames live in `public/assets/`; the reference photos and generation sources in `source-assets/` are never built or deployed.
 
 ## Stack
 

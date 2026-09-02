@@ -3,7 +3,6 @@
   min-height: 100vh;
   min-height: 100svh;
   display: grid;
-  grid-template-rows: 1fr auto;
   background: var(--lacquer);
   color: var(--ivory);
   overflow: hidden;
@@ -11,107 +10,35 @@
 }
 
 .hero__media {
-  position: absolute;
-  inset: 0;
+  position: relative;
   z-index: 0;
   overflow: hidden;
+  background: var(--lacquer-2);
 }
 
-/*
- * The storefront asset is 21:9 with the shop on the right and open street on
- * the left. Portrait phones see roughly a fifth of its width, so the crop is
- * centred on the open bay and the "AUTO REPAIR" half of the sign. Desktop keeps
- * the whole sign and bay on the right and gives the left third to the copy.
- */
+.hero__picture,
 .hero__img {
   width: 100%;
   height: 100%;
+}
+
+.hero__img {
   object-fit: cover;
-  object-position: 65% 42%;
-  transform-origin: 50% 100%;
-  will-change: transform;
 }
 
-@media (min-width: 48rem) {
-  .hero__img {
-    object-position: 68% 50%;
-  }
-}
-
-@media (min-width: 60rem) {
-  .hero__img {
-    object-position: 74% 50%;
-  }
-}
-
-@media (min-width: 60rem) and (min-aspect-ratio: 16/9) {
-  .hero__img {
-    object-position: 78% 50%;
-  }
-}
-
-/*
- * Mobile wash: light at the top so the sign and the lit bay read clearly,
- * heavy across the lower half where the copy sits.
- */
 .hero__wash {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgb(15 14 12 / 0.42) 0%,
-    rgb(15 14 12 / 0.06) 15%,
-    rgb(15 14 12 / 0.12) 32%,
-    rgb(15 14 12 / 0.58) 46%,
-    rgb(15 14 12 / 0.82) 62%,
-    rgb(15 14 12 / 0.9) 100%
-  );
+  pointer-events: none;
 }
 
-/*
- * Desktop wash: darkest on the left behind the type, clear over the shop so
- * the brick, the blue sign and the bay light keep their colour. A light top
- * band sits under the nav and a floor band under the proof row.
- */
-@media (min-width: 60rem) {
-  .hero__wash {
-    background:
-      linear-gradient(
-        to right,
-        rgb(15 14 12 / 0.84) 0%,
-        rgb(15 14 12 / 0.66) 30%,
-        rgb(15 14 12 / 0.26) 54%,
-        rgb(15 14 12 / 0) 70%
-      ),
-      linear-gradient(
-        to bottom,
-        rgb(15 14 12 / 0.45) 0%,
-        rgb(15 14 12 / 0) 26%,
-        rgb(15 14 12 / 0) 70%,
-        rgb(15 14 12 / 0.78) 100%
-      );
-  }
-}
-
-/* Artistic asymmetry: the copy holds the lower-left; the shop keeps the right. */
 .hero__inner {
   position: relative;
   z-index: 1;
   display: grid;
   justify-items: start;
   text-align: left;
-  align-content: end;
-  gap: 1.35rem;
-  padding-top: calc(var(--nav-h) + clamp(7rem, 26svh, 13rem));
-  padding-bottom: clamp(1.75rem, 5svh, 3.5rem);
-}
-
-@media (min-width: 60rem) {
-  .hero__inner {
-    align-content: center;
-    gap: 1.75rem;
-    padding-top: calc(var(--nav-h) + clamp(2rem, 6vh, 5rem));
-  }
+  gap: 1.1rem;
 }
 
 .hero__kicker {
@@ -124,9 +51,7 @@
 
 /*
  * Measure holds three lines ("The shop / Brooklyn drivers / come back to.")
- * so the headline stays inside the street side of the frame. On phones the
- * size is fluid against the viewport so the three-line shape holds from
- * 320 to 430 CSS pixels without dropping to a fourth line.
+ * so the headline keeps one shape from 320 to 430 CSS pixels wide.
  */
 .hero__title {
   max-width: 8.6em;
@@ -135,7 +60,6 @@
   line-height: 0.95;
   letter-spacing: -0.035em;
   text-wrap: balance;
-  text-shadow: 0 2px 40px rgb(15 14 12 / 0.45);
 }
 
 @media (min-width: 48rem) {
@@ -150,7 +74,6 @@
   max-width: 30rem;
   color: rgb(243 238 228 / 0.9);
   text-wrap: pretty;
-  text-shadow: 0 1px 24px rgb(15 14 12 / 0.5);
 }
 
 .hero__actions {
@@ -158,10 +81,10 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 0.75rem;
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
 }
 
-@media (max-width: 30rem) {
+@media (max-width: 26rem) {
   .hero__actions {
     display: grid;
     width: 100%;
@@ -169,15 +92,15 @@
   }
 }
 
-/* Practical trust line pinned to the hero's floor. */
+/* Practical trust line on the hero's floor. Each item is a 44px target. */
 .hero__meta {
   position: relative;
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  gap: 0.6rem 0;
-  padding-block: 1.25rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  gap: 0 0;
+  padding-block: 0.75rem calc(1rem + var(--safe-bottom));
   border-top: 1px solid var(--rule);
   font-family: var(--font-display);
   font-weight: 700;
@@ -187,6 +110,9 @@
 }
 
 .hero__meta-item {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
   text-decoration: none;
   padding-inline: 1rem;
   border-left: 1px solid var(--rule);
@@ -212,12 +138,167 @@ a.hero__meta-item:hover {
     flex: 1 1 50%;
   }
   .hero__meta-item:nth-child(even) {
+    justify-content: flex-end;
     text-align: right;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* ---------- Portrait: the sign-to-bay diptych ---------- */
+@media (orientation: portrait) {
+  .hero {
+    grid-template-rows: auto 1fr auto;
+  }
+
+  /*
+   * The frame is cropped so the blue sign clears the nav and the whole bay
+   * stays above the fade: on a 390px phone that is roughly the top 5% to 80%
+   * of the 3:4 file. 20rem is the floor so the smallest phones still show
+   * the bay threshold.
+   */
+  .hero__media {
+    height: clamp(20rem, 54svh, 34rem);
+  }
+
   .hero__img {
-    will-change: auto;
+    object-position: 50% 18%;
+    transform-origin: 50% 0;
+  }
+
+  /* Light band under the nav; the wet street fades into lacquer where the copy lands. */
+  .hero__wash {
+    background: linear-gradient(
+      to bottom,
+      rgb(15 14 12 / 0.36) 0%,
+      rgb(15 14 12 / 0) 18%,
+      rgb(15 14 12 / 0) 60%,
+      rgb(15 14 12 / 0.5) 80%,
+      rgb(15 14 12 / 0.92) 94%,
+      var(--lacquer) 100%
+    );
+  }
+
+  /* The copy begins at the bay threshold, never over the open door. */
+  .hero__inner {
+    align-content: start;
+    margin-top: -2.75rem;
+    padding-top: 0.25rem;
+    padding-bottom: 1.5rem;
+    gap: 1rem;
+  }
+
+  /* The sign already says it. Below tablet width the kicker gives its line to the fold. */
+  .hero__kicker {
+    display: none;
+  }
+}
+
+@media (orientation: portrait) and (min-width: 48rem) {
+  .hero__media {
+    height: min(66svh, 44rem);
+  }
+
+  .hero__img {
+    object-position: 50% 22%;
+  }
+
+  .hero__kicker {
+    display: block;
+  }
+
+  .hero__inner {
+    margin-top: -5rem;
+    gap: 1.5rem;
+    padding-bottom: 3rem;
+  }
+}
+
+/* ---------- Landscape: the wide street frame ---------- */
+@media (orientation: landscape) {
+  .hero {
+    grid-template-rows: 1fr auto;
+  }
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* The shop holds the right; the copy sits in the dark street on the left. */
+  .hero__img {
+    object-position: 82% 50%;
+    transform-origin: 50% 100%;
+  }
+
+  /* Wider than 16:9 the crop is vertical: keep the sign in frame. */
+  @media (min-aspect-ratio: 16/9) {
+    .hero__img {
+      object-position: 50% 34%;
+    }
+  }
+
+  .hero__wash {
+    background:
+      linear-gradient(
+        to right,
+        rgb(15 14 12 / 0.8) 0%,
+        rgb(15 14 12 / 0.6) 28%,
+        rgb(15 14 12 / 0.22) 50%,
+        rgb(15 14 12 / 0) 66%
+      ),
+      linear-gradient(
+        to bottom,
+        rgb(15 14 12 / 0.42) 0%,
+        rgb(15 14 12 / 0) 24%,
+        rgb(15 14 12 / 0) 70%,
+        rgb(15 14 12 / 0.76) 100%
+      );
+  }
+
+  .hero__inner {
+    align-content: center;
+    gap: 1.6rem;
+    padding-top: calc(var(--nav-total) + clamp(2rem, 6vh, 5rem));
+    padding-bottom: clamp(2rem, 6vh, 4rem);
+  }
+
+  .hero__title {
+    text-shadow: 0 2px 40px rgb(15 14 12 / 0.45);
+  }
+
+  .hero__copy {
+    text-shadow: 0 1px 24px rgb(15 14 12 / 0.5);
+  }
+
+  .hero__meta {
+    padding-inline: var(--safe-left) var(--safe-right);
+  }
+}
+
+/* Short landscape (a phone on its side): compact type, no tall stage. */
+@media (orientation: landscape) and (max-height: 30rem) {
+  .hero__inner {
+    gap: 0.9rem;
+    padding-top: calc(var(--nav-total) + 1rem);
+    padding-bottom: 1.25rem;
+    padding-left: var(--safe-left);
+  }
+
+  .hero__kicker {
+    font-size: 1rem;
+  }
+
+  .hero__title {
+    font-size: clamp(1.9rem, 5.2vw, 2.6rem);
+  }
+
+  .hero__copy {
+    font-size: 1rem;
+    max-width: 20rem;
+  }
+
+  .hero__actions .btn--lg {
+    min-height: var(--tap);
+    padding: 0.7rem 1.2rem;
+    font-size: 0.92rem;
   }
 }

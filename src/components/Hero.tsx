@@ -5,40 +5,82 @@ import { useReducedMotion } from '../lib/useReducedMotion'
 import { PhoneGlyph } from './Nav'
 import './Hero.css'
 
+const mobile = {
+  src: assetUrl('prospect-storefront-mobile.webp'),
+  srcSet: `${assetUrl('prospect-storefront-mobile-640.webp')} 640w, ${assetUrl('prospect-storefront-mobile-960.webp')} 960w, ${assetUrl('prospect-storefront-mobile-1280.webp')} 1280w, ${assetUrl('prospect-storefront-mobile.webp')} 1744w`,
+}
+
+const desktop = {
+  src: assetUrl('prospect-storefront-desktop.webp'),
+  srcSet: `${assetUrl('prospect-storefront-desktop-1440.webp')} 1440w, ${assetUrl('prospect-storefront-desktop.webp')} 2688w`,
+}
+
 /**
- * Cinematic storefront hero. The shop and its sign hold the right of the frame;
- * the type sits in the blue-hour negative space on the left (desktop) or low in
- * the frame beneath the sign (mobile), under a directional dark wash.
+ * Storefront hero, art-directed by orientation.
+ *
+ * Portrait (phones, portrait tablets): a sign-to-bay diptych. The 3:4 frame
+ * holds the top of the stage with the blue sign and the lit bay uncovered;
+ * the headline, copy and actions sit beneath it on the wet street as it
+ * fades to lacquer. Nothing is ever laid over the sign or the bay.
+ *
+ * Landscape (desktop, landscape tablets and phones): the 16:9 frame fills
+ * the stage, the shop holds the right, and the type sits in the dark street
+ * on the left.
+ *
+ * The image is the LCP asset: one orientation-correct file is preloaded in
+ * index.html and fetched at high priority. The media frame carries no
+ * [data-load] gate and is never faded, so it paints at full opacity the
+ * moment it decodes; App.tsx gives it a transform-only settle. The H1
+ * renders immediately.
  */
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
   const reduced = useReducedMotion()
 
-  // Image Scale & Fade: as the hero leaves, the street drifts up and dims.
+  // As the hero leaves, the frame drifts and dims: subtle in portrait where
+  // the frame is a short panel, a touch deeper in the wide landscape stage.
   useGSAP(
     () => {
       if (reduced) return
-      gsap.to('.hero__img', {
-        yPercent: 12,
-        scale: 1.06,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: ref.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true,
-        },
+      const mm = gsap.matchMedia()
+
+      mm.add('(orientation: portrait)', () => {
+        gsap.to('.hero__img', {
+          yPercent: -6,
+          scale: 1.04,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: ref.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        })
       })
-      gsap.to('.hero__inner', {
-        opacity: 0,
-        yPercent: -8,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: ref.current,
-          start: '40% top',
-          end: 'bottom top',
-          scrub: true,
-        },
+
+      mm.add('(orientation: landscape)', () => {
+        gsap.to('.hero__img', {
+          yPercent: 8,
+          scale: 1.05,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: ref.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        })
+        gsap.to('.hero__inner', {
+          opacity: 0,
+          yPercent: -8,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: ref.current,
+            start: '40% top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        })
       })
     },
     { scope: ref, dependencies: [reduced], revertOnUpdate: true },
@@ -46,19 +88,28 @@ export function Hero() {
 
   return (
     <section ref={ref} className="hero" id="top" aria-labelledby="hero-title">
-      <div className="hero__media" data-load>
-        <img
-          className="hero__img"
-          src={assetUrl('prospect-storefront-hero.webp')}
-          srcSet={`${assetUrl('prospect-storefront-hero-1024.webp')} 1024w, ${assetUrl('prospect-storefront-hero.webp')} 2400w`}
-          sizes="100vw"
-          width={2400}
-          height={1030}
-          alt="Concept imagery: a blue-hour view of a one-bay red-brick Brooklyn auto shop inspired by Prospect Auto’s storefront, with the garage open and a sedan entering."
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-        />
+      <div className="hero__media">
+        <picture className="hero__picture">
+          <source
+            media="(orientation: portrait)"
+            srcSet={mobile.srcSet}
+            sizes="100vw"
+            width={1744}
+            height={2336}
+          />
+          <img
+            className="hero__img"
+            src={desktop.src}
+            srcSet={desktop.srcSet}
+            sizes="100vw"
+            width={2688}
+            height={1520}
+            alt="Concept imagery: Prospect Auto Repair’s blue-and-white sign over the open one-bay red-brick garage on 4th Avenue at dusk, the N.Y.S. inspection bay lit inside with a sedan on the lift and wet pavement out front."
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
         <div className="hero__wash" aria-hidden="true" />
       </div>
 

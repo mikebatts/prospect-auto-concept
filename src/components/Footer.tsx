@@ -71,8 +71,8 @@ export function Footer() {
             — not the official Prospect Auto website.
           </p>
           <p className="footer__fine">
-            Imagery is generated concept art and does not show the actual shop. The appointment form
-            is a demonstration and sends nothing.
+            Imagery is generated concept art in the spirit of the shop’s public storefront and does
+            not show the actual shop. The appointment form is a demonstration and sends nothing.
           </p>
         </div>
       </div>

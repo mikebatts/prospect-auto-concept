@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { assetUrl, business } from '../lib/business'
 import { useReducedMotion } from '../lib/useReducedMotion'
+import { Rise } from './Rise'
 import './Reputation.css'
 
 /**
@@ -72,22 +73,21 @@ export function Reputation() {
           <p className="kicker" data-reveal>
             Reviews, address and hours
           </p>
-          <h2 id="visit-title" data-reveal>
-            {/* Spaces live inside the word text nodes: whitespace-only nodes beside the
-                aria-hidden aperture are dropped from the accessible name. */}
-            {'Fair prices. Clear explanations. '}
+          <Rise as="h2" id="visit-title">
+            {/* The aperture is aria-hidden; the accessible name is the sentence alone. */}
+            {'Fair prices. Clear explanations.'}
             <span className="rep__aperture" aria-hidden="true">
               <img
-                src={assetUrl('prospect-storefront-hero-1024.webp')}
-                width={1024}
-                height={440}
+                src={assetUrl('prospect-storefront-desktop-1440.webp')}
+                width={1440}
+                height={814}
                 alt=""
                 loading="lazy"
                 decoding="async"
               />
             </span>
-            {' Work done right.'}
-          </h2>
+            {'Work done right.'}
+          </Rise>
         </div>
 
         <div
