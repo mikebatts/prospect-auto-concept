@@ -68,6 +68,10 @@ html.menu-open .callbar {
   border-left: 1px solid var(--rule);
 }
 
+.callbar__schedule:active {
+  background: rgb(243 238 228 / 0.08);
+}
+
 .callbar__call:focus-visible,
 .callbar__schedule:focus-visible {
   outline-offset: -4px;
@@ -83,11 +87,12 @@ html.menu-open .callbar {
   }
 }
 
-/* Short landscape: a slimmer bar leaves more of the page visible. */
+/* Short landscape: a slimmer bar leaves more of the page visible. The height
+   itself comes from --callbar-h, which tokens.css shrinks to one touch target
+   here, so every layout that reserves --callbar-zone shrinks with it. */
 @media (max-height: 30rem) {
   .callbar__call,
   .callbar__schedule {
-    min-height: var(--tap);
     padding-block: 0.5rem;
   }
 }

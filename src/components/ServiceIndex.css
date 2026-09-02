@@ -109,10 +109,12 @@
  */
 .index__reel {
   list-style: none;
-  margin: -2.75rem 0 0;
-  padding: 0.5rem calc(var(--gutter) + var(--safe-right)) 0.5rem
-    calc(var(--gutter) + var(--safe-left));
+  /* No negative pull: the swipe hint above must stay readable, not sit
+     under the first card. */
+  margin: 0;
+  padding: 0.5rem 0 0.5rem calc(var(--gutter) + var(--safe-left));
   display: flex;
+  align-items: stretch;
   gap: 0.75rem;
   overflow-x: auto;
   overflow-y: hidden;
@@ -128,10 +130,13 @@
   display: none;
 }
 
-/* End spacer so the last panel can snap fully into view with a gutter. */
+/* End spacer: with the flex gap it gives the last panel the same gutter the
+   first one starts from, so the run closes cleanly instead of trailing off.
+   (Padding at the end of a scroll box is what older WebKit drops; a flex
+   spacer is honoured everywhere.) */
 .index__reel::after {
   content: '';
-  flex: 0 0 calc(var(--gutter) - 0.75rem);
+  flex: 0 0 calc(var(--gutter) + var(--safe-right) - 0.75rem);
 }
 
 .index__panel {
@@ -140,20 +145,43 @@
   display: flex;
 }
 
+/* Every panel stretches to the tallest card in the run, so the request cue
+   sits on one baseline across the reel and no card carries spare height of
+   its own. Sized by the longest service copy, never by a fixed minimum. */
 .index__link {
   position: relative;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  gap: 1.25rem;
+  gap: 1rem;
   width: 100%;
-  min-height: 21rem;
-  padding: 1.5rem 1.35rem 1.35rem;
+  min-height: 0;
+  padding: 1.25rem 1.2rem 1.1rem;
   background: var(--charcoal);
   border: 1px solid var(--rule);
   border-top: 2px solid var(--rule-strong);
   color: inherit;
   text-decoration: none;
-  transition: border-color 220ms var(--ease-out);
+  transition:
+    border-color 220ms var(--ease-out),
+    background-color 220ms var(--ease-out);
+}
+
+/* Touch reel only; the desktop strip has no card surface to press. */
+@media (max-width: 59.99rem) {
+  .index__link:active {
+    background: var(--charcoal-2);
+    border-color: var(--rule-strong);
+  }
+
+  .index__more {
+    font-size: 1rem;
+    line-height: 1.4;
+    gap: 0.5rem;
+  }
+
+  .index__go {
+    margin-top: 0.25rem;
+  }
 }
 
 .index__link::before {

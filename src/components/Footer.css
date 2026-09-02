@@ -171,9 +171,9 @@
 }
 
 @media (max-width: 59.99rem) {
-  /* Room for the mobile call bar when it is showing. */
+  /* Room for the mobile call bar and the home indicator beneath it. */
   .footer__bar {
-    padding-bottom: calc(var(--callbar-h) + 2rem + var(--safe-bottom));
+    padding-bottom: calc(var(--callbar-zone) + 2rem);
   }
 }
 

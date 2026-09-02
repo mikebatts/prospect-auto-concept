@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
 import { business, services, type ServiceKey } from '../lib/business'
+import { useReducedMotion } from '../lib/useReducedMotion'
 import { PhoneGlyph } from './Nav'
 import { Rise } from './Rise'
 import './Schedule.css'
@@ -49,6 +50,9 @@ export function Schedule({ pick }: Props) {
   const [errors, setErrors] = useState<Errors>({})
   const [attempted, setAttempted] = useState(false)
   const [sent, setSent] = useState<{ name: string; service: string } | null>(null)
+  // Field to focus once a failed submit has rendered its errors.
+  const focusField = useRef<FieldName | null>(null)
+  const reduced = useReducedMotion()
 
   // Preselect the service chosen in the index. Derived from props during render,
   // so the user's later edits to the select are never overwritten.
@@ -80,7 +84,7 @@ export function Schedule({ pick }: Props) {
     setAttempted(true)
     const first = (Object.keys(next) as FieldName[])[0]
     if (first) {
-      form.querySelector<HTMLElement>(`[name="${first}"]`)?.focus()
+      focusField.current = first
       return
     }
     const label = services.find((s) => s.key === values.service)?.title ?? values.service
@@ -115,6 +119,23 @@ export function Schedule({ pick }: Props) {
       nameRef.current?.focus()
     }
   }, [sent])
+
+  // After a failed submit, focus the first invalid control and bring its
+  // whole field (label, control and the inline error beneath it) into the
+  // unobscured viewport. Runs after the error has rendered, so the scroll
+  // accounts for it; the root scroll-padding keeps it clear of the fixed nav
+  // and the mobile call bar.
+  useEffect(() => {
+    const name = focusField.current
+    const form = formRef.current
+    if (!name || !form) return
+    focusField.current = null
+    const control = form.querySelector<HTMLElement>(`[name="${name}"]`)
+    if (!control) return
+    control.focus({ preventScroll: true })
+    const field = control.closest<HTMLElement>('.field') ?? control
+    field.scrollIntoView({ block: 'nearest', behavior: reduced ? 'auto' : 'smooth' })
+  }, [errors, reduced])
 
   const errorCount = Object.keys(errors).length
   const describedBy = (field: FieldName, extra?: string) =>

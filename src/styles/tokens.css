@@ -55,6 +55,17 @@
   --callbar-h: 3.75rem;
   --tap: 2.75rem; /* 44 CSS px, the minimum touch target */
 
+  /* Unobscured viewport. The fixed nav owns the top zone and, on phones and
+     tablets, the fixed call bar owns the bottom zone. Anything sticky or
+     anchored should sit between them: pad by --nav-zone above and
+     --callbar-zone below. --vh is the small viewport height where the
+     browser supports it, so a sticky frame never outgrows Safari's collapsed
+     chrome. */
+  --vh: 100vh;
+  --nav-zone: var(--nav-total);
+  --callbar-zone: calc(var(--callbar-h) + var(--safe-bottom));
+  --unobscured-h: calc(var(--vh) - var(--nav-zone) - var(--callbar-zone));
+
   /* Z scale */
   --z-callbar: 90;
   --z-nav: 100;
@@ -64,4 +75,25 @@
   /* Motion — one language for the whole page. */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@supports (height: 100svh) {
+  :root {
+    --vh: 100svh;
+  }
+}
+
+/* Desktop has no call bar, so nothing but the home indicator sits at the foot. */
+@media (min-width: 60rem) {
+  :root {
+    --callbar-zone: var(--safe-bottom);
+  }
+}
+
+/* Short landscape: the call bar slims to a single touch target, so the zone
+   it reserves shrinks with it. */
+@media (max-width: 59.99rem) and (max-height: 30rem) {
+  :root {
+    --callbar-h: var(--tap);
+  }
 }

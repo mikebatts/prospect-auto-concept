@@ -166,7 +166,7 @@ export function Reputation() {
             {voices.map((v, i) => (
               <li
                 key={v.name}
-                className="voices__item"
+                className={`voices__item${i === index ? ' is-on' : ''}`}
                 aria-roledescription="slide"
                 aria-label={`Review ${i + 1} of ${voices.length}`}
               >

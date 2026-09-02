@@ -129,20 +129,27 @@
   border-color: var(--ivory);
 }
 
+.voices__btn:active:not([aria-disabled='true']) {
+  border-color: var(--ivory);
+  color: var(--oxide-light);
+}
+
 .voices__btn[aria-disabled='true'] {
   opacity: 0.35;
   cursor: default;
 }
 
-/* Edge-to-edge pull-quote track on phones and tablets: it bleeds to the
-   viewport edges and snaps each quote back to the gutter. Momentum scrolling
-   on, vertical panning left to the page. */
+/* One quote at a time on phones and tablets. The track still scrolls and
+   snaps natively (swipe, trackpad, the arrow buttons), but each slide is
+   exactly the width between the gutters and the slides are spaced by a full
+   viewport gutter on each side, so nothing from the neighbouring quote ever
+   shows at the edge. Momentum scrolling on, vertical panning left to the page. */
 .voices__track {
   list-style: none;
   margin: 0 calc(-1 * var(--gutter));
   padding: 0.25rem var(--gutter);
   display: flex;
-  gap: 1rem;
+  gap: calc(2 * var(--gutter));
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
@@ -153,19 +160,31 @@
   scrollbar-width: none;
 }
 
-.voices__track::after {
-  content: '';
-  flex: 0 0 calc(var(--gutter) - 1rem);
-}
-
 .voices__track::-webkit-scrollbar {
   display: none;
 }
 
 .voices__item {
-  flex: 0 0 min(84vw, 26rem);
+  flex: 0 0 100%;
   scroll-snap-align: start;
   display: flex;
+  /* The quote leaving the stage fades and drifts a touch; the one arriving
+     settles into place. Opacity and transform only. */
+}
+
+@media (max-width: 59.99rem) {
+  .voices__item {
+    opacity: 0.4;
+    transform: translateX(0.75rem);
+    transition:
+      opacity 360ms var(--ease-out),
+      transform 480ms var(--ease-out);
+  }
+
+  .voices__item.is-on {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .voices__figure {
@@ -220,10 +239,6 @@
     scroll-padding-inline: 0;
   }
 
-  .voices__track::after {
-    display: none;
-  }
-
   /* One wide quote stage, the next quote just visible at the edge. */
   .voices__item {
     flex-basis: min(66%, 54rem);
@@ -252,8 +267,13 @@
 @media (prefers-reduced-motion: reduce) {
   .voices__marker li,
   .voices__btn,
+  .voices__item,
   .rep__big {
     transition: none;
+  }
+
+  .voices__item {
+    transform: none;
   }
 }
 

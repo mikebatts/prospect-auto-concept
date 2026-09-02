@@ -82,11 +82,13 @@
   pointer-events: none;
 }
 
+/* The caption lives in the unobscured viewport: above the call bar's zone
+   and, when the copy is tall enough to reach it, below the nav's. */
 .story__cap {
   position: relative;
   z-index: 1;
-  padding: clamp(6rem, 24svh, 12rem) var(--gutter)
-    calc(var(--callbar-h) + 1.75rem + var(--safe-bottom));
+  padding: max(calc(var(--nav-zone) + 2rem), calc(var(--vh) * 0.2)) var(--gutter)
+    calc(var(--callbar-zone) + 1.5rem);
 }
 
 .story__cap-inner {
@@ -168,12 +170,27 @@
 /* ---------- Film chapters: phones and tablets with motion ---------- */
 @media (max-width: 59.99rem) and (min-height: 30.01rem) {
   .story:not(.is-static) .story__chapter {
+    /* The small viewport height, so the frame is never taller than the
+       viewport with Safari's chrome expanded and the caption never hides
+       under the call bar. --vh falls back to 100vh without svh support. */
     min-height: 100vh;
-    min-height: 100svh;
+    min-height: var(--vh);
     /* Each chapter pins at the top and is covered by the next one. The stage
        is a plain block, so it is the sticky containing block for all three. */
     position: sticky;
     top: 0;
+  }
+
+  /* A pinned chapter can never scroll to reveal anything past --vh, so the
+     space the caption reserves above its copy must be exactly the fixed
+     chrome, not the base rule's 20%-of-viewport film margin. The chapter is
+     end-aligned; the caption's foot stays on the floor of the frame and the
+     copy is measured from there. The only thing this padding still does is
+     cap the copy's height: the caption box is never taller than the frame
+     while the copy fits the unobscured viewport, so nothing is pushed under
+     the call bar. The bottom padding keeps clearing the call bar's zone. */
+  .story:not(.is-static) .story__cap {
+    padding-top: calc(var(--nav-zone) + 1rem);
   }
 }
 
@@ -181,6 +198,7 @@
 @media (min-width: 60rem) and (min-height: 30.01rem) {
   .story:not(.is-static) {
     height: 340vh;
+    height: 340svh;
   }
 
   .story:not(.is-static) .story__stage {

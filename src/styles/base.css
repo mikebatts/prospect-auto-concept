@@ -109,9 +109,14 @@ textarea,
   -webkit-tap-highlight-color: var(--tap-highlight);
 }
 
-/* In-page anchors land below the fixed nav with breathing room. */
-[id] {
-  scroll-margin-top: var(--anchor-offset);
+/* In-page anchors and focused fields land below the fixed nav and above the
+   mobile call bar. Handled once, on the root scroll container: a
+   scroll-margin on every [id] would stack with the root padding and land
+   anchors a second nav-height too low. */
+@media (max-width: 59.99rem) {
+  html {
+    scroll-padding-bottom: calc(var(--callbar-zone) + 1rem);
+  }
 }
 
 :focus-visible {
@@ -190,7 +195,8 @@ textarea,
     text-decoration-color 200ms var(--ease-out);
 }
 
-.link:hover {
+.link:hover,
+.link:active {
   color: var(--oxide-light);
   text-decoration-color: currentColor;
 }

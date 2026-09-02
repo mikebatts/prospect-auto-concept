@@ -7,17 +7,35 @@
      ears of a phone held sideways. */
   padding-top: var(--safe-top);
   padding-inline: var(--safe-left) var(--safe-right);
-  background: linear-gradient(to bottom, rgb(15 14 12 / 0.6), rgb(15 14 12 / 0));
+  background-color: transparent;
   border-bottom: 1px solid transparent;
   transition:
     background-color 320ms var(--ease-out),
     border-color 320ms var(--ease-out);
 }
 
-/* Once the page moves, the bar settles onto a solid off-black surface. No blur. */
+/* Over the hero: a light shade so the wordmark reads on the sky. Kept on a
+   pseudo-element so it can fade out while the solid surface fades in. */
+.nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, rgb(15 14 12 / 0.6), rgb(15 14 12 / 0));
+  opacity: 1;
+  transition: opacity 320ms var(--ease-out);
+  pointer-events: none;
+}
+
+/* Once the page moves, the bar settles onto a solid off-black surface. Fully
+   opaque, so nothing scrolling beneath ever ghosts through the wordmark. */
 .nav--solid {
-  background: rgb(15 14 12 / 0.94);
+  background-color: var(--lacquer);
   border-bottom-color: var(--rule);
+}
+
+.nav--solid::before {
+  opacity: 0;
 }
 
 .nav__bar {
@@ -231,8 +249,13 @@
   }
 }
 
-.nav__panel li a:hover {
+.nav__panel li a:hover,
+.nav__panel li a:active {
   color: var(--oxide-light);
+}
+
+.nav__toggle:active {
+  border-color: var(--ivory);
 }
 
 .nav__panel-foot {
@@ -247,6 +270,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .nav,
+  .nav::before,
   .nav__links a::after,
   .nav__toggle-line {
     transition: none;
