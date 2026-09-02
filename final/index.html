@@ -6,6 +6,7 @@
     <meta name="robots" content="noindex,nofollow,noarchive" />
     <meta name="theme-color" content="#0F0E0C" />
     <meta name="color-scheme" content="dark" />
+    <meta name="format-detection" content="telephone=no" />
 
     <title>Prospect Auto Repair &amp; Service — Brooklyn concept preview</title>
     <meta
@@ -24,13 +25,13 @@
     <meta property="og:url" content="https://mikebatts.github.io/prospect-auto-concept/final/" />
     <meta
       property="og:image"
-      content="https://mikebatts.github.io/prospect-auto-concept/final/assets/prospect-storefront-hero.webp"
+      content="https://mikebatts.github.io/prospect-auto-concept/final/assets/prospect-storefront-desktop.webp"
     />
-    <meta property="og:image:width" content="2400" />
-    <meta property="og:image:height" content="1030" />
+    <meta property="og:image:width" content="2688" />
+    <meta property="og:image:height" content="1520" />
     <meta
       property="og:image:alt"
-      content="Concept imagery: a blue-hour view of a one-bay red-brick Brooklyn auto shop inspired by Prospect Auto’s storefront."
+      content="Concept imagery: Prospect Auto Repair’s blue-and-white sign over an open one-bay red-brick garage on 4th Avenue in Brooklyn at dusk."
     />
     <meta name="twitter:card" content="summary_large_image" />
 
@@ -45,21 +46,36 @@
       href="https://cdn.fontshare.com/wf/NHPGVFYUXYXE33DZ75OIT4JFGHITX5PE/PSUTMASCDJTVPERDYJZPN23BVUFUCQIF/J64QX5IPOHK56I2KYUNBQ5M2XWZEYKYX.woff2"
       crossorigin
     />
+    <!--
+      Hero (LCP) preloads. The candidates and sizes mirror the <picture> in
+      Hero.tsx exactly, and the media queries are mutually exclusive, so the
+      browser fetches one orientation-correct file and nothing else.
+    -->
     <link
       rel="preload"
       as="image"
-      href="/prospect-auto-concept/final/assets/prospect-storefront-hero.webp"
-      imagesrcset="/prospect-auto-concept/final/assets/prospect-storefront-hero-1024.webp 1024w, /prospect-auto-concept/final/assets/prospect-storefront-hero.webp 2400w"
+      media="(orientation: portrait)"
+      href="/prospect-auto-concept/final/assets/prospect-storefront-mobile-960.webp"
+      imagesrcset="/prospect-auto-concept/final/assets/prospect-storefront-mobile-640.webp 640w, /prospect-auto-concept/final/assets/prospect-storefront-mobile-960.webp 960w, /prospect-auto-concept/final/assets/prospect-storefront-mobile-1280.webp 1280w, /prospect-auto-concept/final/assets/prospect-storefront-mobile.webp 1744w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      media="(orientation: landscape)"
+      href="/prospect-auto-concept/final/assets/prospect-storefront-desktop-1440.webp"
+      imagesrcset="/prospect-auto-concept/final/assets/prospect-storefront-desktop-1440.webp 1440w, /prospect-auto-concept/final/assets/prospect-storefront-desktop.webp 2688w"
       imagesizes="100vw"
       fetchpriority="high"
     />
     <script>
       document.documentElement.classList.add('js')
     </script>
-    <script type="module" crossorigin src="/prospect-auto-concept/final/assets/index-BSHbpA7e.js"></script>
+    <script type="module" crossorigin src="/prospect-auto-concept/final/assets/index-DNrRcfWq.js"></script>
     <link rel="modulepreload" crossorigin href="/prospect-auto-concept/final/assets/rolldown-runtime-D9-fqq9M.js">
     <link rel="modulepreload" crossorigin href="/prospect-auto-concept/final/assets/gsap-DLGAZTsI.js">
-    <link rel="stylesheet" crossorigin href="/prospect-auto-concept/final/assets/index-DN05mu8C.css">
+    <link rel="stylesheet" crossorigin href="/prospect-auto-concept/final/assets/index-gilhQ6Fe.css">
   </head>
   <body>
     <div id="root"></div>
