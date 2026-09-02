@@ -8,7 +8,7 @@ This is an independent, unsolicited concept by [Mike Battaglia](https://mikebatt
 
 - Vite, React 19, and TypeScript
 - GSAP, ScrollTrigger, and `@gsap/react`
-- Vanilla CSS with Cabinet Grotesk and Newsreader
+- Vanilla CSS with Satoshi and Newsreader
 - Static GitHub Pages deployment under `/prospect-auto-concept/final/`
 
 ## Local development

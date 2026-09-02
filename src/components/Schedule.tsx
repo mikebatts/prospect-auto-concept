@@ -63,7 +63,9 @@ export function Schedule({ pick }: Props) {
       name: get('name'),
       phone: get('phone'),
       vehicle: get('vehicle'),
-      service,
+      // Read from the DOM: the form-level onChange fires in the same event as
+      // the select's own handler, before the `service` state has flushed.
+      service: get('service'),
       note: get('note'),
     }
   }
@@ -176,10 +178,15 @@ export function Schedule({ pick }: Props) {
             noValidate
             aria-describedby={`${id}-demo`}
           >
-            <p id={`${id}-demo`} className="schedule__demo">
-              Demonstration form on an independent concept site. Nothing you enter is sent or
-              stored.
-            </p>
+            <div className="schedule__sheet-head">
+              <p className="schedule__sheet-title" aria-hidden="true">
+                Service request
+              </p>
+              <p id={`${id}-demo`} className="schedule__demo">
+                Demonstration form on an independent concept site. Nothing you enter is sent or
+                stored.
+              </p>
+            </div>
 
             {attempted && errorCount > 0 && (
               <p className="schedule__summary" role="alert">

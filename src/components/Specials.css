@@ -1,40 +1,137 @@
-.specials {
-  background: var(--bg-2);
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-}
-
-.specials__inner {
+/* Inspection chapter: the one oxide surface on the page. A hard change of
+   temperature between the dark reputation section and the paper work order. */
+.inspect {
+  position: relative;
   display: grid;
-  gap: 2rem;
-  padding-block: clamp(3rem, 6vw, 5rem);
-  align-items: center;
+  background: var(--oxide-deep);
+  color: var(--ivory);
+  overflow: hidden;
 }
 
-@media (min-width: 60rem) {
-  .specials__inner {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 4rem;
-  }
+/* The real sign: the storefront asset cropped to "N.Y.S INSPECTION" and the open bay. */
+.inspect__media {
+  margin: 0;
+  position: relative;
+  height: min(52svh, 30rem);
+  background: var(--lacquer);
 }
 
-.specials__text {
+.inspect__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 48%;
+}
+
+.inspect__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgb(138 59 46 / 0) 60%, rgb(138 59 46 / 0.95) 100%);
+  pointer-events: none;
+}
+
+.inspect__body {
   display: grid;
-  gap: 0.75rem;
+  align-content: center;
+  padding: clamp(1.5rem, 5vw, 4rem) var(--gutter) clamp(3.5rem, 9vw, 6rem);
 }
 
-.specials__text .kicker {
+.inspect__inner {
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.inspect__kicker {
+  color: rgb(243 238 228 / 0.78);
   margin-bottom: 0.25rem;
 }
 
-.specials__text h2 {
-  font-size: clamp(1.6rem, 2.8vw, 2.6rem);
-  letter-spacing: -0.025em;
-  max-width: 20em;
+.inspect__inner h2 {
+  font-size: clamp(2.6rem, 12vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.94;
+  max-width: 8em;
 }
 
-.specials__copy {
-  color: var(--fg-muted);
-  max-width: 36rem;
+.inspect__copy {
+  font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+  color: rgb(243 238 228 / 0.92);
+  max-width: 24rem;
   text-wrap: pretty;
+}
+
+.inspect__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem 1.75rem;
+  margin-top: 1rem;
+}
+
+.inspect__link {
+  color: var(--ivory);
+  border-bottom-color: rgb(243 238 228 / 0.55);
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.inspect__link:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+.inspect .btn:hover {
+  --btn-bg: #fff;
+}
+
+.inspect :focus-visible {
+  outline-color: var(--ivory);
+}
+
+@media (max-width: 30rem) {
+  .inspect__actions .btn {
+    width: 100%;
+    max-width: 22rem;
+  }
+}
+
+@media (min-width: 60rem) {
+  .inspect {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    min-height: min(78vh, 46rem);
+  }
+
+  .inspect__media {
+    height: auto;
+    min-height: 100%;
+  }
+
+  .inspect__media img {
+    position: absolute;
+    inset: 0;
+    object-position: 60% 50%;
+  }
+
+  .inspect__media::after {
+    background: linear-gradient(to right, rgb(138 59 46 / 0) 70%, rgb(138 59 46 / 0.9) 100%);
+  }
+
+  .inspect__body {
+    padding: clamp(4rem, 8vw, 7rem) var(--gutter) clamp(4rem, 8vw, 7rem) clamp(2.5rem, 5vw, 5rem);
+  }
+
+  .inspect__inner {
+    margin: 0;
+    max-width: 34rem;
+    gap: 1.25rem;
+  }
+
+  .inspect__inner h2 {
+    font-size: clamp(3.4rem, 5.2vw, 5.5rem);
+  }
 }

@@ -226,6 +226,42 @@ New original concept assets, generated from a visual-DNA audit of the shop's pub
 - **Hero.** `prospect-storefront-hero.webp` (2400×1030, 21:9): a blue-hour one-bay red-brick storefront with the shop on the right and open street on the left. The copy is now left-aligned in that negative space on desktop (H1 measure `8.6em`, three lines: "The shop / Brooklyn drivers / come back to."), with a left-to-right wash that clears over the brick and sign. Desktop `object-position` is `74% 50%` (`78%` at 16:9 or wider); phones crop to `64% 50%`, centred on the open bay, and the copy sits low in the frame under a bottom-heavy wash so the sign stays clear. Copy: kicker `Prospect Auto Repair · 628 4th Avenue`, H1 `The shop Brooklyn drivers come back to.`, support `State inspections, maintenance and repairs—with fair prices, clear explanations and no hard sell.`, CTAs `Call the shop` / `Request service`. Proof row unchanged.
 - **Services.** Heading `What can we help with?`. The sticky desktop image is now `prospect-workshop.webp`, cropped to the lifted car, blue post and red stripe (`80% 50%`).
 - **How it works.** Frames are `prospect-workshop.webp` (beat 1) and `prospect-alignment.webp` (beats 2 and 3); classes and GSAP selectors are `--workshop` and `--alignment`. Beats: `Take a look` / `We check the car before we quote the work.`, `Explain` / `We tell you what we found.`, `Your call` / `You decide what happens next.` Hidden heading: `We take a look, explain what we found, and let you decide what happens next.`
-- **Visit.** Heading `Fair prices. Clear explanations. Work people come back for.` The rating block below still carries the dated Google snapshot.
+- **Visit.** Heading `Fair prices. Clear explanations. Work done right.` with the storefront image aperture between the second and third phrases. The rating block below still carries the dated Google snapshot.
 - **Appointments.** Heading `Tell us what's going on.`; lede `Share the vehicle, the problem, and how to reach you. We'll follow up during business hours. Need help sooner? Call the shop.`
 - **Metadata.** Preload and Open Graph image point at the storefront asset (2400×1030) with matching alt text.
+
+## Mobile-first taste pass (September 1, 2026)
+
+Targeted premium redesign of the working final-cinematic site, built to the deterministic GPT Taste plan (seed 431): Artistic Asymmetry hero, Satoshi + Newsreader, Inline Typography Images + Feedback/Testimonial Carousel + Horizontal Accordions, Image Scale & Fade + Scroll Pinning. Business facts, headline, storefront imagery, conversion flows, and disclosures are unchanged. No dependencies added; no assets deleted.
+
+### Typography
+
+Cabinet Grotesk is replaced by Satoshi 500/700/900 from the official Fontshare WOFF2 URLs (`src/styles/fonts.css`); the unused Cabinet declarations are gone and the `index.html` font preload now points at Satoshi 900. Every former `font-weight: 800` is 900. Base headings default to 900 (h4 at 700); service names, controls, labels and the call bar use 700; hints, hours labels and citations use 500. Newsreader italic remains the editorial voice for kickers, symptoms, quotes and notes.
+
+### Mobile architecture (320 / 360 / 390 / 430)
+
+- **Hero.** Same asset, copy, CTAs and proof row. The H1 is fluid on phones (`clamp(2.15rem, 10.4vw, 3.4rem)`, measure 8.6em) so the three-line shape holds from 320 to 430; the wash is lighter over the sign and heavier under the copy; `min-height: 100vh` with an `svh` override; content can extend past short viewports because the grid uses min-height.
+- **Services.** The workshop image is now a full-bleed vertical field (82svh) with "What can we help with?" set over its lower third. The six services follow as a native scroll-snap reel that rides up over the image's lower edge, with the next panel peeking. Each panel is a real `#schedule` anchor with `onPick`, and shows name (700), detail, symptoms and a "Request service" cue. The reel scrolls inside its own container; page `scrollWidth` equals `innerWidth` at all four targets.
+- **Process story.** Three `article` chapters, each a `figure` plus caption, each `min-height: 100svh`. Chapters are `position: sticky; top: 0`, so each one is pinned while the next slides up over it. GSAP scrubs the entering image from 1.12 to 1 and lifts the copy; as a chapter is covered, its image drifts up, zooms slightly and dims. Triggers are numeric positions computed from the non-sticky stage plus the in-flow heights of preceding chapters, recomputed on refresh. Chapter 3 uses a distinct left-wall crop of the alignment asset; on portrait phones the two alignment crops do not overlap. The final chapter carries the request-service CTA above the mobile call bar.
+- **Reputation.** Headline now carries one inline image aperture (the real sign, a rectangular window, hidden under 22.5rem). Three verified Google review excerpts sit in a scroll-snap carousel (`role="region"`, `aria-roledescription="carousel"`, semantic `blockquote`/`figcaption`/`cite`, previous/next buttons with `aria-disabled` at the ends, a hairline position marker) with a link to the Google reviews. The 4.7/269 snapshot, address, phone, hours, language and the published-experience note stay below.
+- **Inspection chapter** (replaces the specials strip; file slot kept as `Specials.tsx`). Oxide-deep surface, the storefront asset cropped to the "N.Y.S INSPECTION" sign and open bay, kicker "New York State inspections", H2 "Due for an inspection?", body "Call the shop or request a time online.", ivory "Call the shop" button and a "Request service" text link. No availability, price or promotion claims.
+- **Appointment work order.** The schedule chapter is the one light surface: paper `#ede6d6`, ink type, graphite rules, oxide accent, `color-scheme: light`, scoped focus color `--oxide-deep`. The form is an oversized sheet with a "Service request" header, ruled fields (bottom rule only, 16px minimum font), restyled select chevron, autofill override, error/summary/success states on paper. Validation, focus management, `aria-describedby` wiring and the non-submitting disclosure are unchanged in `Schedule.tsx` (only a header wrapper was added).
+- **Footer.** Same facts, links, credit and both disclosures. Under 60rem it reads as three rule-separated groups (brand and contact, a two-column link grid with 44px targets, hours) before the disclosure bar.
+
+### Desktop
+
+- Services: a wide cinematic band of the workshop with the opener overlaid, then six equal panels across the container. The detail line is always visible; hover or `:focus-within` opens symptoms and the request cue, lifts the title, draws an oxide rule and recedes the neighbours. Opacity and transform only; no widths animate. Keyboard focus on any panel link opens it.
+- Story: the pinned three-beat stage is preserved; beat 3 now fades in chapter 3's own left-half crop instead of re-clipping beat 2.
+- Reputation: one wide quote stage with the next quote visible at the edge.
+
+### Motion and reduced motion
+
+Only Image Scale & Fade (hero, services opener, chapter images, covered chapters) and Scroll Pinning (sticky mobile chapters, pinned desktop stage). `ScrollTrigger.config({ ignoreMobileResize: true })` keeps address-bar resizes from re-laying scrubbed scenes. With reduced motion, every `useGSAP` returns early, chapters render as static stacked articles, all panel content is visible, and carousel scrolling is instant.
+
+### Verification
+
+`npm run format`, `npm run typecheck`, `npm run lint`, `npm run build` all exit 0 (CSS about 39 kB, app JS about 216 kB, GSAP chunk unchanged).
+
+A separate review pass on the diff led to five fixes: the mobile story stage is a plain block (a grid area had clamped each sticky chapter to zero travel), the desktop panel dim is 0.72 so neighbouring detail copy stays above 4.5:1, paper placeholders are darker (4.6:1), both horizontal lists carry `role="list"` so WebKit keeps their semantics and label, and the form reads the service value from the DOM so a corrected select clears its error on the same interaction.
+
+Headless Chrome smoke check against `vite preview` (not device QA): Satoshi 500/700/900 loaded; H1 renders 3 lines at 320, 360, 390 and 430 (34.4 / 37.4 / 40.6 / 44.7 px); `scrollWidth === innerWidth` at all four widths, 820 and 1440; the services reel and review track scroll internally; empty submit shows the 4-field summary and focuses Name; a valid submit focuses the success group; the mobile menu opens with focus on the first link. Real devices, screen readers, reduced-motion emulation and cross-browser checks are left to the reviewer.

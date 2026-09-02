@@ -13,6 +13,15 @@
   --oxide-deep: #8a3b2e;
   --oxide-light: #d0725f; /* oxide lifted for small text on lacquer (>= 4.5:1) */
 
+  /* Paper — the one light surface (service-order chapter). */
+  --paper: #ede6d6;
+  --paper-2: #e4dccb;
+  --ink: var(--lacquer);
+  --ink-soft: rgb(15 14 12 / 0.72);
+  --ink-muted: #5f5a52;
+  --rule-ink: rgb(15 14 12 / 0.18);
+  --rule-ink-strong: rgb(15 14 12 / 0.46);
+
   /* Semantic */
   --bg: var(--lacquer);
   --bg-2: var(--lacquer-2);
@@ -26,7 +35,7 @@
   --tap-highlight: rgb(166 64 47 / 0.22);
 
   /* Type */
-  --font-display: 'Cabinet Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-display: 'Satoshi', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-body: 'Newsreader', Georgia, 'Times New Roman', serif;
 
   /* Layout */

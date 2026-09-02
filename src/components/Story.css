@@ -8,9 +8,18 @@
   position: relative;
 }
 
+.story__chapter {
+  position: relative;
+  background: var(--bg-2);
+  overflow: hidden;
+  isolation: isolate;
+}
+
 .story__frame {
   margin: 0;
-  position: relative;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
   background: var(--bg-2);
 }
@@ -19,88 +28,151 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  will-change: transform;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
 }
 
-/* Workshop (16:9). Stacked portrait frames show under half its width, so the
-   crop favours the lifted car, blue post and red stripe on the right. */
-.story__img--workshop {
-  object-position: 80% 50%;
+/* Workshop (16:9). Portrait frames show under half its width, so the crop
+   favours the lifted car, blue post and red stripe on the right. */
+.story__img--1 {
+  object-position: 80% 45%;
 }
 
-/* Alignment rack (4:3). Portrait frames centre on the sedan; the widescreen
-   stage keeps the rack and car and trims ceiling instead of floor. */
-.story__img--alignment {
-  object-position: 55% 50%;
+/* Alignment rack (4:3). Portrait frames centre on the sedan. */
+.story__img--2 {
+  object-position: 56% 50%;
+}
+
+/* The same rack, a different crop: the lift post, orange machine and ramps
+   along the left wall. On portrait phones the two crops do not overlap. */
+.story__img--3 {
+  object-position: 8% 58%;
 }
 
 @media (min-width: 48rem) {
-  .story__img--workshop {
+  .story__img--1 {
     object-position: 60% 50%;
   }
 
-  .story__img--alignment {
+  .story__img--2 {
     object-position: 50% 62%;
+  }
+
+  .story__img--3 {
+    object-position: 15% 60%;
   }
 }
 
+/* Gradient floor for the copy. Heavy at the foot, clear across the top
+   so the room stays visible. */
+.story__frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(20 19 17 / 0.42) 0%,
+    rgb(20 19 17 / 0.05) 20%,
+    rgb(20 19 17 / 0.1) 38%,
+    rgb(20 19 17 / 0.62) 58%,
+    rgb(20 19 17 / 0.9) 78%,
+    rgb(20 19 17 / 0.96) 100%
+  );
+  pointer-events: none;
+}
+
+.story__cap {
+  position: relative;
+  z-index: 1;
+}
+
 .story__cap h3 {
-  font-size: clamp(2rem, 4.2vw, 4rem);
-  font-weight: 800;
+  font-size: clamp(2.1rem, 9vw, 4rem);
+  font-weight: 900;
   letter-spacing: -0.035em;
-  line-height: 0.98;
-  max-width: 12em;
-  margin-bottom: 1.1rem;
+  line-height: 0.96;
+  max-width: 11em;
+  margin-bottom: 1rem;
+  text-wrap: balance;
 }
 
 .story__cap p:last-of-type {
   font-size: clamp(1.1rem, 1.35vw, 1.25rem);
   line-height: 1.5;
-  color: rgb(243 238 228 / 0.86);
+  color: rgb(243 238 228 / 0.88);
   max-width: 30rem;
   text-wrap: pretty;
 }
 
 .story__cta {
-  margin-top: 2rem;
+  margin-top: 1.75rem;
 }
 
-/* ---------- Stacked layout: mobile, tablet, and reduced motion ---------- */
-.story__stage {
-  display: grid;
-  gap: 0;
-}
+/* ---------- Film chapters: phones and tablets ---------- */
+@media (max-width: 59.99rem) {
+  /* The stage stays a plain block so it is the sticky containing block for
+     every chapter (a grid area would clamp each chapter to zero travel). */
+  .story__chapter {
+    display: grid;
+    align-content: end;
+    min-height: 100vh;
+    min-height: 100svh;
+  }
 
-.story__frame {
-  aspect-ratio: 4 / 5;
-}
-
-/* Tablet and reduced-motion desktop: wider frames, never taller than the viewport. */
-@media (min-width: 48rem) {
-  .story__frame {
-    aspect-ratio: 16 / 10;
-    max-height: 85vh;
+  /* Each chapter pins at the top and is covered by the next one. */
+  .story:not(.is-static) .story__chapter {
+    position: sticky;
+    top: 0;
   }
 
   .story__cap {
-    padding-inline: calc((100% - min(100% - 2 * var(--gutter), var(--container))) / 2);
+    /* Copy sits on the gradient floor, clear of the mobile call bar. */
+    padding: clamp(6rem, 24svh, 12rem) var(--gutter)
+      calc(var(--callbar-h) + 1.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .story__cap-inner {
+    width: min(100%, var(--container));
+  }
+
+  .story__cta {
+    width: 100%;
+    max-width: 22rem;
   }
 }
 
-.story__frame::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgb(20 19 17 / 0.35) 0%, rgb(20 19 17 / 0) 30%);
-  pointer-events: none;
+@media (min-width: 30.01rem) and (max-width: 59.99rem) {
+  .story__cta {
+    width: auto;
+  }
 }
 
-.story__cap {
-  padding: clamp(2.5rem, 7vw, 4rem) var(--gutter) clamp(3.5rem, 9vw, 5rem);
+@media (min-width: 48rem) and (max-width: 59.99rem) {
+  .story__cap {
+    padding-inline: calc((100% - min(100% - 2 * var(--gutter), var(--container))) / 2);
+  }
+
+  .story__cap h3 {
+    font-size: clamp(3rem, 6vw, 4rem);
+  }
 }
 
-.story__cap--3 {
-  padding-bottom: clamp(4rem, 10vw, 6rem);
+/* ---------- Static desktop (reduced motion): stacked, wide frames ---------- */
+@media (min-width: 60rem) {
+  .story.is-static .story__chapter {
+    display: grid;
+    align-content: end;
+    min-height: 85vh;
+  }
+
+  .story.is-static .story__cap {
+    padding: clamp(8rem, 20vh, 14rem) var(--gutter) clamp(3rem, 6vh, 5rem);
+  }
+
+  .story.is-static .story__cap-inner {
+    width: min(100%, var(--container));
+    margin-inline: auto;
+  }
 }
 
 /* ---------- Pinned stage: desktop with motion allowed ---------- */
@@ -115,13 +187,14 @@
     height: 100vh;
     height: 100svh;
     overflow: hidden;
-    display: block;
   }
 
-  .story:not(.is-static) .story__frame {
+  .story:not(.is-static) .story__chapter {
     position: absolute;
     inset: 0;
-    aspect-ratio: auto;
+    background: transparent;
+    overflow: visible;
+    isolation: auto;
   }
 
   .story:not(.is-static) .story__frame::after {
@@ -130,8 +203,13 @@
       linear-gradient(to right, rgb(15 14 12 / 0.4), transparent 55%);
   }
 
-  .story:not(.is-static) .story__frame--alignment {
+  .story:not(.is-static) .story__frame--2 {
     clip-path: inset(0 0 0 100%);
+  }
+
+  .story:not(.is-static) .story__frame--3 {
+    clip-path: inset(0 50% 0 0);
+    opacity: 0;
   }
 
   .story:not(.is-static) .story__cap {
@@ -141,13 +219,13 @@
     bottom: 0;
     padding: 0 var(--gutter) clamp(3rem, 8vh, 6rem);
     pointer-events: none;
+    opacity: 0;
   }
 
   .story:not(.is-static) .story__cap-inner {
     width: min(100% - 2 * var(--gutter), var(--container));
     margin-inline: auto;
     max-width: none;
-    opacity: 0;
     pointer-events: auto;
   }
 

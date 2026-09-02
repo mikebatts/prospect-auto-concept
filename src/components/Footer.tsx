@@ -17,9 +17,8 @@ export function Footer() {
               {business.address.city}, {business.address.state} {business.address.zip}
             </a>
           </p>
-          <p>
+          <p className="footer__contact">
             <a href={business.phone.href}>{business.phone.display}</a>
-            <br />
             <a className="footer__email" href={business.email.href}>
               {business.email.display}
             </a>

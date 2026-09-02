@@ -1,9 +1,69 @@
-import { business } from '../lib/business'
+import { useEffect, useRef, useState } from 'react'
+import { assetUrl, business } from '../lib/business'
+import { useReducedMotion } from '../lib/useReducedMotion'
 import './Reputation.css'
 
-/** Quiet, high-trust proof: the dated Google snapshot and the practical facts. No quote cards. */
+/**
+ * Short excerpts from public Google reviews of the shop. Text is quoted as
+ * written (one all-caps word normalised for tone). No dates are shown because
+ * none were captured with the snapshot.
+ */
+const voices = [
+  {
+    name: 'Jennifer Abbott',
+    quote:
+      'We have been bringing our car here for so long the staff has seen our children grow up!',
+  },
+  {
+    name: 'Todd Simon',
+    quote:
+      'They made a couple very reasonable recommendations for routine maintenance items, but did not give me a hard sell at all.',
+  },
+  {
+    name: 'Omar Swity',
+    quote: 'Fair pricing, clear explanations, and quality work done right the first time.',
+  },
+] as const
+
+/** Reputation and visit: verified customer voices, the dated Google snapshot, and the practical facts. */
 export function Reputation() {
   const fill = `${(Number(business.google.rating) / 5) * 100}%`
+  const reduced = useReducedMotion()
+  const trackRef = useRef<HTMLUListElement>(null)
+  const [index, setIndex] = useState(0)
+  const last = voices.length - 1
+
+  // Follow native swipes so the controls and marker stay in step.
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return
+    const items = Array.from(track.children) as HTMLElement[]
+    const onScroll = () => {
+      const x = track.scrollLeft
+      let nearest = 0
+      let best = Infinity
+      items.forEach((li, i) => {
+        const d = Math.abs(li.offsetLeft - x)
+        if (d < best) {
+          best = d
+          nearest = i
+        }
+      })
+      setIndex(nearest)
+    }
+    track.addEventListener('scroll', onScroll, { passive: true })
+    return () => track.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const go = (to: number) => {
+    const track = trackRef.current
+    if (!track) return
+    const target = Math.min(last, Math.max(0, to))
+    const li = track.children[target] as HTMLElement | undefined
+    if (!li) return
+    track.scrollTo({ left: li.offsetLeft, behavior: reduced ? 'auto' : 'smooth' })
+    setIndex(target)
+  }
 
   return (
     <section className="rep section" id="visit" aria-labelledby="visit-title">
@@ -13,8 +73,114 @@ export function Reputation() {
             Reviews, address and hours
           </p>
           <h2 id="visit-title" data-reveal>
-            Fair prices. Clear explanations. Work people come back for.
+            {/* Spaces live inside the word text nodes: whitespace-only nodes beside the
+                aria-hidden aperture are dropped from the accessible name. */}
+            {'Fair prices. Clear explanations. '}
+            <span className="rep__aperture" aria-hidden="true">
+              <img
+                src={assetUrl('prospect-storefront-hero-1024.webp')}
+                width={1024}
+                height={440}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
+            {' Work done right.'}
           </h2>
+        </div>
+
+        <div
+          className="voices"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="What customers say on Google"
+        >
+          <div className="voices__bar">
+            <a
+              className="link"
+              href={business.google.mapsSearchUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read all {business.google.reviewCount} reviews on Google
+            </a>
+            <div className="voices__controls">
+              <ol className="voices__marker" aria-hidden="true">
+                {voices.map((v, i) => (
+                  <li key={v.name} className={i === index ? 'is-on' : undefined} />
+                ))}
+              </ol>
+              <button
+                type="button"
+                className="voices__btn"
+                aria-label="Previous review"
+                aria-disabled={index === 0}
+                onClick={() => go(index - 1)}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M20 12H5m6-7-7 7 7 7"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className="voices__btn"
+                aria-label="Next review"
+                aria-disabled={index === last}
+                onClick={() => go(index + 1)}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M4 12h15m-6-7 7 7-7 7"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <ul className="voices__track" role="list" ref={trackRef}>
+            {voices.map((v, i) => (
+              <li
+                key={v.name}
+                className="voices__item"
+                aria-roledescription="slide"
+                aria-label={`Review ${i + 1} of ${voices.length}`}
+              >
+                <figure className="voices__figure">
+                  <blockquote className="voices__quote">
+                    <p>{v.quote}</p>
+                  </blockquote>
+                  <figcaption className="voices__cite">
+                    <cite>{v.name}</cite> · Google review
+                  </figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="rep__grid">

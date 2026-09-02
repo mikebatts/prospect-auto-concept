@@ -1,36 +1,27 @@
+/*
+ * Service-order chapter. The one light surface on the page: warm paper, ink
+ * type, fine graphite rules and the oxide accent. Composed like an oversized
+ * work order rather than a bordered card.
+ */
 .schedule {
   position: relative;
-  background: var(--bg-3);
+  background: var(--paper);
+  color: var(--ink);
+  color-scheme: light;
+  --focus: var(--oxide-deep);
+  --tap-highlight: rgb(166 64 47 / 0.16);
   overflow: hidden;
 }
 
-/* Warm light from the upper left, and a single oxide hairline across the top. */
-.schedule::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse 45% 40% at 8% 0%,
-    rgb(214 160 96 / 0.14) 0%,
-    rgb(214 160 96 / 0) 70%
-  );
-}
-
-.schedule::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
+.schedule ::selection {
   background: var(--oxide);
+  color: var(--ivory);
 }
 
 .schedule__grid {
   position: relative;
   display: grid;
-  gap: clamp(3rem, 6vw, 5rem);
+  gap: clamp(2.5rem, 6vw, 5rem);
 }
 
 @media (min-width: 60rem) {
@@ -43,15 +34,31 @@
 
 .schedule__intro {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.25rem;
   align-content: start;
 }
 
+.schedule__intro .kicker {
+  color: var(--oxide-deep);
+  margin-bottom: 0;
+}
+
 .schedule__intro h2 {
-  font-size: clamp(2.3rem, 4vw, 4rem);
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  max-width: 10em;
+  font-size: clamp(2.5rem, 11vw, 4.25rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  max-width: 9em;
+}
+
+@media (min-width: 48rem) {
+  .schedule__intro h2 {
+    font-size: clamp(3rem, 4.2vw, 4.25rem);
+  }
+}
+
+.schedule__intro .lede {
+  color: var(--ink-soft);
 }
 
 .schedule__phone {
@@ -59,9 +66,9 @@
   align-items: center;
   gap: 0.75rem;
   width: fit-content;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 900;
   font-size: clamp(1.8rem, 3.2vw, 3rem);
   letter-spacing: -0.03em;
   line-height: 1;
@@ -76,62 +83,93 @@
 }
 
 .schedule__phone:hover {
-  color: var(--oxide-light);
+  color: var(--oxide-deep);
 }
 
 .schedule__hours {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.9rem;
-  color: var(--fg-muted);
+  color: var(--ink-muted);
 }
 
+/* ---------- The sheet ---------- */
 .schedule__form {
   display: grid;
-  gap: 1.5rem;
-  padding: clamp(1.5rem, 3vw, 2.5rem);
-  background: var(--bg);
-  border: 1px solid var(--rule);
+  gap: 1.75rem;
+  border-top: 2px solid var(--ink);
+  padding-top: 1.25rem;
+}
+
+.schedule__sheet-head {
+  display: grid;
+  gap: 0.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--rule-ink);
+}
+
+@media (min-width: 40rem) {
+  .schedule__sheet-head {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    gap: 2rem;
+  }
+}
+
+.schedule__sheet-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .schedule__demo {
   font-style: italic;
   font-size: 1rem;
-  color: var(--fg-muted);
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--rule);
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+
+@media (min-width: 40rem) {
+  .schedule__demo {
+    text-align: right;
+  }
 }
 
 .schedule__summary {
   font-family: var(--font-display);
   font-weight: 700;
   padding: 0.9rem 1.1rem;
-  border-left: 2px solid var(--oxide-light);
-  background: rgb(166 64 47 / 0.12);
+  border-left: 2px solid var(--oxide);
+  background: rgb(166 64 47 / 0.09);
+  color: var(--ink);
 }
 
 .schedule__row {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 
 @media (min-width: 40rem) {
   .schedule__row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 2.5rem;
   }
 }
 
 .field {
   display: grid;
-  gap: 0.5rem;
+  gap: 0.35rem;
   min-width: 0;
 }
 
 .field label {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.02em;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  color: var(--ink);
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -142,79 +180,94 @@
   font-style: italic;
   font-weight: 400;
   font-size: 0.95rem;
-  color: var(--fg-muted);
+  color: var(--ink-muted);
   letter-spacing: 0;
 }
 
+/* Ruled fields: ink on paper, one graphite rule beneath. 16px minimum so
+   iOS never zooms into a field. */
 .field input,
 .field select,
 .field textarea {
   width: 100%;
   min-height: 3.25rem;
-  padding: 0.85rem 1rem;
-  background: rgb(243 238 228 / 0.04);
-  border: 1px solid var(--rule-strong);
-  border-radius: 2px;
-  color: var(--ivory);
+  padding: 0.75rem 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule-ink-strong);
+  border-radius: 0;
+  color: var(--ink);
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 1rem;
+  font-size: max(1rem, 16px);
   transition:
     border-color 200ms var(--ease-out),
-    background-color 200ms var(--ease-out);
+    box-shadow 200ms var(--ease-out);
 }
 
 .field input::placeholder,
 .field textarea::placeholder {
-  color: rgb(243 238 228 / 0.42);
+  color: rgb(15 14 12 / 0.62);
 }
 
 .field input:hover,
 .field select:hover,
 .field textarea:hover {
-  border-color: rgb(243 238 228 / 0.6);
+  border-bottom-color: var(--ink);
 }
 
 .field input:focus-visible,
 .field select:focus-visible,
 .field textarea:focus-visible {
   outline: 2px solid var(--focus);
-  outline-offset: 2px;
-  border-color: var(--focus);
-  background: rgb(243 238 228 / 0.07);
+  outline-offset: 4px;
+  border-bottom-color: var(--oxide-deep);
+  box-shadow: inset 0 -1px 0 var(--oxide-deep);
+}
+
+/* Browser autofill keeps ink on paper. */
+.field input:-webkit-autofill,
+.field input:-webkit-autofill:hover,
+.field input:-webkit-autofill:focus,
+.field textarea:-webkit-autofill,
+.field select:-webkit-autofill {
+  -webkit-text-fill-color: var(--ink);
+  box-shadow: inset 0 0 0 1000px var(--paper);
+  caret-color: var(--ink);
 }
 
 .field select {
   appearance: none;
-  background-color: var(--lacquer-2);
-  color-scheme: dark;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23C2BCB0' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230F0E0C' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 1rem center;
-  padding-right: 2.75rem;
+  background-position: right 0.25rem center;
+  padding-right: 2.25rem;
 }
 
 .field select option {
-  color: var(--lacquer);
-  background: var(--ivory);
+  color: var(--ink);
+  background: #fff;
 }
 
 .field textarea {
   resize: vertical;
   min-height: 7rem;
+  line-height: 1.45;
 }
 
 .field.is-invalid input,
 .field.is-invalid select,
 .field.is-invalid textarea {
-  border-color: var(--oxide-light);
+  border-bottom-color: var(--oxide);
+  box-shadow: inset 0 -1px 0 var(--oxide);
 }
 
 .field__error {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.85rem;
-  color: var(--oxide-light);
+  color: var(--oxide-deep);
 }
 
 .schedule__actions {
@@ -222,7 +275,10 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 1.25rem 1.5rem;
-  padding-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule-ink);
+  margin-top: 0.25rem;
+  padding-top: 1.75rem;
 }
 
 @media (max-width: 30rem) {
@@ -231,24 +287,71 @@
   }
 }
 
-/* Success state replaces the form at the same footprint. */
+/* Controls on paper. */
+.schedule .btn {
+  --btn-bg: var(--ink);
+  --btn-fg: var(--ivory);
+  --btn-bd: var(--ink);
+}
+
+.schedule .btn:hover {
+  --btn-bg: var(--graphite);
+  --btn-bd: var(--graphite);
+}
+
+.schedule .btn--oxide {
+  --btn-bg: var(--oxide);
+  --btn-bd: var(--oxide);
+  --btn-fg: var(--ivory);
+}
+
+.schedule .btn--oxide:hover {
+  --btn-bg: var(--oxide-deep);
+  --btn-bd: var(--oxide-deep);
+}
+
+.schedule .btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--ink);
+  --btn-bd: var(--rule-ink-strong);
+}
+
+.schedule .btn--ghost:hover {
+  --btn-bg: rgb(15 14 12 / 0.06);
+  --btn-bd: var(--ink);
+}
+
+.schedule .link {
+  border-bottom-color: var(--rule-ink-strong);
+}
+
+.schedule .link:hover {
+  color: var(--oxide-deep);
+  border-color: currentColor;
+}
+
+/* Success state: the same sheet, stamped closed. */
 .schedule__done {
   display: grid;
   gap: 1.25rem;
   align-content: start;
-  padding: clamp(1.5rem, 3vw, 2.5rem);
-  background: var(--bg);
-  border: 1px solid var(--rule);
-  border-left: 2px solid var(--oxide);
+  border-top: 2px solid var(--ink);
+  padding-top: 1.5rem;
+}
+
+.schedule__done .kicker {
+  color: var(--oxide-deep);
+  margin-bottom: 0;
 }
 
 .schedule__done h3 {
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  letter-spacing: -0.03em;
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
 }
 
 .schedule__done p:not(.kicker) {
-  color: var(--fg-soft);
+  color: var(--ink-soft);
   max-width: 34rem;
   text-wrap: pretty;
 }
@@ -258,4 +361,13 @@
   flex-wrap: wrap;
   gap: 0.75rem;
   padding-top: 0.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field input,
+  .field select,
+  .field textarea,
+  .schedule__phone {
+    transition: none;
+  }
 }

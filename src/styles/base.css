@@ -56,11 +56,15 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1.02;
   letter-spacing: -0.02em;
   margin: 0;
   text-wrap: balance;
+}
+
+h4 {
+  font-weight: 700;
 }
 
 p {
@@ -118,6 +122,12 @@ textarea,
 
 .section {
   padding-block: var(--section-y);
+}
+
+/* Full-bleed helper for elements that must break the container. */
+.bleed {
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Small editorial label: lowercase italic serif, never a numbered meta-label. */
